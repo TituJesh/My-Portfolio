@@ -8,13 +8,13 @@ import * as THREE from "three";
 export type RingImage = { src: string; alt: string };
 
 // Ring geometry in world units. The camera is set so one unit is roughly a fifth of the canvas height.
-const RADIUS = 1.32;
-const ROW_H = 0.5;
+const RADIUS = 1.62;
+const ROW_H = 0.46;
 const ROW_GAP = 0.07;
 const BASE_SPEED = 0.28; // radians per second
-// Negative X tips the front of the band (the part over the forehead) up and away from the face;
-// positive Z raises the right side, which is the side his face points to.
-const TILT: [number, number, number] = [-0.24, 0, 0.3];
+// Positive X shows the ring from slightly above so its far side appears over the hair; positive Z raises the
+// face side. The band wraps the upper head with its front row just above the eyebrows.
+const TILT: [number, number, number] = [0.2, 0, 0.2];
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -40,6 +40,8 @@ const fragmentShader = /* glsl */ `
 
   void main() {
     vec2 uv = vUv;
+    // the far side of the ring is seen from inside: flip it so the artwork still reads left to right
+    if (!gl_FrontFacing) uv.x = 1.0 - uv.x;
     float t = uTime + uSeed * 7.0;
 
     // glitch: a short burst every so often shifts a few scanlines sideways
@@ -65,15 +67,9 @@ const fragmentShader = /* glsl */ `
     // static
     col += (hash(uv.x * 917.0 + uv.y * 311.0 + floor(t * 30.0)) - 0.5) * 0.06;
 
-    // thin light frame around each card
-    float fx = min(uv.x, 1.0 - uv.x);
-    float fy = min(uv.y, 1.0 - uv.y);
-    float frame = 1.0 - smoothstep(0.012, 0.02, min(fx * 0.66, fy));
-    col = mix(col, vec3(0.92), frame * 0.9);
-
-    // edge shading: darker as the surface turns away from the camera
-    float facing = clamp(vNormalV.z, 0.0, 1.0);
-    float shade = mix(0.22, 1.0, smoothstep(0.0, 0.75, facing));
+    // edge shading: darker as the surface turns away from the camera; the far side sits a little darker
+    float facing = clamp(abs(vNormalV.z), 0.0, 1.0);
+    float shade = mix(0.3, 1.0, smoothstep(0.0, 0.75, facing)) * (gl_FrontFacing ? 1.0 : 0.78);
 
     gl_FragColor = vec4(col * shade, 1.0);
   }
@@ -104,7 +100,7 @@ function Card({ texture, index, count, y, speedRef, timeRef }: { texture: THREE.
 
   return (
     <mesh geometry={geometry} rotation={[0, index * seg, 0]} position={[0, y, 0]}>
-      <shaderMaterial ref={matRef} uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} side={THREE.FrontSide} />
+      <shaderMaterial ref={matRef} uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} side={THREE.DoubleSide} />
     </mesh>
   );
 }
@@ -165,9 +161,9 @@ function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImag
 
   return (
     <group rotation={TILT}>
-      {/* depth-only occluder standing in for the head: cards behind it are hidden, cards in front draw over the temple */}
-      <mesh renderOrder={-1} position={[0, -0.1, 0]}>
-        <cylinderGeometry args={[1.02, 1.02, 2.6, 32]} />
+      {/* depth-only occluder standing in for the head: cards behind it are hidden, cards in front draw over the forehead */}
+      <mesh renderOrder={-1} position={[0.05, -0.55, 0]} scale={[1, 1.25, 1]}>
+        <sphereGeometry args={[1.0, 32, 24]} />
         <meshBasicMaterial colorWrite={false} depthWrite />
       </mesh>
       <group
@@ -185,10 +181,12 @@ function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImag
         {textures.map((t, i) => (
           <Card key={`t${i}`} texture={t} index={i} count={count} y={(ROW_H + ROW_GAP) / 2} speedRef={speedRef} timeRef={timeRef} />
         ))}
-        {textures.map((t, i) => (
-          // lower row starts half a turn round so the two rows never show the same image stacked
-          <Card key={`b${i}`} texture={textures[(i + half) % count]} index={i} count={count} y={-(ROW_H + ROW_GAP) / 2} speedRef={speedRef} timeRef={timeRef} />
-        ))}
+        {/* lower row: half a turn round so no image repeats under itself, and offset by half a card so the columns never line up */}
+        <group rotation={[0, Math.PI / count, 0]}>
+          {textures.map((t, i) => (
+            <Card key={`b${i}`} texture={textures[(i + half) % count]} index={i} count={count} y={-(ROW_H + ROW_GAP) / 2} speedRef={speedRef} timeRef={timeRef} />
+          ))}
+        </group>
       </group>
     </group>
   );
@@ -228,7 +226,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <group position={[0, 0.76, 0]}>
+          <group position={[0, 1.08, 0]}>
             <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} onHover={setHovering} />
           </group>
         </Suspense>
