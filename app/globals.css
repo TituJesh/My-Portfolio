@@ -182,8 +182,16 @@
 
   /* ---------- designer poster: the artwork as is ---------- */
   .poster { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid rgba(0, 0, 0, 0.08); background: #f3f3f1; overflow: hidden; }
-  .poster-inner { position: relative; max-width: 1400px; margin-inline: auto; }
+  .poster-inner { position: relative; max-width: 1400px; margin-inline: auto; container-type: inline-size; }
   .poster-img { width: 100%; height: auto; }
+  /* The ring sits where the painted band is. Units are cqw (1% of the poster width), measured on the artwork:
+     band centre at 49.5% across and 18% of the width down, about 50% of the width wide. */
+  .poster-ring-wrap { position: absolute; left: 49.5cqw; top: 18.2cqw; width: 0; height: 0; perspective: 110cqw; perspective-origin: 50% 40%; }
+  .poster-ring { --r: 24.6cqw; --w: 15.6cqw; --h: 9.2cqw; --gap: 0.7cqw; position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; transform: rotateZ(-7deg) rotateX(13deg); }
+  .poster-card { position: absolute; left: calc(var(--w) / -2); top: calc(var(--h) / -2); width: var(--w); height: var(--h); overflow: hidden; border: 0.18cqw solid rgba(255, 255, 255, 0.9); border-radius: 0.3cqw; background: #111; box-shadow: 0 0.6cqw 1.6cqw rgba(0, 0, 0, 0.35); }
+  .poster-card.top { transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(var(--r)) translateY(calc((var(--h) + var(--gap)) / -2)); -webkit-backface-visibility: visible; backface-visibility: visible; }
+  .poster-card.bottom { transform: rotateY(calc(var(--i) * (360deg / var(--n)))) translateZ(var(--r)) translateY(calc((var(--h) + var(--gap)) / 2)); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+  .poster-card img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05); }
 
   /* ---------- contributions ---------- */
   .contrib { display: grid; grid-auto-rows: auto; gap: 3px; min-width: 560px; }
@@ -223,6 +231,12 @@
     .spin { animation: spin 1.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+
+    /* poster: the ring fades in, then turns slowly, one revolution every 70 seconds */
+    .poster .poster-ring-wrap { opacity: 0; transition: opacity var(--t-reveal) var(--ease) 300ms; }
+    .poster.is-in .poster-ring-wrap { opacity: 1; }
+    .poster.is-in .poster-ring { animation: poster-turn 70s linear infinite; }
+    @keyframes poster-turn { from { transform: rotateZ(-7deg) rotateX(13deg) rotateY(0deg); } to { transform: rotateZ(-7deg) rotateX(13deg) rotateY(360deg); } }
 
     .work-thumb img { transition: transform var(--t-std) var(--ease); }
     .work-card:hover .work-thumb img { transform: scale(1.03); }

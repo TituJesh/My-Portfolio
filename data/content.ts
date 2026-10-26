@@ -246,7 +246,20 @@ export const certifications = [
   { name: "Object-Oriented Programming in Java", issuer: "Great Learning" },
 ];
 
-// The "also a multimedia designer" poster at the foot of the page, used as is. Replace the file to change it.
+// The "also a multimedia designer" poster at the foot of the page, used as is. A slowly turning CSS ring of the
+// same ten cards is laid over the painted band so the ring moves. Positions are percentages of the poster width.
 export const designerPoster = {
   poster: { src: "/design/poster.webp", width: 2000, height: 1495, alt: "Also a multimedia designer. Titu Jeshurun in profile with a ring of poster designs around his head." },
+  ring: [
+    { src: "/design/ring-coming-soon.webp", alt: "Synexzia 2K25 coming soon poster" },
+    { src: "/design/ring-mission-impossible.webp", alt: "Mission Impossible event poster" },
+    { src: "/design/ring-sea.webp", alt: "Figure facing the sea" },
+    { src: "/design/ring-meant-to-be.webp", alt: "Meant To Be trailer poster" },
+    { src: "/design/ring-acedra.webp", alt: "Acedra poster" },
+    { src: "/design/ring-the-end.webp", alt: "The End, 2022 to 2026 poster" },
+    { src: "/design/ring-rameez-logo.webp", alt: "Rameez Choreography gold logo" },
+    { src: "/design/ring-serenity.webp", alt: "Serenity poster" },
+    { src: "/design/ring-synexzia-logo.webp", alt: "Synexzia 3D logo" },
+    { src: "/design/ring-accidental-backend.webp", alt: "The Accidental Backend cover" },
+  ],
 };
