@@ -6,9 +6,8 @@ import { site } from "@/data/content";
 import "./globals.css";
 
 const sans = Inter_Tight({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-sans", display: "swap", fallback: ["system-ui", "Arial"] });
-// Only the display face is preloaded: on slow connections the name (the LCP element) should not queue behind the serif and mono files.
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-serif", display: "swap", preload: false, fallback: ["Georgia", "serif"] });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--font-mono", display: "swap", preload: false, fallback: ["Menlo", "Consolas", "monospace"] });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-serif", display: "swap", fallback: ["Georgia", "serif"] });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--font-mono", display: "swap", fallback: ["Menlo", "Consolas", "monospace"] });
 
 const title = `${site.name} — ${site.role}`;
 
