@@ -34,6 +34,7 @@ export const stages = [
   { id: "log", label: "Log", short: "Log" },
   { id: "words", label: "Words", short: "Words" },
   { id: "contact", label: "Contact", short: "Contact" },
+  { id: "design", label: "Design", short: "Design" },
 ] as const;
 
 export type StageId = (typeof stages)[number]["id"];
@@ -244,3 +245,28 @@ export const certifications = [
   { name: "Programming in Java", issuer: "NPTEL" },
   { name: "Object-Oriented Programming in Java", issuer: "Great Learning" },
 ];
+
+// The "also a multimedia designer" poster at the foot of the page. Swap any ring image by editing this list;
+// each entry is one card on the rotating ring around the head. Files live in /public/design.
+export const designerPoster = {
+  eyebrow: "also a",
+  title: ["Multimedia", "Designer"],
+  cornerLeft: ["Made for screens", "Made by hand"],
+  cornerRight: ["Designed by", "Titu Jeshurun"],
+  sideLeft: "Every pixel is a decision",
+  sideRight: "Posters · reels · logos",
+  blurb: "A multimedia designer combines graphics, video, audio and animation into one visual story. Five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
+  photo: { src: "/design/titu-profile.webp", width: 933, height: 618, alt: "Titu Jeshurun in profile" },
+  ring: [
+    { src: "/design/meant-to-be.webp", alt: "Meant To Be, short-film poster" },
+    { src: "/design/mission-impossible.webp", alt: "Mission Impossible event poster" },
+    { src: "/design/rameez-logo.webp", alt: "Rameez Choreography 3D logo" },
+    { src: "/design/soa-poster.webp", alt: "Singam Oonai Aatukutty poster" },
+    { src: "/design/synexzia-logo.webp", alt: "Synexzia 3D logo" },
+    { src: "/design/kie-second-look.webp", alt: "Kaadhal Irandu Ezhuthu first look" },
+    { src: "/design/makka-mishi.webp", alt: "Makka Mishi music event poster" },
+    { src: "/design/kej-poster.webp", alt: "Kaadhal Ennum Jaadhi poster" },
+    { src: "/design/online-gaming.webp", alt: "Online gaming event poster" },
+    { src: "/design/v2s-poster.webp", alt: "V2S Arts and Sports Academy poster" },
+  ],
+};

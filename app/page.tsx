@@ -5,6 +5,7 @@ import WorkGrid from "@/components/WorkGrid";
 import Footer from "@/components/Footer";
 import CopyEmail from "@/components/CopyEmail";
 import Testimonials from "@/components/Testimonials";
+import DesignerPoster from "@/components/DesignerPoster";
 import { Calendar, GitHub, Instagram, LinkedIn } from "@/components/Icons";
 import { bio, certifications, identities, log, now, projects, pullQuote, site, stack, testimonials } from "@/data/content";
 
@@ -141,6 +142,8 @@ export default function Page() {
             ))}
           </ul>
         </Section>
+
+        <DesignerPoster />
       </main>
       <Footer />
     </>

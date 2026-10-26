@@ -18,6 +18,7 @@ Everything editable lives in `data/content.ts`: name, tagline, region, email, so
 
 - Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is `--avatar-bg`, which follows the page background in both themes.
 - Project thumbnails live in `public/work/`. Keep `width` and `height` accurate so there is no layout shift.
+- Designer poster (bottom of the page): headline, labels, the profile cut-out and the ring of posters are in `designerPoster` in `data/content.ts`; replace any ring entry's `src` with a file in `public/design/`. The ring is a CSS 3D carousel, so it needs no JavaScript.
 - The GitHub contribution graph is fetched on the client from github-contributions-api.jogruber.de for `site.githubHandle` and hides itself if the request fails.
 
 ## Design tokens
@@ -50,5 +51,5 @@ Set `site.url` in `data/content.ts` to the production domain first; it feeds the
 ## Structure
 
 - `app/` routes, `globals.css` (tokens and motion), OG and Twitter images, `sitemap.ts`, `robots.ts`, icons.
-- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroLines`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
+- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroLines`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
 - `data/content.ts` all copy and links.
