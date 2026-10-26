@@ -12,7 +12,8 @@ const RADIUS = 1.32;
 const ROW_H = 0.5;
 const ROW_GAP = 0.07;
 const BASE_SPEED = 0.28; // radians per second
-const TILT: [number, number, number] = [0.15, 0, -0.28];
+// Positive Z raises the right side of the band, which is the side his face points to, and lowers the back of the head.
+const TILT: [number, number, number] = [0.15, 0, 0.28];
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
