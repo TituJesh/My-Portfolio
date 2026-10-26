@@ -181,20 +181,19 @@
   .avatar-ink { position: absolute; inset: 0; }
 
   /* ---------- designer poster ---------- */
-  .poster { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid var(--line); background: var(--bg); overflow: hidden; }
-  .poster::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.07; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
-  :root[data-theme="dark"] .poster::before { mix-blend-mode: screen; opacity: 0.05; }
+  /* The poster is a fixed print: crumpled white cloth, rust type and ink text in both themes */
+  .poster { --poster-ink: #151412; --poster-ink-2: #5c5955; --poster-accent: #c2410c; position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid var(--line); background: #f4f4f2 url("/design/poster-cloth.webp") center / cover no-repeat; color: var(--poster-ink); overflow: hidden; color-scheme: light; }
   .poster-inner { position: relative; max-width: 1100px; margin-inline: auto; padding: 48px var(--pad) 40px; min-height: clamp(560px, 70vw, 820px); display: flex; flex-direction: column; align-items: center; }
-  .poster-corner { position: absolute; top: 18px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5px; color: var(--accent); }
+  .poster-corner { position: absolute; top: 18px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5px; color: var(--poster-accent); }
   .poster-corner.tl { left: var(--pad); }
   .poster-corner.tr { right: var(--pad); text-align: right; }
-  .poster-side { position: absolute; top: 50%; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10.5px; color: var(--accent); white-space: nowrap; }
+  .poster-side { position: absolute; top: 50%; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10.5px; color: var(--poster-accent); white-space: nowrap; }
   .poster-side.l { left: 6px; transform: translate(-50%, -50%) rotate(-90deg); }
   .poster-side.r { right: 6px; transform: translate(50%, -50%) rotate(90deg); }
   .poster-title { position: absolute; left: 0; right: 0; top: 46%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
   .poster-title > .poster-big { align-self: center; }
-  .poster-eyebrow { align-self: flex-start; margin-left: max(var(--pad), calc(50% - 5.1em)); font-family: var(--font-sans); font-weight: 500; font-size: clamp(22px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1; color: var(--accent); text-transform: uppercase; }
-  .poster-big { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.22em; font-family: var(--font-sans); font-weight: 500; font-size: clamp(54px, 10.2vw, 150px); line-height: 0.92; letter-spacing: -0.05em; text-transform: uppercase; color: var(--accent); filter: blur(2.5px); }
+  .poster-eyebrow { align-self: flex-start; margin-left: max(var(--pad), calc(50% - 5.1em)); font-family: var(--font-sans); font-weight: 500; font-size: clamp(22px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1; color: var(--poster-accent); text-transform: uppercase; }
+  .poster-big { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.22em; font-family: var(--font-sans); font-weight: 500; font-size: clamp(54px, 10.2vw, 150px); line-height: 0.92; letter-spacing: -0.05em; text-transform: uppercase; color: var(--poster-accent); filter: blur(2.5px); }
   .poster-big span { white-space: nowrap; }
   /* Scene: the cut-out photo with the Three.js ring canvas laid over it. The canvas is transparent, and
      a depth-only cylinder inside the scene hides the back of the ring where the head would be. */
@@ -203,7 +202,8 @@
   .poster-ring-wrap { position: absolute; inset: -22% 0 0 0; pointer-events: none; }
   .poster-canvas { position: absolute; inset: 0; pointer-events: auto; touch-action: pan-y; }
   .poster-canvas canvas { display: block; width: 100% !important; height: 100% !important; }
-  .poster-blurb { position: relative; z-index: 2; margin-top: -12px; max-width: 58ch; text-align: center; font-size: 13.5px; line-height: 1.5; color: var(--fg-2); }
+  .poster-blurb { position: relative; z-index: 2; margin-top: -12px; max-width: 58ch; text-align: center; font-size: 13.5px; line-height: 1.5; color: var(--poster-ink-2); }
+  .poster-blurb a { color: var(--poster-accent); }
 
   @media (max-width: 720px) {
     .poster-inner { min-height: 0; padding-top: 56px; }

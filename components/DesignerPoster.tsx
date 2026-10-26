@@ -40,7 +40,7 @@ export default function DesignerPoster() {
 
         <p className="poster-blurb">
           {d.blurb}{" "}
-          <a href={site.gallery} rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+          <a href={site.gallery} rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
             See the gallery <ArrowUpRight size={14} />
           </a>
         </p>

@@ -256,7 +256,8 @@ export const designerPoster = {
   sideLeft: "Every pixel is a decision",
   sideRight: "Posters · reels · logos",
   blurb: "A multimedia designer combines graphics, video, audio and animation into one visual story. Five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
-  photo: { src: "/design/titu-profile.webp", width: 933, height: 618, alt: "Titu Jeshurun in profile" },
+  photo: { src: "/design/titu-profile.webp", width: 1400, height: 1045, alt: "Titu Jeshurun in profile" },
+  backdrop: "/design/poster-cloth.webp", // crumpled cloth behind the poster, the same in both themes
   ring: [
     { src: "/design/ring-synexzia-logo.webp", alt: "Synexzia 3D logo" },
     { src: "/design/ring-coming-soon.webp", alt: "Synexzia 2K25 coming soon poster" },

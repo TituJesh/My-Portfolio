@@ -11,10 +11,10 @@ export type RingImage = { src: string; alt: string };
 const RADIUS = 1.62;
 const ROW_H = 0.46;
 const ROW_GAP = 0.07;
-const BASE_SPEED = 0.05; // radians per second, a slow drift
-// Positive X shows the ring from slightly above so its far side appears over the hair; positive Z raises the
-// face side. The band wraps the upper head with its front row just above the eyebrows.
-const TILT: [number, number, number] = [0.2, 0, 0.2];
+const BASE_SPEED = -0.05; // radians per second, a slow drift; negative so it turns toward the face
+// Positive X shows the ring from slightly above so its far side appears over the hair; negative Z raises the
+// left side, which is where this subject faces. The band wraps the upper head just above the eyebrows.
+const TILT: [number, number, number] = [0.2, 0, -0.2];
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -161,7 +161,7 @@ function Ring({ images, speedRef, timeRef, reduce }: { images: RingImage[] } & R
   return (
     <group rotation={TILT}>
       {/* depth-only occluder standing in for the head: cards behind it are hidden, cards in front draw over the forehead */}
-      <mesh renderOrder={-1} position={[0.05, -0.55, 0]} scale={[1, 1.25, 1]}>
+      <mesh renderOrder={-1} position={[-0.05, -0.55, 0]} scale={[1, 1.25, 1]}>
         <sphereGeometry args={[1.0, 32, 24]} />
         <meshBasicMaterial colorWrite={false} depthWrite />
       </mesh>
