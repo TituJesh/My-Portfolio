@@ -16,7 +16,7 @@ npm run typecheck
 
 Everything editable lives in `data/content.ts`: name, tagline, region, email, social links, bio lines, the Design / Cloud columns, projects (with their detail-page copy and architecture components), stack groups, the experience log, certifications and footer text. The content was filled from the GitHub profile README, the CloudExpire, Acedra and Self-Healing repositories, and the resume.
 
-- Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is the `--avatar-bg` token (paper in light, the dark surface in dark).
+- Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is `--avatar-bg`, which follows the page background in both themes.
 - Project thumbnails live in `public/work/`. Keep `width` and `height` accurate so there is no layout shift.
 - The GitHub contribution graph is fetched on the client from github-contributions-api.jogruber.de for `site.githubHandle` and hides itself if the request fails.
 
