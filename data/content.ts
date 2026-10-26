@@ -264,7 +264,7 @@ export const designerPoster = {
     { src: "/design/ring-mission-impossible.webp", alt: "Mission Impossible event poster" },
     { src: "/design/ring-accidental-backend.webp", alt: "The Accidental Backend cover" },
     { src: "/design/ring-serenity.webp", alt: "Serenity poster" },
-    { src: "/design/ring-the-end.webp", alt: "The End, 2022 to 2026 poster" },
+    { src: "/design/ring-soa.webp", alt: "Singam Oonai Aatukutty pilot film poster" },
     { src: "/design/ring-meant-to-be.webp", alt: "Meant To Be trailer poster" },
     { src: "/design/ring-rameez-logo.webp", alt: "Rameez Choreography gold logo" },
     { src: "/design/ring-acedra.webp", alt: "Acedra poster" },

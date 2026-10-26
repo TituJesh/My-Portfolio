@@ -64,8 +64,11 @@ const fragmentShader = /* glsl */ `
     }
     col /= total;
 
+    // softer contrast so the cards sit back a little against the subject
+    col = mix(vec3(0.5), col, 0.72) + 0.03;
+
     // static
-    col += (hash(uv.x * 917.0 + uv.y * 311.0 + floor(t * 30.0)) - 0.5) * 0.06;
+    col += (hash(uv.x * 917.0 + uv.y * 311.0 + floor(t * 30.0)) - 0.5) * 0.05;
 
     // edge shading: darker as the surface turns away from the camera; the far side sits a little darker
     float facing = clamp(abs(vNormalV.z), 0.0, 1.0);
