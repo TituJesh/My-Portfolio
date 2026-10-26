@@ -197,8 +197,9 @@
   .poster-big span { white-space: nowrap; }
   /* Scene: the cut-out photo with the Three.js ring canvas laid over it. The canvas is transparent, and
      a depth-only cylinder inside the scene hides the back of the ring where the head would be. */
-  .poster-scene { position: relative; width: min(100%, 680px); margin-top: auto; }
-  .poster-photo { position: relative; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); filter: grayscale(1) contrast(1.15); }
+  /* the subject alone is scaled up around the upper head, so the ring keeps its place on the brow */
+  .poster-scene { --poster-photo-scale: 1.14; position: relative; width: min(100%, 680px); margin-top: auto; margin-bottom: 7.5%; /* room for the scaled figure so it does not sit under the blurb */ }
+  .poster-photo { position: relative; width: 100%; height: auto; transform: translateZ(0) scale(var(--poster-photo-scale)); transform-origin: 50% 28%; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); filter: grayscale(1) contrast(1.15); }
   .poster-ring-wrap { position: absolute; inset: -22% 0 0 0; pointer-events: none; }
   .poster-canvas { position: absolute; inset: 0; pointer-events: auto; touch-action: pan-y; }
   .poster-canvas canvas { display: block; width: 100% !important; height: 100% !important; }
@@ -261,8 +262,8 @@
     .poster.is-in .poster-corner { transition-delay: 300ms; }
     .poster.is-in .poster-side { transition-delay: 400ms; }
     .poster.is-in .poster-blurb { transition-delay: 500ms; }
-    .poster .poster-photo { opacity: 0; transform: translateZ(0) translateY(40px); transition: opacity var(--t-reveal) var(--ease) 150ms, transform var(--t-reveal) var(--ease) 150ms; }
-    .poster.is-in .poster-photo { opacity: 1; transform: translateZ(0); }
+    .poster .poster-photo { opacity: 0; transform: translateZ(0) translateY(40px) scale(var(--poster-photo-scale)); transition: opacity var(--t-reveal) var(--ease) 150ms, transform var(--t-reveal) var(--ease) 150ms; }
+    .poster.is-in .poster-photo { opacity: 1; transform: translateZ(0) scale(var(--poster-photo-scale)); }
     .poster .poster-ring-wrap { opacity: 0; transform: scale(0.7); transition: opacity var(--t-reveal) var(--ease) 350ms, transform var(--t-reveal) var(--ease) 350ms; }
     .poster.is-in .poster-ring-wrap { opacity: 1; transform: none; }
 
