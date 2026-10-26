@@ -213,7 +213,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <group position={[0, 1.06, 0]}>
+          <group position={[0, 0.78, 0]}>
             <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} />
           </group>
         </Suspense>
