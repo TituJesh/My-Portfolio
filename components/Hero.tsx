@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { site } from "@/data/content";
-import { GitHub, Instagram, LinkedIn, Mail, MapPin, Palette, Terminal } from "./Icons";
+import { GitHub, Instagram, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
+import CopyEmail from "./CopyEmail";
 import HeroLines from "./HeroLines";
 import StatusChip from "./StatusChip";
 import Contributions from "./Contributions";
@@ -69,12 +70,9 @@ export default function Hero() {
             <dd className="text-[14px]">{site.location}</dd>
           </div>
           <div className="cell-pad cell-row flex items-center gap-3">
-            <Mail className="shrink-0 text-fg-3" />
             <dt className="sr-only">Email</dt>
             <dd className="text-[14px]">
-              <a className="hover:text-accent" href={`mailto:${site.email}`}>
-                {site.email}
-              </a>
+              <CopyEmail email={site.email} className="hover:text-accent" />
             </dd>
           </div>
         </dl>

@@ -32,6 +32,7 @@ export const stages = [
   { id: "work", label: "Work", short: "Work" },
   { id: "stack", label: "Stack", short: "Stack" },
   { id: "log", label: "Log", short: "Log" },
+  { id: "words", label: "Words", short: "Words" },
   { id: "contact", label: "Contact", short: "Contact" },
 ] as const;
 
@@ -39,8 +40,41 @@ export type StageId = (typeof stages)[number]["id"];
 
 export const bio = [
   "I'm Titu, a cloud engineer from Chennai. I work mostly on AWS, writing infrastructure in Terraform, packaging services with Docker and shipping them through GitHub Actions.",
-  "I like systems that are small, well documented and easy to rebuild, and I spend a lot of my time making sure the things I run are secure, cost-aware and tested on every push.",
+  "A lot of my time goes into making sure the things I run are secure, cost-aware and tested on every push.",
   "The other half of me designs: five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
+];
+
+// A pull quote for the Index section, lifted from the GitHub profile README.
+export const pullQuote = "I like systems that are small, well documented and easy to rebuild.";
+
+// What is going on this month. Keep it honest and short; dated so it is obvious when it goes stale.
+export const now = {
+  asOf: "October 2026",
+  items: [
+    { label: "building", text: "CloudExpire and Acedra, both pushed to GitHub this month." },
+    { label: "learning", text: "Cloud and DevOps, one small system at a time: AWS, Terraform, GitHub Actions." },
+    { label: "designing", text: "Posters and reels for short films and symposiums, when a brief comes in." },
+    { label: "open to", text: "Cloud, DevOps and platform roles. Say hello." },
+  ],
+};
+
+// Client words from the design gallery (titujeshurun-portfolio.vercel.app).
+export const testimonials = [
+  {
+    quote: "Absolutely phenomenal work! The poster design not only exceeded our expectations but became the talk of the entire film. The attention to detail and creative vision is unmatched.",
+    name: "Ashraf",
+    role: "Short film director and actor, Chickums TV",
+  },
+  {
+    quote: "Professional, innovative, and delivered ahead of schedule. The poster design and promotional videos perfectly captured our brand essence and significantly boosted our event attendance.",
+    name: "Pratheesh Kumar",
+    role: "Event manager, Synexzia",
+  },
+  {
+    quote: "From concept to delivery, everything was handled with care and creativity. The final result was polished, eye-catching, and exactly what we needed.",
+    name: "Carlin Akila",
+    role: "Founder, Carlin's Aari Paradise",
+  },
 ];
 
 export const identities = [

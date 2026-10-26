@@ -3,8 +3,10 @@ import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import WorkGrid from "@/components/WorkGrid";
 import Footer from "@/components/Footer";
-import { Calendar, GitHub, Instagram, LinkedIn, Mail } from "@/components/Icons";
-import { bio, certifications, identities, log, projects, site, stack } from "@/data/content";
+import CopyEmail from "@/components/CopyEmail";
+import Testimonials from "@/components/Testimonials";
+import { Calendar, GitHub, Instagram, LinkedIn } from "@/components/Icons";
+import { bio, certifications, identities, log, now, projects, pullQuote, site, stack, testimonials } from "@/data/content";
 
 export default function Page() {
   return (
@@ -15,12 +17,29 @@ export default function Page() {
 
         <Section id="index" number="01" title="Index">
           <div className="cell-pad flex flex-col gap-3 border-b border-line text-[16px] leading-relaxed" data-reveal-group>
-            {bio.map((line, i) => (
+            <p data-reveal="rise">{bio[0]}</p>
+            <blockquote className="my-2 border-l-2 border-accent pl-4 font-serif italic text-[clamp(20px,2.6vw,24px)] leading-snug text-fg" data-reveal="rise">
+              {pullQuote}
+            </blockquote>
+            {bio.slice(1).map((line, i) => (
               <p key={i} data-reveal="rise">
                 {line}
               </p>
             ))}
           </div>
+
+          <div className="cell-pad flex items-baseline justify-between border-b border-line py-2">
+            <span className="mono-meta">Right now</span>
+            <span className="mono-meta text-fg-3">{now.asOf}</span>
+          </div>
+          <dl data-reveal-group>
+            {now.items.map((it) => (
+              <div key={it.label} className="grid gap-1 border-b border-line sm:grid-cols-[150px_1fr]" data-reveal="rise">
+                <dt className="mono-meta cell-pad pb-0 text-accent sm:border-r sm:border-line sm:pb-4">{it.label}</dt>
+                <dd className="cell-pad pt-1 text-[15px] sm:pt-4">{it.text}</dd>
+              </div>
+            ))}
+          </dl>
           <div className="grid sm:grid-cols-2" data-reveal-group>
             {identities.map((it, i) => (
               <div key={it.title} className={`cell-pad flex flex-col gap-3 border-b border-line ${i === 0 ? "sm:border-r" : ""}`} data-reveal="rise">
@@ -89,7 +108,11 @@ export default function Page() {
           </ul>
         </Section>
 
-        <Section id="contact" number="05" title="Contact">
+        <Section id="words" number="05" title="Words" count={testimonials.length}>
+          <Testimonials items={testimonials} source={site.gallery} />
+        </Section>
+
+        <Section id="contact" number="06" title="Contact">
           <div className="cell-pad border-b border-line py-10">
             <h3 className="font-serif italic text-[clamp(30px,6vw,52px)] leading-[1.05]" data-reveal="rise">
               Let&rsquo;s build something that ships.
@@ -97,11 +120,9 @@ export default function Page() {
             <p className="mt-4 max-w-[46ch] text-[15px] text-fg-2" data-reveal="rise">
               {site.availability}. Cloud and DevOps work, a poster for your film, or a conversation.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3" data-reveal-group>
-              <a className="pill-btn" data-variant="solid" href={`mailto:${site.email}`} data-reveal="rise">
-                <Mail /> {site.email}
-              </a>
-              <a className="pill-btn" href={site.linkedin} rel="me noreferrer" data-reveal="rise">
+            <div className="mt-7 flex flex-wrap gap-3" data-reveal="rise">
+              <CopyEmail email={site.email} className="pill-btn" solid />
+              <a className="pill-btn" href={site.linkedin} rel="me noreferrer">
                 <Calendar /> Reach out on LinkedIn
               </a>
             </div>
