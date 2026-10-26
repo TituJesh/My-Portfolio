@@ -18,8 +18,8 @@ export default function Page() {
 
         <Section id="index" number="01" title="Index">
           <div className="flex flex-col gap-1 text-[17px] leading-relaxed" data-reveal-group>
-            {bio.map((line) => (
-              <p key={line} data-reveal="rise">
+            {bio.map((line, i) => (
+              <p key={i} data-reveal="rise">
                 {line}
               </p>
             ))}
@@ -30,8 +30,8 @@ export default function Page() {
                 <h3 className="text-[18px]">{it.title}</h3>
                 <p className="font-serif italic text-[20px] leading-snug text-fg-2">{it.lead}</p>
                 <ul className="mt-1 flex flex-col gap-1.5 text-[15px] text-fg-2">
-                  {it.points.map((pt) => (
-                    <li key={pt} className="flex gap-3">
+                  {it.points.map((pt, i) => (
+                    <li key={i} className="flex gap-3">
                       <span className="mt-[11px] h-px w-3 shrink-0 bg-line-2" aria-hidden />
                       {pt}
                     </li>

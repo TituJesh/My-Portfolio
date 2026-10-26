@@ -61,8 +61,8 @@ export default async function ProjectPage({ params }: Params) {
         </Block>
         <Block label="Design decisions">
           <ul className="flex flex-col gap-2">
-            {p.decisions.map((d) => (
-              <li key={d} className="flex gap-3">
+            {p.decisions.map((d, i) => (
+              <li key={i} className="flex gap-3">
                 <span className="mt-[11px] h-px w-3 shrink-0 bg-line-2" aria-hidden />
                 {d}
               </li>

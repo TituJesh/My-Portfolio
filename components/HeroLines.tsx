@@ -79,9 +79,15 @@ export default function HeroLines() {
   }, []);
 
   return (
-    <svg ref={ref} className="pointer-events-none absolute top-1/2 left-[-22%] w-[144%] -translate-y-1/2 sm:left-0 sm:w-full" viewBox="0 0 720 280" fill="none" aria-hidden>
+    <svg ref={ref} className="pointer-events-none absolute inset-x-0 top-1/2 w-full -translate-y-1/2" viewBox="0 0 720 280" fill="none" aria-hidden>
       {nodes.map((n) => (
-        <g key={n.id} data-node={n.id} className="hero-node" style={{ transformBox: "fill-box", transformOrigin: "center" }}>
+        <g
+          key={n.id}
+          data-node={n.id}
+          // The lower pair would sit on top of the name on narrow screens, so they only appear from sm up.
+          className={`hero-node ${n.y > 140 ? "hidden sm:block" : ""}`}
+          style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        >
           <path d={paths[n.id]} className="hero-line" stroke="var(--line-2)" strokeWidth="1" strokeLinecap="round" />
           <rect x={n.x - 36} y={n.y - 13} width={n.label.length > 3 ? 86 : 72} height="26" rx="13" fill="var(--bg)" stroke="var(--line-2)" />
           <text x={n.x + (n.label.length > 3 ? 7 : 0)} y={n.y + 4} textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="11" fill="var(--fg-2)">

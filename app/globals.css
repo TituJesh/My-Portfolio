@@ -163,7 +163,9 @@
 
   /* page-load sequence: avatar → name → tagline → chip → nav, all under 1.2s */
   .enter { animation: enter var(--t-reveal) var(--ease) both; animation-delay: var(--d, 0ms); }
-  @keyframes enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  /* Starts at 0.01, not 0: Chrome skips fully transparent elements as LCP candidates, which would make
+     the ticking clock the measured LCP instead of the name. */
+  @keyframes enter { from { opacity: 0.01; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   .enter-nav { animation: enter-nav var(--t-std) var(--ease) both; animation-delay: 600ms; }
   @keyframes enter-nav { from { opacity: 0; transform: translate(-50%, -8px); } to { opacity: 1; transform: translate(-50%, 0); } }
 

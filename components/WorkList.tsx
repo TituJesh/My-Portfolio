@@ -14,11 +14,11 @@ export default function WorkList({ projects }: { projects: Project[] }) {
   const target = useRef({ x: 0, y: 0 });
   const cur = useRef({ x: 0, y: 0 });
   const raf = useRef(0);
-  const fine = useRef(false);
+  const fine = useRef<MediaQueryList | null>(null);
+  const isFine = (e?: { pointerType?: string }) => !!fine.current?.matches && e?.pointerType !== "touch";
 
   useEffect(() => {
-    fine.current = window.matchMedia("(pointer: fine)").matches;
-    if (!fine.current) return;
+    fine.current = window.matchMedia("(pointer: fine)");
     const loop = () => {
       const el = previewRef.current;
       cur.current.x += (target.current.x - cur.current.x) * 0.12;
@@ -28,6 +28,7 @@ export default function WorkList({ projects }: { projects: Project[] }) {
       raf.current = still ? 0 : requestAnimationFrame(loop);
     };
     const onMove = (e: PointerEvent) => {
+      if (!isFine(e)) return;
       target.current = { x: e.clientX + 24, y: e.clientY - 90 };
       if (!raf.current && !document.hidden) raf.current = requestAnimationFrame(loop);
     };
@@ -46,8 +47,8 @@ export default function WorkList({ projects }: { projects: Project[] }) {
     };
   }, []);
 
-  const onEnter = (i: number) => {
-    if (!fine.current) return;
+  const onEnter = (i: number, e: React.PointerEvent) => {
+    if (!isFine(e)) return;
     // Jump straight to the cursor on first show so it does not glide in from the last position.
     if (hover === null) cur.current = { ...target.current };
     setHover(i);
@@ -61,7 +62,7 @@ export default function WorkList({ projects }: { projects: Project[] }) {
             <Link
               href={`/work/${p.slug}`}
               className="work-row group flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:gap-6"
-              onPointerEnter={() => onEnter(i)}
+              onPointerEnter={(e) => onEnter(i, e)}
               onPointerLeave={() => setHover(null)}
               onFocus={() => setHover(null)}
             >
