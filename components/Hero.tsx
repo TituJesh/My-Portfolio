@@ -34,7 +34,7 @@ export default function Hero() {
           </span>
           <div className="enter relative h-24 w-24 rounded-full border border-line-2 p-1 sm:h-[120px] sm:w-[120px]" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
-            {/* Ink sketch avatar; the ink stays black, the paper behind it follows the theme */}
+            {/* Ink sketch avatar: the ink stays black in both themes, only the circle behind it follows the theme */}
             <div className="avatar relative h-full w-full overflow-hidden rounded-full">
               <Image src={site.photo} alt={`Ink sketch of ${site.fullName}`} width={640} height={640} priority className="avatar-ink h-full w-full" />
             </div>

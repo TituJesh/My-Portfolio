@@ -15,7 +15,7 @@
   --accent-fg: #ffffff;
   --accent-soft: rgba(194, 65, 12, 0.1);
   --ok: #15803d;
-  --avatar-bg: #f1efe9;
+  --avatar-bg: #f1efe9; /* disc behind the ink sketch; the ink itself never changes */
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --t-micro: 150ms;
@@ -47,7 +47,7 @@
   --accent-fg: #1a0d06;
   --accent-soft: rgba(255, 138, 91, 0.12);
   --ok: #4ade80;
-  --avatar-bg: #b9b3a8; /* dimmed paper: the black ink stays readable on the dark theme */
+  --avatar-bg: #b9b3a9; /* warm stone: dark enough to read as the dark theme, light enough for black ink */
   color-scheme: dark;
 }
 
@@ -176,7 +176,7 @@
 
   .hero-canvas { height: clamp(260px, 38vw, 320px); }
 
-  /* avatar: transparent ink; only the paper behind it follows the theme */
+  /* avatar: black ink on a themed disc */
   .avatar { background: var(--avatar-bg); }
   .avatar-ink { position: absolute; inset: 0; }
 

@@ -14,7 +14,7 @@ export const site = {
   region: "ap-south-1",
   timeZone: "Asia/Kolkata",
   email: "titujesh@gmail.com",
-  photo: "/avatar-ink.webp", // transparent ink sketch, face to shoulders; the paper behind it is themed
+  photo: "/avatar-ink.webp", // ink sketch on paper, face to shoulders; identical in both themes
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
