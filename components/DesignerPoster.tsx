@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { designerPoster as d, site } from "@/data/content";
 import { ArrowUpRight } from "./Icons";
+import PosterRing from "./PosterRing";
 
-// Full-bleed poster: the profile cut-out stands in front of the headline while a 3D ring of
-// posters turns around the head. Everything reveals when the section scrolls into view.
+// Full-bleed poster: the profile cut-out stands in front of the headline while a Three.js ring of
+// posters orbits the head (PosterRing3D). Everything reveals when the section scrolls into view.
 export default function DesignerPoster() {
-  const n = d.ring.length;
   return (
     <section id="design" className="poster" data-reveal="rise" aria-labelledby="design-title">
       <div className="poster-inner">
@@ -31,25 +31,10 @@ export default function DesignerPoster() {
           </span>
         </h2>
 
-        <div className="poster-scene" style={{ "--n": n } as React.CSSProperties}>
+        <div className="poster-scene">
           <Image src={d.photo.src} alt={d.photo.alt} width={d.photo.width} height={d.photo.height} loading="lazy" className="poster-photo" />
-          <div className="poster-ring-wrap" aria-label="Selected design work">
-            <ul className="poster-ring">
-              {d.ring.map((card, i) => {
-                // Two rows per card: this image on top, the one half a turn later below.
-                const lower = d.ring[(i + Math.floor(n / 2)) % n];
-                return (
-                  <li key={card.src} className="poster-card" style={{ "--i": i } as React.CSSProperties}>
-                    <span className="poster-cell">
-                      <Image src={card.src} alt={card.alt} width={300} height={120} loading="lazy" />
-                    </span>
-                    <span className="poster-cell">
-                      <Image src={lower.src} alt={lower.alt} width={300} height={120} loading="lazy" />
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+          <div className="poster-ring-wrap">
+            <PosterRing images={d.ring} />
           </div>
         </div>
 

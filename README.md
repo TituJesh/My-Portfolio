@@ -1,6 +1,6 @@
 # Titu Jeshurun — portfolio
 
-A calm, centered portfolio for a designer and cloud engineer, laid out on a ruled 768px frame with hatched bands between numbered sections. Next.js (App Router), TypeScript, Tailwind CSS v4. Motion is CSS plus a little requestAnimationFrame; there is no animation library.
+A calm, centered portfolio for a designer and cloud engineer, laid out on a ruled 768px frame with hatched bands between numbered sections. Next.js (App Router), TypeScript, Tailwind CSS v4. Motion is CSS plus a little requestAnimationFrame; Three.js is used only for the designer poster's ring and is lazy-loaded.
 
 ## Run
 
@@ -18,7 +18,7 @@ Everything editable lives in `data/content.ts`: name, tagline, region, email, so
 
 - Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is `--avatar-bg`, which follows the page background in both themes.
 - Project thumbnails live in `public/work/`. Keep `width` and `height` accurate so there is no layout shift.
-- Designer poster (bottom of the page): headline, labels, the profile cut-out and the ring of posters are in `designerPoster` in `data/content.ts`; replace any ring entry's `src` with a file in `public/design/`. The ring is a CSS 3D carousel, so it needs no JavaScript.
+- Designer poster (bottom of the page): headline, labels, the profile cut-out and the ring of posters are in `designerPoster` in `data/content.ts`; replace any ring entry's `src` with a file in `public/design/`. The ring is a Three.js carousel (`components/PosterRing3D.tsx`, loaded on the client only): curved two-row cards with a custom shader for directional blur, glitch, chromatic shift and edge shading, a depth-only occluder for the head, hover slow-down and drag scrubbing.
 - The GitHub contribution graph is fetched on the client from github-contributions-api.jogruber.de for `site.githubHandle` and hides itself if the request fails.
 
 ## Design tokens
