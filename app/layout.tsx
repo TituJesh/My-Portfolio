@@ -1,0 +1,63 @@
+import type { Metadata, Viewport } from "next";
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import RevealObserver from "@/components/RevealObserver";
+import { site } from "@/data/content";
+import "./globals.css";
+
+const sans = Inter_Tight({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-sans", display: "swap", fallback: ["system-ui", "Arial"] });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-serif", display: "swap", fallback: ["Georgia", "serif"] });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--font-mono", display: "swap", fallback: ["Menlo", "Consolas", "monospace"] });
+
+const title = `${site.name} — ${site.role}`;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: { default: title, template: `%s — ${site.name}` },
+  description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", url: "/", title, description: site.description, siteName: site.name, locale: "en_IN" },
+  twitter: { card: "summary_large_image", title, description: site.description },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf9f6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f0e" },
+  ],
+};
+
+// Applies the saved theme before first paint so there is no flash. Falls back to the OS preference.
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})()`;
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.role,
+  description: site.description,
+  url: site.url,
+  address: { "@type": "PostalAddress", addressLocality: "Chennai", addressCountry: "IN" },
+  sameAs: Object.values(site.social).filter((s) => !s.startsWith("[")),
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
+      </head>
+      <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        {children}
+        <RevealObserver />
+      </body>
+    </html>
+  );
+}
