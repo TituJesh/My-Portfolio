@@ -14,7 +14,7 @@ export const site = {
   region: "ap-south-1",
   timeZone: "Asia/Kolkata",
   email: "titujesh@gmail.com",
-  photo: "/avatar-ink.webp", // transparent ink sketch, face to shoulders; the disc behind it follows the theme
+  photo: "/avatar-figure.webp", // transparent ink sketch, face to shoulders; the disc behind it follows the theme
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
