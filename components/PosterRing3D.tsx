@@ -8,13 +8,13 @@ import * as THREE from "three";
 export type RingImage = { src: string; alt: string };
 
 // Ring geometry in world units. The camera is set so one unit is roughly a fifth of the canvas height.
-const RADIUS = 1.04;
-const ROW_H = 0.39;
+const RADIUS = 1.18; // ring diameter about 1.5x the head width, as in the reference
+const ROW_H = 0.3; // two rows total about half the head height; cards come out near 1.8:1
 const ROW_GAP = 0.05;
 const BASE_SPEED = -0.05; // radians per second, a slow drift; negative so it turns toward the face
 // Positive X shows the ring from slightly above so its far side appears over the hair; negative Z raises the
 // left side, which is where this subject faces. The band wraps the upper head just above the eyebrows.
-const TILT: [number, number, number] = [0.2, 0, -0.2];
+const TILT: [number, number, number] = [0.2, 0, -0.17];
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -213,8 +213,8 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <group position={[0, 0.78, 0]}>
-            <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} />
+          <group position={[-0.17, 0.66, 0]}>
+<Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} />
           </group>
         </Suspense>
       </Canvas>
