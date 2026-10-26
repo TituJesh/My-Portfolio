@@ -249,13 +249,14 @@ export const certifications = [
 // The "also a multimedia designer" poster at the foot of the page. Swap any ring image by editing this list;
 // each entry is one card on the rotating ring around the head. Files live in /public/design.
 export const designerPoster = {
-  eyebrow: "also a",
-  title: ["Multimedia", "Designer"],
-  cornerLeft: ["Made for screens", "Made by hand"],
+  eyebrow: "Also a",
+  title: "Multimedia Designer",
+  cornerLeft: ["Made for creatives", "Made by creatives"],
   cornerRight: ["Designed by", "Titu Jeshurun"],
   sideLeft: "Every pixel is a decision",
-  sideRight: "Posters · reels · logos",
-  blurb: "A multimedia designer combines graphics, video, audio and animation into one visual story. Five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
+  sideRight: "You see the world differently",
+  blurbLead: "A multimedia designer",
+  blurb: "is a creative professional who combines various digital media, including graphics, video, audio, and animation, to create engaging and cohesive visual stories.",
   photo: { src: "/design/titu-profile.webp", width: 933, height: 618, alt: "Titu Jeshurun in profile" },
   ring: [
     { src: "/design/ring-synexzia-logo.webp", alt: "Synexzia 3D logo" },

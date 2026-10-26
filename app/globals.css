@@ -180,37 +180,40 @@
   .avatar { background: var(--avatar-bg); }
   .avatar-ink { position: absolute; inset: 0; }
 
-  /* ---------- designer poster ---------- */
-  .poster { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid var(--line); background: var(--bg); overflow: hidden; }
-  .poster::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.07; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
-  :root[data-theme="dark"] .poster::before { mix-blend-mode: screen; opacity: 0.05; }
-  .poster-inner { position: relative; max-width: 1100px; margin-inline: auto; padding: 48px var(--pad) 40px; min-height: clamp(560px, 70vw, 820px); display: flex; flex-direction: column; align-items: center; }
-  .poster-corner { position: absolute; top: 18px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5px; color: var(--accent); }
-  .poster-corner.tl { left: var(--pad); }
-  .poster-corner.tr { right: var(--pad); text-align: right; }
-  .poster-side { position: absolute; top: 50%; text-transform: uppercase; letter-spacing: 0.2em; font-size: 10.5px; color: var(--accent); white-space: nowrap; }
-  .poster-side.l { left: 6px; transform: translate(-50%, -50%) rotate(-90deg); }
-  .poster-side.r { right: 6px; transform: translate(50%, -50%) rotate(90deg); }
-  .poster-title { position: absolute; left: 0; right: 0; top: 46%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
-  .poster-title > .poster-big { align-self: center; }
-  .poster-eyebrow { align-self: flex-start; margin-left: max(var(--pad), calc(50% - 5.1em)); font-family: var(--font-sans); font-weight: 500; font-size: clamp(22px, 4vw, 48px); letter-spacing: -0.03em; line-height: 1; color: var(--accent); text-transform: uppercase; }
-  .poster-big { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.22em; font-family: var(--font-sans); font-weight: 500; font-size: clamp(54px, 10.2vw, 150px); line-height: 0.92; letter-spacing: -0.05em; text-transform: uppercase; color: var(--accent); filter: blur(2.5px); }
-  .poster-big span { white-space: nowrap; }
-  /* Scene: the cut-out photo with the Three.js ring canvas laid over it. The canvas is transparent, and
-     a depth-only cylinder inside the scene hides the back of the ring where the head would be. */
-  .poster-scene { position: relative; width: min(92vw, 640px); margin-top: auto; }
-  .poster-photo { position: relative; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); filter: grayscale(1) contrast(1.15); }
-  .poster-ring-wrap { position: absolute; inset: -22% 0 0 0; pointer-events: none; }
+  /* ---------- designer poster: fixed artwork, identical in both themes ---------- */
+  /* Sizes use cqw (1% of the poster width) so the layout scales like an image. */
+  .poster { --paper: #f3f3f1; --red: #ff3b00; position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid rgba(0, 0, 0, 0.08); background: var(--paper); color: var(--red); overflow: hidden; }
+  .poster::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.09; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+  .poster-inner { position: relative; container-type: inline-size; max-width: 1400px; margin-inline: auto; aspect-ratio: 2000 / 1495; font-family: var(--font-sans); }
+  .poster-corner { position: absolute; top: 4.2cqw; margin: 0; font-size: 1.05cqw; line-height: 1.35; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; color: var(--red); }
+  .poster-corner.tl { left: 5cqw; text-align: left; }
+  .poster-corner.tr { right: 5cqw; text-align: right; }
+  .poster-side { position: absolute; top: 50%; margin: 0; font-size: 1cqw; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); white-space: nowrap; }
+  .poster-side.l { left: 5.4cqw; transform: translate(-50%, -50%) rotate(-90deg); }
+  .poster-side.r { right: 5.4cqw; transform: translate(50%, -50%) rotate(90deg); }
+  .poster-title { position: absolute; left: 10cqw; right: 10cqw; top: 42cqw; margin: 0; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; z-index: 1; }
+  .poster-eyebrow { font-size: 5.8cqw; line-height: 1; font-weight: 500; letter-spacing: -0.02em; text-transform: uppercase; color: var(--red); margin-left: 0.2cqw; filter: blur(0.08cqw); }
+  .poster-big { display: block; width: 100%; font-size: 8.75cqw; line-height: 0.95; font-weight: 500; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; color: var(--red); filter: blur(0.22cqw); }
+  /* Scene: the cut-out photo at the foot of the poster with the ring canvas laid over it. The canvas
+     is transparent and a depth-only cylinder in the scene hides the back of the ring where the head is. */
+  .poster-scene { position: absolute; left: 15cqw; bottom: 0; width: 70cqw; z-index: 2; }
+  .poster-photo { position: relative; width: 100%; height: auto; filter: grayscale(1) contrast(1.2); }
+  .poster-ring-wrap { position: absolute; inset: -25% 0 0 0; pointer-events: none; }
   .poster-canvas { position: absolute; inset: 0; pointer-events: auto; touch-action: pan-y; }
   .poster-canvas canvas { display: block; width: 100% !important; height: 100% !important; }
-  .poster-blurb { position: relative; z-index: 2; margin-top: -12px; max-width: 58ch; text-align: center; font-size: 13.5px; line-height: 1.5; color: var(--fg-2); }
+  .poster-blurb { position: absolute; left: 20cqw; width: 60cqw; bottom: 3.6cqw; margin: 0; z-index: 3; text-align: center; font-size: 1.35cqw; line-height: 1.4; font-weight: 500; color: var(--red); }
+  .poster-blurb-lead { display: block; font-size: 1.5cqw; }
 
   @media (max-width: 720px) {
-    .poster-inner { min-height: 0; padding-top: 56px; }
-    .poster-side { display: none; }
-    .poster-title { top: 38%; }
-    .poster-scene { margin-top: 90px; }
-    .poster-blurb { margin-top: 4px; }
+    .poster-inner { aspect-ratio: 1 / 1.15; }
+    .poster-corner { font-size: 2.4cqw; top: 4cqw; }
+    .poster-side { font-size: 2.2cqw; }
+    .poster-title { top: 50cqw; left: 6cqw; right: 6cqw; }
+    .poster-eyebrow { font-size: 7cqw; }
+    .poster-big { font-size: 13.5cqw; white-space: normal; }
+    .poster-scene { left: 8cqw; width: 84cqw; }
+    .poster-blurb { font-size: 3cqw; width: 80cqw; left: 10cqw; bottom: 4cqw; }
+    .poster-blurb-lead { font-size: 3.4cqw; }
   }
 
   /* ---------- contributions ---------- */

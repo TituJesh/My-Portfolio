@@ -8,8 +8,8 @@ import * as THREE from "three";
 export type RingImage = { src: string; alt: string };
 
 // Ring geometry in world units. The camera is set so one unit is roughly a fifth of the canvas height.
-const RADIUS = 1.32;
-const ROW_H = 0.5;
+const RADIUS = 1.45;
+const ROW_H = 0.42;
 const ROW_GAP = 0.07;
 const BASE_SPEED = 0.28; // radians per second
 // Negative X tips the front of the band (the part over the forehead) up and away from the face;
@@ -228,7 +228,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <group position={[0, 0.76, 0]}>
+          <group position={[0, 0.72, 0]}>
             <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} onHover={setHovering} />
           </group>
         </Suspense>
