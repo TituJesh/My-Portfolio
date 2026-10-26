@@ -8,7 +8,7 @@ import * as THREE from "three";
 export type RingImage = { src: string; alt: string };
 
 // Ring geometry in world units. The camera is set so one unit is roughly a fifth of the canvas height.
-const RADIUS = 1.42;
+const RADIUS = 1.22;
 const ROW_H = 0.46;
 const ROW_GAP = 0.07;
 const BASE_SPEED = -0.05; // radians per second, a slow drift; negative so it turns toward the face
@@ -65,7 +65,7 @@ const fragmentShader = /* glsl */ `
     col /= total;
 
     // softer contrast so the cards sit back a little against the subject
-    col = mix(vec3(0.5), col, 0.72) + 0.03;
+    col = mix(vec3(0.5), col, 0.82) + 0.02;
 
     // static
     col += (hash(uv.x * 917.0 + uv.y * 311.0 + floor(t * 30.0)) - 0.5) * 0.05;

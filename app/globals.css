@@ -197,7 +197,7 @@
   .poster-big span { white-space: nowrap; }
   /* Scene: the cut-out photo with the Three.js ring canvas laid over it. The canvas is transparent, and
      a depth-only cylinder inside the scene hides the back of the ring where the head would be. */
-  .poster-scene { position: relative; width: min(92%, 560px); margin-top: auto; }
+  .poster-scene { position: relative; width: min(100%, 680px); margin-top: auto; }
   .poster-photo { position: relative; width: 100%; height: auto; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); filter: grayscale(1) contrast(1.15); }
   .poster-ring-wrap { position: absolute; inset: -22% 0 0 0; pointer-events: none; }
   .poster-canvas { position: absolute; inset: 0; pointer-events: auto; touch-action: pan-y; }
