@@ -8,7 +8,7 @@ import * as THREE from "three";
 export type RingImage = { src: string; alt: string };
 
 // Ring geometry in world units. The camera is set so one unit is roughly a fifth of the canvas height.
-const RADIUS = 1.62;
+const RADIUS = 1.42;
 const ROW_H = 0.46;
 const ROW_GAP = 0.07;
 const BASE_SPEED = -0.05; // radians per second, a slow drift; negative so it turns toward the face
@@ -82,11 +82,8 @@ function Card({ texture, index, count, y, speedRef, timeRef }: { texture: THREE.
   const seg = (Math.PI * 2) / count;
   const geometry = useMemo(() => {
     // open cylinder segment: a plane bent to the ring radius, facing outward
-    const g = new THREE.CylinderGeometry(RADIUS, RADIUS, ROW_H, 16, 1, true, 0, seg * 0.86);
-    // flip u so the image reads left to right from outside
-    const uv = g.attributes.uv as THREE.BufferAttribute;
-    for (let i = 0; i < uv.count; i++) uv.setX(i, 1 - uv.getX(i));
-    return g;
+    // the cylinder's own uv already reads left to right from outside; the shader flips the far side
+    return new THREE.CylinderGeometry(RADIUS, RADIUS, ROW_H, 16, 1, true, 0, seg * 0.86);
   }, [seg]);
   const uniforms = useMemo(() => ({ map: { value: texture }, uTime: { value: 0 }, uBlur: { value: 0 }, uSeed: { value: index * 1.37 + y } }), [texture, index, y]);
 
