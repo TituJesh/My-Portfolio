@@ -34,11 +34,13 @@ export default function Hero() {
           </span>
           <div className="enter relative h-20 w-20 rounded-full border border-line-2 p-1 sm:h-24 sm:w-24" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
-            {site.photo ? (
-              <Image src={site.photo} alt={site.fullName} width={96} height={96} priority className="h-full w-full rounded-full object-cover" />
-            ) : (
-              <span className="grid h-full w-full place-items-center rounded-full bg-bg-2 text-[22px] font-medium">{site.initials}</span>
-            )}
+            {/* Ink sketch avatar, one ink colour per theme, with eyelids that blink */}
+            <div className="avatar relative h-full w-full overflow-hidden rounded-full bg-bg-2">
+              <Image src="/avatar-ink-dark.webp" alt={`Ink sketch of ${site.fullName}`} width={480} height={480} priority className="avatar-ink avatar-ink-light h-full w-full" />
+              <Image src="/avatar-ink-light.webp" alt="" width={480} height={480} priority aria-hidden className="avatar-ink avatar-ink-dark h-full w-full" />
+              <span className="lid lid-l" aria-hidden />
+              <span className="lid lid-r" aria-hidden />
+            </div>
           </div>
         </div>
         <div className="cell-pad enter flex flex-col justify-center gap-1" style={d(380)}>

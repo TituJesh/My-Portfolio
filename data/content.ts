@@ -14,7 +14,7 @@ export const site = {
   region: "ap-south-1",
   timeZone: "Asia/Kolkata",
   email: "titujesh@gmail.com",
-  photo: "/photo-github.jpg",
+  photo: "/avatar-ink-dark.webp", // the ink sketch; the hero swaps ink colour per theme
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
