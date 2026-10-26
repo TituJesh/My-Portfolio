@@ -179,9 +179,11 @@
   .avatar-ink-dark { display: none; }
   :root[data-theme="dark"] .avatar-ink-light { display: none; }
   :root[data-theme="dark"] .avatar-ink-dark { display: block; }
-  .lid { position: absolute; background: var(--bg-2); border-radius: 50% 50% 45% 45%; border-bottom: 1.5px solid var(--fg); transform: scaleY(0); transform-origin: 50% 0; pointer-events: none; }
-  .lid-l { left: 35%; top: 51.5%; width: 19%; height: 8%; }
-  .lid-r { left: 59.5%; top: 44.5%; width: 18%; height: 8%; }
+  /* Lid boxes are measured on the 600px avatar crop: viewer's left eye spans 31–47% x, 58–65% y;
+     the right eye 56–70% x, 51–57% y. Both eyes slant up to the right, so each lid is tilted. */
+  .lid { position: absolute; background: var(--bg-2); border-radius: 50% 50% 45% 45%; border-bottom: 1.5px solid var(--fg); transform: rotate(var(--tilt)) scaleY(0); transform-origin: 50% 0; pointer-events: none; }
+  .lid-l { --tilt: -12deg; left: 30%; top: 57%; width: 18%; height: 8.5%; }
+  .lid-r { --tilt: -10deg; left: 55%; top: 49.5%; width: 16%; height: 8%; }
 
   /* ---------- contributions ---------- */
   .contrib { display: grid; grid-auto-rows: auto; gap: 3px; min-width: 560px; }
@@ -223,7 +225,7 @@
 
     .lid { animation: blink 5.2s ease-in-out infinite; }
     .lid-r { animation-delay: 30ms; }
-    @keyframes blink { 0%, 90%, 100% { transform: scaleY(0); } 93%, 95% { transform: scaleY(1); } }
+    @keyframes blink { 0%, 90%, 100% { transform: rotate(var(--tilt)) scaleY(0); } 93%, 95% { transform: rotate(var(--tilt)) scaleY(1); } }
 
     .work-thumb img { transition: transform var(--t-std) var(--ease); }
     .work-card:hover .work-thumb img { transform: scale(1.03); }
