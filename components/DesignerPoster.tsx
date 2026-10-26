@@ -1,33 +1,49 @@
 import Image from "next/image";
-import { designerPoster as d } from "@/data/content";
+import { designerPoster as d, site } from "@/data/content";
+import { ArrowUpRight } from "./Icons";
+import PosterRing from "./PosterRing";
 
-// The poster artwork, used as is, with a slowly turning CSS 3D ring of the same cards laid over the
-// painted band. The upper row shows all the way round (its back is visible above the head in the artwork);
-// the lower row shows its front only, as the hair hides the back of it.
+// Full-bleed poster: the profile cut-out stands in front of the headline while a Three.js ring of
+// posters orbits the head (PosterRing3D). Everything reveals when the section scrolls into view.
 export default function DesignerPoster() {
-  const n = d.ring.length;
-  const half = Math.floor(n / 2);
   return (
-    <section id="design" className="poster" data-reveal="rise" aria-label="Also a multimedia designer">
+    <section id="design" className="poster" data-reveal="rise" aria-labelledby="design-title">
       <div className="poster-inner">
-        <Image src={d.poster.src} alt={d.poster.alt} width={d.poster.width} height={d.poster.height} loading="lazy" sizes="(max-width: 1400px) 100vw, 1400px" className="poster-img" />
-        <div className="poster-ring-wrap" aria-hidden>
-          <ul className="poster-ring" style={{ "--n": n } as React.CSSProperties}>
-            {d.ring.map((card, i) => (
-              <li key={`t${i}`} className="poster-card top" style={{ "--i": i } as React.CSSProperties}>
-                <Image src={card.src} alt="" width={480} height={320} loading="lazy" />
-              </li>
+        <p className="poster-corner tl mono-meta">
+          {d.cornerLeft[0]}
+          <br />
+          {d.cornerLeft[1]}
+        </p>
+        <p className="poster-corner tr mono-meta">
+          {d.cornerRight[0]}
+          <br />
+          {d.cornerRight[1]}
+        </p>
+        <p className="poster-side l mono-meta">{d.sideLeft}</p>
+        <p className="poster-side r mono-meta">{d.sideRight}</p>
+
+        <h2 id="design-title" className="poster-title">
+          <span className="poster-eyebrow">{d.eyebrow}</span>
+          <span className="poster-big">
+            {d.title.map((w) => (
+              <span key={w}>{w}</span>
             ))}
-            {d.ring.map((_, i) => {
-              const card = d.ring[(i + half) % n];
-              return (
-                <li key={`b${i}`} className="poster-card bottom" style={{ "--i": i } as React.CSSProperties}>
-                  <Image src={card.src} alt="" width={480} height={320} loading="lazy" />
-                </li>
-              );
-            })}
-          </ul>
+          </span>
+        </h2>
+
+        <div className="poster-scene">
+          <Image src={d.photo.src} alt={d.photo.alt} width={d.photo.width} height={d.photo.height} loading="lazy" className="poster-photo" />
+          <div className="poster-ring-wrap">
+            <PosterRing images={d.ring} />
+          </div>
         </div>
+
+        <p className="poster-blurb">
+          {d.blurb}{" "}
+          <a href={site.gallery} rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+            See the gallery <ArrowUpRight size={14} />
+          </a>
+        </p>
       </div>
     </section>
   );
