@@ -1,27 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "./Icons";
 
 type Theme = "light" | "dark";
 
-export default function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme | null>(null);
+// The theme lives on <html data-theme>. Subscribe to attribute changes so every toggle stays in sync.
+function subscribe(cb: () => void) {
+  const mo = new MutationObserver(cb);
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => mo.disconnect();
+}
+const getSnapshot = (): Theme => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+const getServerSnapshot = (): Theme => "light";
 
-  useEffect(() => {
-    setTheme((document.documentElement.dataset.theme as Theme) ?? "light");
-  }, []);
+export default function ThemeToggle({ className = "" }: { className?: string }) {
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const dark = theme === "dark";
 
   const toggle = () => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
+    const next: Theme = dark ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
       localStorage.setItem("theme", next);
     } catch {}
-    setTheme(next);
   };
 
-  const dark = theme === "dark";
   return (
     <button
       type="button"

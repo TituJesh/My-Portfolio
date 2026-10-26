@@ -146,6 +146,7 @@
 
 .min-h-screen-dvh { min-height: 100vh; min-height: 100dvh; }
 
+@layer components {
 /* ------------------------------------------------------------------ */
 /* Motion. Only transform and opacity are animated. Everything here    */
 /* is gated on prefers-reduced-motion: no-preference; reduced motion   */
@@ -222,8 +223,8 @@
   .nav-pill { background: var(--bg); }
 }
 .nav-track { position: relative; display: flex; align-items: center; }
-.nav-track::before { content: ""; position: absolute; left: 22px; right: 22px; top: 50%; height: var(--hair); background: var(--line-2); }
-.nav-progress { position: absolute; left: 22px; right: 22px; top: 50%; height: var(--hair); background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.nav-seg { position: relative; z-index: 1; display: block; width: 18px; height: var(--hair); margin: 0 -4px; background: var(--line-2); overflow: hidden; }
+.nav-seg i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
 .nav-highlight { position: absolute; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: var(--radius-pill); background: var(--bg-2); transition: transform var(--t-std) var(--ease); }
 .nav-stage {
   position: relative;
@@ -232,7 +233,7 @@
   align-items: center;
   gap: 7px;
   height: 36px;
-  padding: 0 12px;
+  padding: 0 10px;
   border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 500;
@@ -269,3 +270,5 @@
 
 /* Theme toggle icon swap without layout change */
 .theme-icon { transition: opacity var(--t-micro) var(--ease), transform var(--t-std) var(--ease); }
+
+}

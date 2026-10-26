@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
+<rect width="640" height="400" fill="#e6e2d9"/>
+<g fill="none" stroke="#3b3835" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 6"><circle cx="320" cy="200" r="70"/><circle cx="150" cy="200" r="34"/><circle cx="490" cy="200" r="34"/><path d="M184 200h66M390 200h66"/><path d="M320 130v-30M320 270v30"/></g>
+<text x="24" y="376" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#5c5955">placeholder thumbnail · project-three</text>
+</svg>
