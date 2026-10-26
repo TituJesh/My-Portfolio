@@ -12,8 +12,9 @@ const RADIUS = 1.32;
 const ROW_H = 0.5;
 const ROW_GAP = 0.07;
 const BASE_SPEED = 0.28; // radians per second
-// Positive Z raises the right side of the band, which is the side his face points to, and lowers the back of the head.
-const TILT: [number, number, number] = [0.15, 0, 0.28];
+// Negative X tips the front of the band (the part over the forehead) up and away from the face;
+// positive Z raises the right side, which is the side his face points to.
+const TILT: [number, number, number] = [-0.24, 0, 0.3];
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -227,7 +228,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <group position={[0, 0.62, 0]}>
+          <group position={[0, 0.76, 0]}>
             <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} onHover={setHovering} />
           </group>
         </Suspense>
