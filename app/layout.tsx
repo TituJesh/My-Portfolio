@@ -42,7 +42,7 @@ const personJsonLd = {
   description: site.description,
   url: site.url,
   address: { "@type": "PostalAddress", addressLocality: "Chennai", addressCountry: "IN" },
-  sameAs: Object.values(site.social).filter((s) => !s.startsWith("[")),
+  sameAs: [site.github, site.linkedin, site.instagram, site.gallery],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

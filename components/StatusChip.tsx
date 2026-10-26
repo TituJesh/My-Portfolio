@@ -15,14 +15,12 @@ export default function StatusChip() {
   }, []);
 
   return (
-    <p className="enter mono-meta inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-line-2 px-3 py-1.5" style={{ "--d": "450ms" } as React.CSSProperties}>
+    <p className="mono-meta inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-line-2 px-3 py-1.5">
       <span className="relative inline-grid h-2.5 w-2.5 place-items-center" aria-hidden>
         <span className="pulse-dot absolute inset-0 rounded-full" />
         <span className="relative h-1.5 w-1.5 rounded-full bg-ok" />
       </span>
       <span>{site.region}</span>
-      <span className="text-fg-3">·</span>
-      <span>{site.location.split(",")[0]}</span>
       <span className="text-fg-3">·</span>
       <time suppressHydrationWarning>{time} IST</time>
       <span className="text-fg-3">·</span>

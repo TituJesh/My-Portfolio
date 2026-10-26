@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PipelineNav from "@/components/PipelineNav";
 import Footer from "@/components/Footer";
-import { ArrowLeft } from "@/components/Icons";
+import { ArrowLeft, ArrowUpRight } from "@/components/Icons";
 import { projects } from "@/data/content";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -22,9 +22,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="grid gap-3 border-t border-line py-8 sm:grid-cols-[180px_1fr] sm:gap-6" data-reveal="rise">
-      <h2 className="mono-meta pt-1 text-accent">{label}</h2>
-      <div className="text-[16px] leading-relaxed text-fg-2">{children}</div>
+    <section className="grid border-b border-line sm:grid-cols-[160px_1fr]" data-reveal="rise">
+      <h2 className="mono-meta cell-pad pb-0 text-accent sm:border-r sm:border-line sm:pb-4">{label}</h2>
+      <div className="cell-pad text-[15.5px] leading-relaxed text-fg-2">{children}</div>
     </section>
   );
 }
@@ -37,24 +37,33 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <>
       <PipelineNav home={false} />
-      <main id="main" className="col pt-32 pb-16">
-        <Link href="/#work" className="mono-meta inline-flex items-center gap-2 hover:text-fg">
-          <ArrowLeft size={14} /> Back to work
-        </Link>
-        <header className="mt-8" data-reveal-group>
+      <main id="main" className="frame pt-20">
+        <div className="cell-pad flex items-center justify-between border-b border-line py-3">
+          <Link href="/#work" className="mono-meta inline-flex items-center gap-2 hover:text-fg">
+            <ArrowLeft size={14} /> Back to work
+          </Link>
+          <a href={p.repo} rel="noreferrer" className="mono-meta inline-flex items-center gap-1 hover:text-fg">
+            Repository <ArrowUpRight size={14} />
+          </a>
+        </div>
+        <header className="cell-pad border-b border-line py-8" data-reveal-group>
           <p className="mono-meta" data-reveal="rise">
-            {p.meta}
+            {p.meta} · {p.status}
           </p>
           <h1 className="mt-3 text-[clamp(32px,6vw,52px)] tracking-[-0.03em]" data-reveal="rise">
             {p.title}
           </h1>
-          <p className="mt-4 font-serif italic text-[22px] leading-snug text-fg-2" data-reveal="rise">
+          <p className="mt-3 font-serif italic text-[22px] leading-snug text-fg-2" data-reveal="rise">
             {p.outcome}
           </p>
         </header>
-        <div className="my-10 overflow-hidden rounded-md border border-line" data-reveal="rise">
-          <Image src={p.thumbnail.src} alt={p.thumbnail.alt} width={p.thumbnail.width} height={p.thumbnail.height} priority className="h-auto w-full" />
-        </div>
+        {p.architecture.image?.src !== p.thumbnail.src ? (
+          <div className="border-b border-line p-4 sm:p-5" data-reveal="rise">
+            <div className="overflow-hidden rounded-md border border-line bg-bg-2">
+              <Image src={p.thumbnail.src} alt={p.thumbnail.alt} width={p.thumbnail.width} height={p.thumbnail.height} priority className="h-auto w-full" />
+            </div>
+          </div>
+        ) : null}
 
         <Block label="Problem">
           <p>{p.problem}</p>
@@ -70,9 +79,19 @@ export default async function ProjectPage({ params }: Params) {
           </ul>
         </Block>
         <Block label="Architecture">
-          <div className="grid aspect-[16/9] place-items-center rounded-md border border-dashed border-line-2 text-center">
-            <p className="mono-meta px-6">[PLACEHOLDER: architecture diagram for {p.title}]</p>
-          </div>
+          {p.architecture.image ? (
+            <div className="mb-4 overflow-hidden rounded-md border border-line bg-white">
+              <Image src={p.architecture.image.src} alt={p.architecture.image.alt} width={p.architecture.image.width} height={p.architecture.image.height} className="h-auto w-full" />
+            </div>
+          ) : null}
+          <dl className="grid gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-2">
+            {p.architecture.components.map((c) => (
+              <div key={c.name} className="bg-bg px-3 py-2.5">
+                <dt className="text-[14px] text-fg">{c.name}</dt>
+                <dd className="mono-meta text-fg-3">{c.role}</dd>
+              </div>
+            ))}
+          </dl>
         </Block>
         <Block label="Result">
           <p>{p.result}</p>

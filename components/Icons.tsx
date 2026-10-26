@@ -87,3 +87,27 @@ export const XLogo = (p: Props) => (
     <path d="M4 4l16 16M20 4L4 20" />
   </Base>
 );
+export const MapPin = (p: Props) => (
+  <Base {...p}>
+    <path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z" />
+    <circle cx="12" cy="10" r="2.2" />
+  </Base>
+);
+export const Terminal = (p: Props) => (
+  <Base {...p}>
+    <path d="M4 17l6-5-6-5M12 19h8" />
+  </Base>
+);
+export const Palette = (p: Props) => (
+  <Base {...p}>
+    <path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.8 2-1.7 0-.9-.6-1.3-.6-2.2 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.7-4-8.5-9-8.5z" />
+    <circle cx="7.5" cy="11" r="1" /><circle cx="10.5" cy="7.5" r="1" /><circle cx="15" cy="7.5" r="1" />
+  </Base>
+);
+export const Instagram = (p: Props) => (
+  <Base {...p}>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" />
+  </Base>
+);

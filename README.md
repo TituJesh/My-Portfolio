@@ -1,6 +1,6 @@
 # Titu Jeshurun — portfolio
 
-A calm, centered portfolio for a designer and cloud engineer. Next.js (App Router), TypeScript, Tailwind CSS v4. Motion is CSS plus a little requestAnimationFrame; there is no animation library.
+A calm, centered portfolio for a designer and cloud engineer, laid out on a ruled 768px frame with hatched bands between numbered sections. Next.js (App Router), TypeScript, Tailwind CSS v4. Motion is CSS plus a little requestAnimationFrame; there is no animation library.
 
 ## Run
 
@@ -14,11 +14,11 @@ npm run typecheck
 
 ## Edit content
 
-Everything editable lives in `data/content.ts`: name, tagline, region, email, calendar link, social links, bio lines, the Design / Cloud columns, projects (with their detail-page copy), stack groups, notes and footer text. Anything wrapped in square brackets is a placeholder.
+Everything editable lives in `data/content.ts`: name, tagline, region, email, social links, bio lines, the Design / Cloud columns, projects (with their detail-page copy and architecture components), stack groups, the experience log, certifications and footer text. The content was filled from the GitHub profile README, the CloudExpire, Acedra and Self-Healing repositories, and the resume.
 
-- Avatar: set `site.photo` to a square image in `public/` (for example `/photo.jpg`). Until then the initials show.
-- Project thumbnails: replace the SVGs in `public/work/` and update `thumbnail` in each project (keep `width` and `height` accurate so there is no layout shift).
-- Notes: each entry gets a page at `/notes/<slug>`; the body text is in `app/notes/[slug]/page.tsx`.
+- Avatar: `site.photo` points at `public/photo-github.jpg` (the GitHub avatar). Swap the file to change it; initials show if it is set to `null`.
+- Project thumbnails live in `public/work/`. Keep `width` and `height` accurate so there is no layout shift.
+- The GitHub contribution graph is fetched on the client from github-contributions-api.jogruber.de for `site.githubHandle` and hides itself if the request fails.
 
 ## Design tokens
 
@@ -50,5 +50,5 @@ Set `site.url` in `data/content.ts` to the production domain first; it feeds the
 ## Structure
 
 - `app/` routes, `globals.css` (tokens and motion), OG and Twitter images, `sitemap.ts`, `robots.ts`, icons.
-- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroLines`, `StatusChip`, `ScrollHint`, `Section`, `WorkList`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
+- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroLines`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
 - `data/content.ts` all copy and links.

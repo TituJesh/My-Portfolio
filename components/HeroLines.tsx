@@ -5,17 +5,17 @@ import { useEffect, useRef } from "react";
 // Dashed lines from four labeled nodes toward the name. Lines draw in on load (CSS),
 // then march slowly. On fine pointers the nodes drift a few pixels with eased lerp.
 const nodes = [
-  { id: "vpc", label: "VPC", x: 60, y: 44, k: 0.018 },
-  { id: "cdn", label: "CDN", x: 660, y: 44, k: -0.016 },
-  { id: "iac", label: "IaC", x: 60, y: 236, k: 0.014 },
-  { id: "ui", label: "UI / UX", x: 660, y: 236, k: -0.02 },
+  { id: "vpc", label: "VPC", x: 70, y: 46, k: 0.018, w: 64 },
+  { id: "cdn", label: "CDN", x: 650, y: 46, k: -0.016, w: 64 },
+  { id: "iac", label: "IaC", x: 70, y: 234, k: 0.014, w: 64 },
+  { id: "ui", label: "UI / UX", x: 650, y: 234, k: -0.02, w: 82 },
 ];
 
 const paths: Record<string, string> = {
-  vpc: "M 96 44 C 200 44, 240 120, 330 128",
-  cdn: "M 624 44 C 520 44, 480 120, 390 128",
-  iac: "M 96 236 C 200 236, 240 160, 330 152",
-  ui: "M 606 236 C 520 236, 480 160, 390 152",
+  vpc: "M 102 46 C 200 46, 240 118, 318 128",
+  cdn: "M 618 46 C 520 46, 480 118, 402 128",
+  iac: "M 102 234 C 200 234, 240 162, 318 152",
+  ui: "M 609 234 C 520 234, 480 162, 402 152",
 };
 
 export default function HeroLines() {
@@ -24,8 +24,7 @@ export default function HeroLines() {
   useEffect(() => {
     const svg = ref.current;
     if (!svg) return;
-    if (!window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
-
+    const mq = window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)");
     const groups = nodes.map((n) => svg.querySelector<SVGGElement>(`[data-node="${n.id}"]`));
     const target = { x: 0, y: 0 };
     const cur = { x: 0, y: 0 };
@@ -49,11 +48,10 @@ export default function HeroLines() {
       raf = requestAnimationFrame(frame);
     };
     const onMove = (e: PointerEvent) => {
+      if (!mq.matches || e.pointerType === "touch") return;
       const r = svg.getBoundingClientRect();
-      const dx = e.clientX - (r.left + r.width / 2);
-      const dy = e.clientY - (r.top + r.height / 2);
-      target.x = Math.max(-320, Math.min(320, dx));
-      target.y = Math.max(-320, Math.min(320, dy));
+      target.x = Math.max(-320, Math.min(320, e.clientX - (r.left + r.width / 2)));
+      target.y = Math.max(-320, Math.min(320, e.clientY - (r.top + r.height / 2)));
       start();
     };
     const onLeave = () => {
@@ -79,18 +77,12 @@ export default function HeroLines() {
   }, []);
 
   return (
-    <svg ref={ref} className="pointer-events-none absolute inset-x-0 top-1/2 w-full -translate-y-1/2" viewBox="0 0 720 280" fill="none" aria-hidden>
+    <svg ref={ref} className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden>
       {nodes.map((n) => (
-        <g
-          key={n.id}
-          data-node={n.id}
-          // The lower pair would sit on top of the name on narrow screens, so they only appear from sm up.
-          className={`hero-node ${n.y > 140 ? "hidden sm:block" : ""}`}
-          style={{ transformBox: "fill-box", transformOrigin: "center" }}
-        >
+        <g key={n.id} data-node={n.id} className={`hero-node ${n.y > 140 ? "hidden sm:block" : ""}`} style={{ transformBox: "fill-box", transformOrigin: "center" }}>
           <path d={paths[n.id]} className="hero-line" stroke="var(--line-2)" strokeWidth="1" strokeLinecap="round" />
-          <rect x={n.x - 36} y={n.y - 13} width={n.label.length > 3 ? 86 : 72} height="26" rx="13" fill="var(--bg)" stroke="var(--line-2)" />
-          <text x={n.x + (n.label.length > 3 ? 7 : 0)} y={n.y + 4} textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="11" fill="var(--fg-2)">
+          <rect x={n.x - n.w / 2} y={n.y - 13} width={n.w} height="26" rx="13" fill="var(--bg)" stroke="var(--line-2)" />
+          <text x={n.x} y={n.y + 4} textAnchor="middle" fontFamily="var(--font-mono), monospace" fontSize="11" fill="var(--fg-2)">
             {n.label}
           </text>
         </g>

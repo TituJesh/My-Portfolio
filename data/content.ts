@@ -1,26 +1,27 @@
-// All editable content lives here. Anything in square brackets is a placeholder to fill in.
+// All editable content lives here. Sources: github.com/TituJesh (profile README and repositories) and Titu's resume.
 
 export const site = {
   name: "Titu Jeshurun",
+  fullName: "Titu Jeshurun B",
   initials: "TJ",
   role: "Designer + Cloud Engineer",
   tagline: "Designs it. Deploys it.",
-  description: "Titu Jeshurun is a designer and cloud engineer in Chennai, India. UI/UX craft and cloud infrastructure, treated as equals.",
-  // PLACEHOLDER: set the production domain before deploying (used for canonical URL, sitemap and Open Graph).
-  url: "https://example.com",
+  description:
+    "Titu Jeshurun is a cloud engineer and multimedia designer in Chennai, India. AWS, Terraform, Docker and GitHub Actions by day; posters, reels and logos for short films and symposiums by night.",
+  // Set this to the production domain before deploying (canonical URL, sitemap and Open Graph use it).
+  url: "https://titujeshurun.vercel.app",
   location: "Chennai, India",
   region: "ap-south-1",
   timeZone: "Asia/Kolkata",
-  // PLACEHOLDER: real contact details.
-  email: "[your-email@example.com]",
-  calendarUrl: "[https://cal.com/your-handle]",
-  photo: null as string | null, // PLACEHOLDER: "/photo.jpg" (square, 400x400 or larger). Initials show until set.
-  social: {
-    github: "[https://github.com/your-handle]",
-    linkedin: "[https://linkedin.com/in/your-handle]",
-    x: "[https://x.com/your-handle]",
-  },
-  deployHost: "[host]", // PLACEHOLDER: e.g. "Vercel" or "Cloudflare Pages"
+  email: "titujesh@gmail.com",
+  photo: "/photo-github.jpg",
+  github: "https://github.com/TituJesh",
+  githubHandle: "TituJesh",
+  linkedin: "https://www.linkedin.com/in/titu-jeshurun",
+  instagram: "https://instagram.com/titu_jeshurun",
+  gallery: "https://titujeshurun-portfolio.vercel.app",
+  availability: "Open to cloud, DevOps and platform roles",
+  deployHost: "Vercel",
   version: "v1.0.0",
   year: 2026,
 };
@@ -30,84 +31,182 @@ export const stages = [
   { id: "index", label: "Index", short: "Index" },
   { id: "work", label: "Work", short: "Work" },
   { id: "stack", label: "Stack", short: "Stack" },
-  { id: "notes", label: "Notes", short: "Notes" },
+  { id: "log", label: "Log", short: "Log" },
   { id: "contact", label: "Contact", short: "Contact" },
 ] as const;
 
 export type StageId = (typeof stages)[number]["id"];
 
 export const bio = [
-  "[PLACEHOLDER bio, line 1: who you are and what you care about.]",
-  "[PLACEHOLDER bio, line 2: the kind of work you do best.]",
-  "[PLACEHOLDER bio, line 3: what you are looking for next.]",
+  "I'm Titu, a cloud engineer from Chennai. I work mostly on AWS, writing infrastructure in Terraform, packaging services with Docker and shipping them through GitHub Actions.",
+  "I like systems that are small, well documented and easy to rebuild, and I spend a lot of my time making sure the things I run are secure, cost-aware and tested on every push.",
+  "The other half of me designs: five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
 ];
 
 export const identities = [
   {
     title: "Design",
-    lead: "Interfaces people can read at a glance.",
-    points: ["[Placeholder: a design strength]", "[Placeholder: a design strength]", "[Placeholder: a design strength]"],
+    lead: "Posters that get the first look.",
+    points: [
+      "Short-film posters, thumbnails and first-look reveals for Chickums TV and independent directors.",
+      "Event identity for Synexzia '25: name reveal, posters, promo reels and a 3D logo.",
+      "Ten-plus motion pieces cut in After Effects and Premiere Pro.",
+    ],
   },
   {
     title: "Cloud",
     lead: "Infrastructure that is small, documented and rebuildable.",
-    points: ["[Placeholder: a cloud strength]", "[Placeholder: a cloud strength]", "[Placeholder: a cloud strength]"],
+    points: [
+      "Temporary EC2 with an expiry, enforced by Lambda, DynamoDB and EventBridge (CloudExpire).",
+      "FastAPI on PostgreSQL 16 with JWT roles, an S3 document vault and secrets kept out of the code (Acedra).",
+      "Terraform fmt, validate and plan plus pytest on every push through GitHub Actions.",
+    ],
   },
 ];
 
 export type Project = {
   slug: string;
   title: string;
-  meta: string; // mono metadata line, e.g. "AWS · Terraform · UI/UX"
-  outcome: string; // one line
+  meta: string;
+  outcome: string;
+  status: string;
   thumbnail: { src: string; width: number; height: number; alt: string };
+  repo: string;
   problem: string;
   decisions: string[];
+  architecture: { image?: { src: string; width: number; height: number; alt: string }; components: { name: string; role: string }[] };
   result: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: "project-one",
-    title: "[Project one title]",
-    meta: "AWS · Terraform · UI/UX",
-    outcome: "[One-line outcome for project one.]",
-    thumbnail: { src: "/work/project-one.svg", width: 640, height: 400, alt: "Placeholder thumbnail for project one" },
-    problem: "[PLACEHOLDER: the problem this project set out to solve, in two or three sentences.]",
-    decisions: ["[Placeholder design decision]", "[Placeholder design decision]", "[Placeholder infrastructure decision]"],
-    result: "[PLACEHOLDER: what shipped and what changed because of it. No invented metrics.]",
+    slug: "cloudexpire",
+    title: "CloudExpire",
+    meta: "AWS · Terraform · FastAPI · Lambda",
+    outcome: "Temporary AWS resources that clean up after themselves.",
+    status: "Serverless · open source",
+    thumbnail: { src: "/work/cloudexpire-arch.webp", width: 1000, height: 511, alt: "CloudExpire AWS architecture: GitHub Actions and Terraform on top, Lambda, DynamoDB, EventBridge and EC2 inside the AWS cloud" },
+    repo: "https://github.com/TituJesh/CloudExpire",
+    problem:
+      "Temporary cloud environments outlive their purpose, creating unnecessary cost and a wider security surface. CloudExpire provisions EC2 instances with a time to live of 1 to 24 hours, tracks their expiry and cleans up eligible resources automatically.",
+    decisions: [
+      "A FastAPI application behind API Gateway and Lambda handles requests; DynamoDB stores creation and expiry timestamps with the resource metadata.",
+      "EventBridge invokes a separate cleanup Lambda every five minutes. Cleanup evaluates expiry timestamps itself instead of relying on DynamoDB TTL deletion.",
+      "Ownership tags (Project, ManagedBy, ResourceId) are validated before any termination; destructive actions stay disabled unless enabled deliberately, and a read-only cleanup mode exists.",
+      "Resource states are reconciled through REQUESTED, ACTIVE, CLEANUP_PENDING, CLEANED and FAILED; stale requests without an instance are marked FAILED after a grace period.",
+      "All infrastructure is Terraform; the cleanup role uses scoped IAM permissions with tag-based conditions, DynamoDB is on-demand and log groups keep 14 days.",
+    ],
+    architecture: {
+      image: { src: "/work/cloudexpire-arch.webp", width: 1000, height: 511, alt: "CloudExpire architecture diagram" },
+      components: [
+        { name: "API Gateway + Lambda", role: "Runs the FastAPI application" },
+        { name: "DynamoDB", role: "Resource metadata and expiry timestamps" },
+        { name: "EventBridge", role: "Triggers cleanup every five minutes" },
+        { name: "Cleanup Lambda", role: "Evaluates expiry, validates tags, terminates EC2" },
+        { name: "Parameter Store", role: "API bearer token as a SecureString" },
+        { name: "CloudWatch", role: "Structured execution summaries, 14-day retention" },
+      ],
+    },
+    result: "Twenty-four unit and integration tests run on every push in GitHub Actions. Cleanup runs on a five-minute schedule and never terminates an instance that is not tagged as CloudExpire's own.",
   },
   {
-    slug: "project-two",
-    title: "[Project two title]",
-    meta: "Docker · GitHub Actions · Design system",
-    outcome: "[One-line outcome for project two.]",
-    thumbnail: { src: "/work/project-two.svg", width: 640, height: 400, alt: "Placeholder thumbnail for project two" },
-    problem: "[PLACEHOLDER: the problem this project set out to solve.]",
-    decisions: ["[Placeholder design decision]", "[Placeholder infrastructure decision]"],
-    result: "[PLACEHOLDER: result.]",
+    slug: "acedra",
+    title: "Acedra",
+    meta: "FastAPI · PostgreSQL · S3 · Docker",
+    outcome: "A cloud-native student information and document vault for institutions.",
+    status: "Backend · containerised",
+    thumbnail: { src: "/work/acedra.webp", width: 640, height: 400, alt: "Acedra logo" },
+    repo: "https://github.com/TituJesh/Acedra",
+    problem:
+      "Academic institutions need student records and documents kept strictly apart by role, with secrets out of the codebase. Acedra is a REST backend for student information and document management built for departments and faculties.",
+    decisions: [
+      "Modular FastAPI routes for authentication, students, departments and documents, with OpenAPI docs generated at /docs.",
+      "PostgreSQL 16 through SQLAlchemy 2.0 with reversible Alembic migrations; a one-to-one user to student profile and departments that own students.",
+      "JWT (HS256) authentication with bcrypt hashing and strict admin versus student role separation to prevent cross-tenant access.",
+      "Documents stream to a private S3 bucket and are served through 300-second presigned URLs only.",
+      "Dual-mode configuration: a local .env for development and AWS Secrets Manager in production, so nothing sensitive is hardcoded.",
+    ],
+    architecture: {
+      components: [
+        { name: "FastAPI on Uvicorn", role: "Async REST gateway with OAuth2 and RBAC" },
+        { name: "PostgreSQL 16", role: "Users, students, departments, documents" },
+        { name: "Amazon S3", role: "Private document vault, presigned downloads" },
+        { name: "AWS Secrets Manager", role: "Production configuration and keys" },
+        { name: "Docker + Amazon ECR", role: "Container image build and registry" },
+        { name: "GitHub Actions (OIDC) + Terraform", role: "CI and infrastructure" },
+      ],
+    },
+    result: "Student and admin data are kept strictly apart, every document URL expires in five minutes, and the schema can be migrated forward and back without manual SQL.",
   },
   {
-    slug: "project-three",
-    title: "[Project three title]",
-    meta: "PostgreSQL · FastAPI · Prototyping",
-    outcome: "[One-line outcome for project three.]",
-    thumbnail: { src: "/work/project-three.svg", width: 640, height: 400, alt: "Placeholder thumbnail for project three" },
-    problem: "[PLACEHOLDER: the problem this project set out to solve.]",
-    decisions: ["[Placeholder design decision]", "[Placeholder infrastructure decision]"],
-    result: "[PLACEHOLDER: result.]",
+    slug: "self-healing-cloud",
+    title: "Self-Healing Cloud Infra",
+    meta: "Java 21 · Spring Boot · Linux",
+    outcome: "Monitor, detect, decide, recover: a control loop for a Linux host.",
+    status: "Team project · prototype",
+    thumbnail: { src: "/work/selfheal.svg", width: 640, height: 400, alt: "Diagram of the monitor, detect, decide, recover loop" },
+    repo: "https://github.com/DevForgeCore/Self-Healing-Cloud-Infrastructure",
+    problem:
+      "When a host runs out of CPU, memory or disk, someone has to notice and act. This educational prototype watches a Linux host, classifies resource trouble and runs a predefined recovery action without waiting for a human, while keeping a tamper-evident record of what it did.",
+    decisions: [
+      "Live CPU, memory and disk metrics with threshold-based detection of overload conditions.",
+      "A decision engine maps each classified issue to a predefined recovery action rather than free-form automation.",
+      "Every event is appended to a hash-chained log so the recovery history cannot be quietly edited afterwards.",
+      "A dashboard shows resource history, process details and recovery logs.",
+    ],
+    architecture: {
+      components: [
+        { name: "Monitor", role: "Collects CPU, memory and disk metrics" },
+        { name: "Detector", role: "Threshold rules classify the problem" },
+        { name: "Decision engine", role: "Maps issue class to a recovery action" },
+        { name: "Recovery executor", role: "Runs the action on the Linux host" },
+        { name: "Hash-chain log", role: "Tamper-evident event record" },
+        { name: "Dashboard", role: "Spring Boot UI with Chart.js history" },
+      ],
+    },
+    result: "A working monitor-detect-decide-recover loop with a verifiable log, built with a team under the DevForgeCore organisation. It is a prototype for learning, not a production agent.",
   },
 ];
 
 export const stack: { group: string; items: string[] }[] = [
-  { group: "Design tools", items: ["Figma", "Photoshop", "Illustrator", "After Effects"] },
-  { group: "Cloud and DevOps", items: ["AWS", "Terraform", "Docker", "GitHub Actions", "Linux"] },
-  { group: "Languages", items: ["TypeScript", "Python", "SQL"] },
-  { group: "Tooling", items: ["Git", "VS Code", "Postman"] },
+  { group: "Cloud (AWS)", items: ["Lambda", "EC2", "S3", "DynamoDB", "EventBridge", "Secrets Manager", "ECR", "CloudWatch", "IAM", "VPC"] },
+  { group: "Infra and delivery", items: ["Terraform", "Docker", "GitHub Actions", "Linux", "Git"] },
+  { group: "Backend", items: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "pytest", "Java 21", "Spring Boot", "TypeScript"] },
+  { group: "Design tools", items: ["Photoshop", "Illustrator", "After Effects", "Premiere Pro", "Lightroom"] },
 ];
 
-export const notes = [
-  { slug: "note-one", title: "[Placeholder note title]", date: "2026-01-15", readTime: "4 min" },
-  { slug: "note-two", title: "[Placeholder note title]", date: "2025-11-02", readTime: "6 min" },
-  { slug: "note-three", title: "[Placeholder note title]", date: "2025-08-20", readTime: "3 min" },
+export type Entry = { when: string; title: string; where: string; bullets: string[] };
+
+export const log: Entry[] = [
+  {
+    when: "Jun to Jul 2025",
+    title: "Java intern",
+    where: "Big Bucks Innovation Pvt. Ltd., hybrid",
+    bullets: ["Java application development and database programming in a team of five or more.", "Sprint planning, daily stand-ups, debugging and code maintenance."],
+  },
+  {
+    when: "2025",
+    title: "Chief editor, Synexzia '25",
+    where: "College technical symposium",
+    bullets: ["Coordinated the technical content and supported event activities.", "Designed the event identity: name reveal, posters, promo reels and logo."],
+  },
+  {
+    when: "2021 to present",
+    title: "Freelance multimedia designer",
+    where: "Short films, events, brands",
+    bullets: ["Short-film posters, thumbnails and first-look reveals.", "More than ten motion graphics videos, intros and reels."],
+  },
+  {
+    when: "2022 to 2026",
+    title: "B.Tech, Information Technology",
+    where: "Agni College of Technology, Chennai",
+    bullets: ["CGPA 7.98 / 10."],
+  },
+];
+
+export const certifications = [
+  { name: "AWS Cloud Practitioner Essentials", issuer: "AWS Skill Builder" },
+  { name: "The Joy of Computing Using Python", issuer: "NPTEL" },
+  { name: "Programming in Java", issuer: "NPTEL" },
+  { name: "Object-Oriented Programming in Java", issuer: "Great Learning" },
 ];

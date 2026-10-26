@@ -1,37 +1,34 @@
-import Link from "next/link";
 import PipelineNav from "@/components/PipelineNav";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
-import WorkList from "@/components/WorkList";
+import WorkGrid from "@/components/WorkGrid";
 import Footer from "@/components/Footer";
-import { Calendar, GitHub, LinkedIn, Mail, XLogo } from "@/components/Icons";
-import { bio, identities, notes, projects, site, stack } from "@/data/content";
-
-const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+import { Calendar, GitHub, Instagram, LinkedIn, Mail } from "@/components/Icons";
+import { bio, certifications, identities, log, projects, site, stack } from "@/data/content";
 
 export default function Page() {
   return (
     <>
       <PipelineNav />
-      <main id="main">
+      <main id="main" className="frame">
         <Hero />
 
         <Section id="index" number="01" title="Index">
-          <div className="flex flex-col gap-1 text-[17px] leading-relaxed" data-reveal-group>
+          <div className="cell-pad flex flex-col gap-3 border-b border-line text-[16px] leading-relaxed" data-reveal-group>
             {bio.map((line, i) => (
               <p key={i} data-reveal="rise">
                 {line}
               </p>
             ))}
           </div>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2" data-reveal-group>
-            {identities.map((it) => (
-              <div key={it.title} className="flex flex-col gap-3" data-reveal="rise">
-                <h3 className="text-[18px]">{it.title}</h3>
+          <div className="grid sm:grid-cols-2" data-reveal-group>
+            {identities.map((it, i) => (
+              <div key={it.title} className={`cell-pad flex flex-col gap-3 border-b border-line ${i === 0 ? "sm:border-r" : ""}`} data-reveal="rise">
+                <h3 className="text-[17px]">{it.title}</h3>
                 <p className="font-serif italic text-[20px] leading-snug text-fg-2">{it.lead}</p>
-                <ul className="mt-1 flex flex-col gap-1.5 text-[15px] text-fg-2">
-                  {it.points.map((pt, i) => (
-                    <li key={i} className="flex gap-3">
+                <ul className="mt-1 flex flex-col gap-2 text-[14.5px] text-fg-2">
+                  {it.points.map((pt, k) => (
+                    <li key={k} className="flex gap-3">
                       <span className="mt-[11px] h-px w-3 shrink-0 bg-line-2" aria-hidden />
                       {pt}
                     </li>
@@ -42,16 +39,16 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="work" number="02" title="Work">
-          <WorkList projects={projects} />
+        <Section id="work" number="02" title="Work" count={projects.length}>
+          <WorkGrid projects={projects} />
         </Section>
 
         <Section id="stack" number="03" title="Stack">
-          <dl className="flex flex-col divide-y divide-line border-y border-line" data-reveal-group>
-            {stack.map((g) => (
-              <div key={g.group} className="grid gap-2 py-4 sm:grid-cols-[180px_1fr] sm:gap-6" data-reveal="rise">
-                <dt className="mono-meta pt-1">{g.group}</dt>
-                <dd className="flex flex-wrap gap-x-5 gap-y-1 text-[15px]">
+          <dl className="grid sm:grid-cols-2" data-reveal-group>
+            {stack.map((g, i) => (
+              <div key={g.group} className={`cell-pad flex flex-col gap-2 border-b border-line ${i % 2 === 0 ? "sm:border-r" : ""}`} data-reveal="rise">
+                <dt className="mono-meta">{g.group}</dt>
+                <dd className="flex flex-wrap gap-x-4 gap-y-1 text-[14.5px]">
                   {g.items.map((t) => (
                     <span key={t}>{t}</span>
                   ))}
@@ -61,50 +58,66 @@ export default function Page() {
           </dl>
         </Section>
 
-        <Section id="notes" number="04" title="Notes">
-          <ul className="flex flex-col divide-y divide-line border-y border-line" data-reveal-group>
-            {notes.map((n) => (
-              <li key={n.slug} data-reveal="rise">
-                <Link href={`/notes/${n.slug}`} className="group flex items-baseline justify-between gap-4 py-4">
-                  <span className="text-[16px] group-hover:text-accent">{n.title}</span>
-                  <span className="mono-meta flex shrink-0 gap-3">
-                    <time dateTime={n.date}>{dateFmt.format(new Date(n.date))}</time>
-                    <span className="text-fg-3">{n.readTime}</span>
-                  </span>
-                </Link>
+        <Section id="log" number="04" title="Log">
+          <ol data-reveal-group>
+            {log.map((e) => (
+              <li key={e.title} className="grid border-b border-line sm:grid-cols-[150px_1fr]" data-reveal="rise">
+                <span className="mono-meta cell-pad pb-0 text-accent sm:border-r sm:border-line sm:pb-4">{e.when}</span>
+                <div className="cell-pad">
+                  <h3 className="text-[16px]">{e.title}</h3>
+                  <p className="text-[13.5px] text-fg-2">{e.where}</p>
+                  <ul className="mt-2 flex flex-col gap-1 text-[14px] text-fg-2">
+                    {e.bullets.map((b, k) => (
+                      <li key={k} className="flex gap-3">
+                        <span className="mt-[10px] h-px w-3 shrink-0 bg-line-2" aria-hidden />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mono-meta cell-pad border-b border-line py-2">Certifications</p>
+          <ul className="grid sm:grid-cols-2" data-reveal-group>
+            {certifications.map((c, i) => (
+              <li key={c.name} className={`cell-pad flex flex-col gap-0.5 border-b border-line ${i % 2 === 0 ? "sm:border-r" : ""}`} data-reveal="rise">
+                <span className="text-[14px]">{c.name}</span>
+                <span className="mono-meta text-fg-3">{c.issuer}</span>
               </li>
             ))}
           </ul>
         </Section>
 
         <Section id="contact" number="05" title="Contact">
-          <h3 className="font-serif italic text-[clamp(30px,6vw,52px)] leading-[1.05] text-fg" data-reveal="rise">
-            Let&rsquo;s build something that ships.
-          </h3>
-          <div className="mt-8 flex flex-wrap gap-3" data-reveal-group>
-            <a className="pill-btn" data-variant="solid" href={`mailto:${site.email}`} data-reveal="rise">
-              <Mail /> {site.email}
-            </a>
-            <a className="pill-btn" href={site.calendarUrl} data-reveal="rise">
-              <Calendar /> Book a call
-            </a>
+          <div className="cell-pad border-b border-line py-10">
+            <h3 className="font-serif italic text-[clamp(30px,6vw,52px)] leading-[1.05]" data-reveal="rise">
+              Let&rsquo;s build something that ships.
+            </h3>
+            <p className="mt-4 max-w-[46ch] text-[15px] text-fg-2" data-reveal="rise">
+              {site.availability}. Cloud and DevOps work, a poster for your film, or a conversation.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3" data-reveal-group>
+              <a className="pill-btn" data-variant="solid" href={`mailto:${site.email}`} data-reveal="rise">
+                <Mail /> {site.email}
+              </a>
+              <a className="pill-btn" href={site.linkedin} rel="me noreferrer" data-reveal="rise">
+                <Calendar /> Reach out on LinkedIn
+              </a>
+            </div>
           </div>
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[14px]" data-reveal-group>
-            <li data-reveal="rise">
-              <a className="inline-flex items-center gap-2 text-fg-2 hover:text-fg" href={site.social.github} rel="me noreferrer">
-                <GitHub /> GitHub
-              </a>
-            </li>
-            <li data-reveal="rise">
-              <a className="inline-flex items-center gap-2 text-fg-2 hover:text-fg" href={site.social.linkedin} rel="me noreferrer">
-                <LinkedIn /> LinkedIn
-              </a>
-            </li>
-            <li data-reveal="rise">
-              <a className="inline-flex items-center gap-2 text-fg-2 hover:text-fg" href={site.social.x} rel="me noreferrer">
-                <XLogo /> X
-              </a>
-            </li>
+          <ul className="grid grid-cols-3" data-reveal-group>
+            {[
+              { href: site.github, label: "GitHub", Icon: GitHub },
+              { href: site.linkedin, label: "LinkedIn", Icon: LinkedIn },
+              { href: site.instagram, label: "Instagram", Icon: Instagram },
+            ].map(({ href, label, Icon }, i) => (
+              <li key={label} className={`${i < 2 ? "border-r border-line" : ""}`} data-reveal="rise">
+                <a href={href} rel="me noreferrer" className="cell-pad flex items-center justify-center gap-2 text-[14px] transition-colors hover:bg-bg-2">
+                  <Icon className="text-fg-3" /> {label}
+                </a>
+              </li>
+            ))}
           </ul>
         </Section>
       </main>
