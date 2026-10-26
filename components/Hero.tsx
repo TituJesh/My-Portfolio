@@ -34,11 +34,9 @@ export default function Hero() {
           </span>
           <div className="enter relative h-24 w-24 rounded-full border border-line-2 p-1 sm:h-[120px] sm:w-[120px]" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
-            {/* Ink sketch avatar on paper, the same in both themes, with eyelids that blink */}
+            {/* Ink sketch avatar on paper, the same in both themes */}
             <div className="avatar relative h-full w-full overflow-hidden rounded-full bg-[#f1efe9]">
               <Image src={site.photo} alt={`Ink sketch of ${site.fullName}`} width={640} height={640} priority className="avatar-ink h-full w-full" />
-              <span className="lid lid-l" aria-hidden />
-              <span className="lid lid-r" aria-hidden />
             </div>
           </div>
         </div>

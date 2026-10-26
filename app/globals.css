@@ -174,13 +174,8 @@
 
   .hero-canvas { height: clamp(260px, 38vw, 320px); }
 
-  /* avatar: ink on paper, the same in both themes; eyelids are drawn in the paper colour so the eyes close.
-     Lid boxes are measured on the avatar crop (head centred, face to shoulders): the viewer's left eye
-     spans 38–49% x, 45.5–50% y; the right eye 55–63.5% x, 40.5–45% y. Both slant up to the right. */
+  /* avatar: ink on paper, the same in both themes */
   .avatar-ink { position: absolute; inset: 0; }
-  .lid { position: absolute; background: #f1efe9; border-radius: 50% 50% 45% 45%; border-bottom: 1.5px solid #151412; transform: rotate(var(--tilt)) scaleY(0); transform-origin: 50% 0; pointer-events: none; }
-  .lid-l { --tilt: -12deg; left: 37%; top: 44.5%; width: 13%; height: 6%; }
-  .lid-r { --tilt: -10deg; left: 54.5%; top: 39.5%; width: 10.5%; height: 5.5%; }
 
   /* ---------- contributions ---------- */
   .contrib { display: grid; grid-auto-rows: auto; gap: 3px; min-width: 560px; }
@@ -219,10 +214,6 @@
 
     .spin { animation: spin 1.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .lid { animation: blink 5.2s ease-in-out infinite; }
-    .lid-r { animation-delay: 30ms; }
-    @keyframes blink { 0%, 90%, 100% { transform: rotate(var(--tilt)) scaleY(0); } 93%, 95% { transform: rotate(var(--tilt)) scaleY(1); } }
 
     .work-thumb img { transition: transform var(--t-std) var(--ease); }
     .work-card:hover .work-thumb img { transform: scale(1.03); }
