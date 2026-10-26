@@ -180,41 +180,10 @@
   .avatar { background: var(--avatar-bg); }
   .avatar-ink { position: absolute; inset: 0; }
 
-  /* ---------- designer poster: fixed artwork, identical in both themes ---------- */
-  /* Sizes use cqw (1% of the poster width) so the layout scales like an image. */
-  .poster { --paper: #f3f3f1; --red: #ff3b00; position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid rgba(0, 0, 0, 0.08); background: var(--paper); color: var(--red); overflow: hidden; }
-  .poster::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.09; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
-  .poster-inner { position: relative; container-type: inline-size; max-width: 1400px; margin-inline: auto; aspect-ratio: 2000 / 1495; font-family: var(--font-sans); }
-  .poster-corner { position: absolute; top: 4.2cqw; margin: 0; font-size: 1.05cqw; line-height: 1.35; font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; color: var(--red); }
-  .poster-corner.tl { left: 5cqw; text-align: left; }
-  .poster-corner.tr { right: 5cqw; text-align: right; }
-  .poster-side { position: absolute; top: 50%; margin: 0; font-size: 1cqw; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); white-space: nowrap; }
-  .poster-side.l { left: 5.4cqw; transform: translate(-50%, -50%) rotate(-90deg); }
-  .poster-side.r { right: 5.4cqw; transform: translate(50%, -50%) rotate(90deg); }
-  .poster-title { position: absolute; left: 10cqw; right: 10cqw; top: 42cqw; margin: 0; display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; z-index: 1; }
-  .poster-eyebrow { font-size: 5.8cqw; line-height: 1; font-weight: 500; letter-spacing: -0.02em; text-transform: uppercase; color: var(--red); margin-left: 0.2cqw; filter: blur(0.08cqw); }
-  .poster-big { display: block; width: 100%; font-size: 8.75cqw; line-height: 0.95; font-weight: 500; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; color: var(--red); filter: blur(0.22cqw); }
-  /* Scene: the cut-out photo at the foot of the poster with the ring canvas laid over it. The canvas
-     is transparent and a depth-only cylinder in the scene hides the back of the ring where the head is. */
-  .poster-scene { position: absolute; left: 15cqw; bottom: 0; width: 70cqw; z-index: 2; }
-  .poster-photo { position: relative; width: 100%; height: auto; filter: grayscale(1) contrast(1.2); }
-  .poster-ring-wrap { position: absolute; inset: -25% 0 0 0; pointer-events: none; }
-  .poster-canvas { position: absolute; inset: 0; pointer-events: auto; touch-action: pan-y; }
-  .poster-canvas canvas { display: block; width: 100% !important; height: 100% !important; }
-  .poster-blurb { position: absolute; left: 20cqw; width: 60cqw; bottom: 3.6cqw; margin: 0; z-index: 3; text-align: center; font-size: 1.35cqw; line-height: 1.4; font-weight: 500; color: var(--red); }
-  .poster-blurb-lead { display: block; font-size: 1.5cqw; }
-
-  @media (max-width: 720px) {
-    .poster-inner { aspect-ratio: 1 / 1.15; }
-    .poster-corner { font-size: 2.4cqw; top: 4cqw; }
-    .poster-side { font-size: 2.2cqw; }
-    .poster-title { top: 50cqw; left: 6cqw; right: 6cqw; }
-    .poster-eyebrow { font-size: 7cqw; }
-    .poster-big { font-size: 13.5cqw; white-space: normal; }
-    .poster-scene { left: 8cqw; width: 84cqw; }
-    .poster-blurb { font-size: 3cqw; width: 80cqw; left: 10cqw; bottom: 4cqw; }
-    .poster-blurb-lead { font-size: 3.4cqw; }
-  }
+  /* ---------- designer poster: the artwork as is ---------- */
+  .poster { position: relative; width: 100vw; margin-inline: calc(50% - 50vw); margin-top: 22px; border-block: var(--hair) solid rgba(0, 0, 0, 0.08); background: #f3f3f1; overflow: hidden; }
+  .poster-inner { position: relative; max-width: 1400px; margin-inline: auto; }
+  .poster-img { width: 100%; height: auto; }
 
   /* ---------- contributions ---------- */
   .contrib { display: grid; grid-auto-rows: auto; gap: 3px; min-width: 560px; }
@@ -254,20 +223,6 @@
     .spin { animation: spin 1.6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* poster entry: headline rises, the photo steps up, the ring scales in card by card, then turns forever */
-    .poster .poster-title, .poster .poster-corner, .poster .poster-side, .poster .poster-blurb { opacity: 0; transform: translateY(12px); transition: opacity var(--t-reveal) var(--ease), transform var(--t-reveal) var(--ease); }
-    .poster .poster-side.l { transform: translate(-50%, -50%) rotate(-90deg) translateY(12px); }
-    .poster .poster-side.r { transform: translate(50%, -50%) rotate(90deg) translateY(12px); }
-    .poster.is-in .poster-title, .poster.is-in .poster-corner, .poster.is-in .poster-blurb { opacity: 1; transform: none; }
-    .poster.is-in .poster-side.l { opacity: 1; transform: translate(-50%, -50%) rotate(-90deg); }
-    .poster.is-in .poster-side.r { opacity: 1; transform: translate(50%, -50%) rotate(90deg); }
-    .poster.is-in .poster-corner { transition-delay: 300ms; }
-    .poster.is-in .poster-side { transition-delay: 400ms; }
-    .poster.is-in .poster-blurb { transition-delay: 500ms; }
-    .poster .poster-photo { opacity: 0; transform: translateZ(0) translateY(40px); transition: opacity var(--t-reveal) var(--ease) 150ms, transform var(--t-reveal) var(--ease) 150ms; }
-    .poster.is-in .poster-photo { opacity: 1; transform: translateZ(0); }
-    .poster .poster-ring-wrap { opacity: 0; transform: scale(0.7); transition: opacity var(--t-reveal) var(--ease) 350ms, transform var(--t-reveal) var(--ease) 350ms; }
-    .poster.is-in .poster-ring-wrap { opacity: 1; transform: none; }
 
     .work-thumb img { transition: transform var(--t-std) var(--ease); }
     .work-card:hover .work-thumb img { transform: scale(1.03); }
