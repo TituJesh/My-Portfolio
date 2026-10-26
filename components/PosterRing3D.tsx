@@ -11,7 +11,7 @@ export type RingImage = { src: string; alt: string };
 const RADIUS = 1.62;
 const ROW_H = 0.46;
 const ROW_GAP = 0.07;
-const BASE_SPEED = 0.28; // radians per second
+const BASE_SPEED = 0.05; // radians per second, a slow drift
 // Positive X shows the ring from slightly above so its far side appears over the hair; positive Z raises the
 // face side. The band wraps the upper head with its front row just above the eyebrows.
 const TILT: [number, number, number] = [0.2, 0, 0.2];
@@ -69,7 +69,7 @@ const fragmentShader = /* glsl */ `
 
     // edge shading: darker as the surface turns away from the camera; the far side sits a little darker
     float facing = clamp(abs(vNormalV.z), 0.0, 1.0);
-    float shade = mix(0.3, 1.0, smoothstep(0.0, 0.75, facing)) * (gl_FrontFacing ? 1.0 : 0.78);
+    float shade = mix(0.62, 1.0, smoothstep(0.0, 0.75, facing)) * (gl_FrontFacing ? 1.0 : 0.9);
 
     gl_FragColor = vec4(col * shade, 1.0);
   }
@@ -105,7 +105,7 @@ function Card({ texture, index, count, y, speedRef, timeRef }: { texture: THREE.
   );
 }
 
-function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImage[]; onHover: (v: boolean) => void } & Refs) {
+function Ring({ images, speedRef, timeRef, reduce }: { images: RingImage[] } & Refs) {
   const textures = useTexture(images.map((i) => i.src)) as THREE.Texture[];
   useEffect(() => {
     textures.forEach((t) => {
@@ -118,13 +118,12 @@ function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImag
   const group = useRef<THREE.Group>(null);
   const rot = useRef(0);
   const drag = useRef({ on: false, x: 0, vel: 0 });
-  const hover = useRef(false);
   const count = textures.length;
   const half = Math.floor(count / 2);
 
   useFrame((_, dt) => {
     const d = Math.min(dt, 0.05);
-    const target = reduce ? 0 : drag.current.on ? 0 : hover.current ? BASE_SPEED * 0.18 : BASE_SPEED;
+    const target = reduce || drag.current.on ? 0 : BASE_SPEED;
     speedRef.current += (target - speedRef.current) * Math.min(1, d * 3.5);
     rot.current += speedRef.current * d + drag.current.vel;
     drag.current.vel *= 0.88;
@@ -166,18 +165,7 @@ function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImag
         <sphereGeometry args={[1.0, 32, 24]} />
         <meshBasicMaterial colorWrite={false} depthWrite />
       </mesh>
-      <group
-        ref={group}
-        onPointerOver={() => {
-          hover.current = true;
-          onHover(true);
-        }}
-        onPointerOut={() => {
-          hover.current = false;
-          onHover(false);
-        }}
-        onPointerDown={onDown}
-      >
+      <group ref={group} onPointerDown={onDown}>
         {textures.map((t, i) => (
           <Card key={`t${i}`} texture={t} index={i} count={count} y={(ROW_H + ROW_GAP) / 2} speedRef={speedRef} timeRef={timeRef} />
         ))}
@@ -194,7 +182,6 @@ function Ring({ images, speedRef, timeRef, reduce, onHover }: { images: RingImag
 
 export default function PosterRing3D({ images }: { images: RingImage[] }) {
   const [inView, setInView] = useState(false);
-  const [hovering, setHovering] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const speedRef = useRef(BASE_SPEED);
   const timeRef = useRef(0);
@@ -217,7 +204,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
   }, []);
 
   return (
-    <div ref={wrap} className="poster-canvas" style={{ cursor: hovering ? "grab" : "default" }} aria-hidden>
+    <div ref={wrap} className="poster-canvas" aria-hidden>
       <Canvas
         dpr={[1, 1.75]}
         frameloop={inView ? "always" : "never"}
@@ -227,7 +214,7 @@ export default function PosterRing3D({ images }: { images: RingImage[] }) {
       >
         <Suspense fallback={null}>
           <group position={[0, 1.08, 0]}>
-            <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} onHover={setHovering} />
+            <Ring images={images} speedRef={speedRef} timeRef={timeRef} reduce={reduce} />
           </group>
         </Suspense>
       </Canvas>
