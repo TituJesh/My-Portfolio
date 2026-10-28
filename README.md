@@ -28,8 +28,8 @@ All tokens are CSS variables at the top of `app/globals.css` (light values on `:
 
 | Token | Light | Dark |
 | --- | --- | --- |
-| `--bg` / `--bg-2` | `#f7f3e3` / `#efe9d3` (paper tinted to the banner sky) | `#11140d` / `#191d13` (the banner water, deepened) |
-| `--fg` / `--fg-2` / `--fg-3` | `#1c1d12` / `#5b5b47` / `#767660` | `#ece8d2` / `#a6a68c` / `#8c8c74` |
+| `--bg` / `--bg-2` | `#f7f3e3` / `#efe9d3` (paper tinted to the banner sky) | `#0f0f0e` / `#171715` |
+| `--fg` / `--fg-2` / `--fg-3` | `#1c1d12` / `#5b5b47` / `#767660` | `#ecebe6` / `#a3a09a` / `#8a877f` |
 | `--line` / `--line-2` | 12% / 24% ink | 12% / 24% paper |
 | `--accent` | `#586b2e` (the banner's cloud green, darkened for paper) | `#95a76c` (the banner's cloud green) |
 | `--ok` | `#15803d` | `#4ade80` |

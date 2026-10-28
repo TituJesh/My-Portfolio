@@ -39,14 +39,14 @@
 }
 
 :root[data-theme="dark"] {
-  /* the banner's dark water, deepened, with its sky as the ink */
-  --bg: #11140d;
-  --bg-2: #191d13;
-  --fg: #ece8d2;
-  --fg-2: #a6a68c;
-  --fg-3: #8c8c74;
-  --line: rgba(236, 232, 210, 0.12);
-  --line-2: rgba(236, 232, 210, 0.24);
+  /* dark mode stays neutral black; only the light theme's paper is tinted to the banner */
+  --bg: #0f0f0e;
+  --bg-2: #171715;
+  --fg: #ecebe6;
+  --fg-2: #a3a09a;
+  --fg-3: #8a877f;
+  --line: rgba(236, 235, 230, 0.12);
+  --line-2: rgba(236, 235, 230, 0.24);
   --accent: #95a76c;
   --accent-fg: #0f1408;
   --accent-soft: rgba(149, 167, 108, 0.14);
@@ -179,13 +179,14 @@
   .dim-left { left: -1px; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center; }
 
   /* hero banner: photo band, poster wording in fixed cream and rust so it reads the same in both themes */
-  .hero-canvas { height: clamp(300px, 46vw, 380px); background: #cbbd97; }
+  .hero-canvas { height: clamp(200px, 30vw, 260px); background: #cbbd97; }
+  @media (max-width: 640px) { .hero-canvas { height: 190px; } }
   .hero-photo { position: absolute; inset: -4% -6%; width: 112%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 55%; }
   .hero-words { padding: 0 16px; color: #f7f0dd; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.35), 0 8px 28px rgba(20, 30, 20, 0.25); }
   /* calligraphy over typography: the script line overlaps the top of the caps a little, as on a poster */
-  .hero-script { font-family: var(--font-script), cursive; font-size: clamp(34px, 7vw, 64px); line-height: 1; margin-bottom: -0.28em; padding-right: 0.3em; transform: rotate(-3deg); }
+  .hero-script { font-family: var(--font-script), cursive; font-size: clamp(30px, 5.6vw, 50px); line-height: 1; margin-bottom: -0.28em; padding-right: 0.3em; transform: rotate(-3deg); }
   /* the caps take the pale yellow of the photo's bright sky (#f9e796, sampled), so the line feels part of the picture */
-  .hero-caps { font-family: var(--font-trip), sans-serif; font-size: clamp(30px, 8.2vw, 72px); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; text-transform: uppercase; color: #f9e796; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.4), 0 10px 30px rgba(20, 30, 20, 0.3); }
+  .hero-caps { font-family: var(--font-trip), sans-serif; font-size: clamp(28px, 6.6vw, 58px); font-weight: 700; line-height: 0.95; letter-spacing: -0.03em; text-transform: uppercase; color: #f9e796; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.4), 0 10px 30px rgba(20, 30, 20, 0.3); }
   /* inked glyphs over the photo; the SVG covers the band and its shapes sit at fixed spots in the 768x380 frame */
   .hero-glyphs { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; fill: #f7f0dd; stroke: #f7f0dd; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; filter: drop-shadow(0 1px 1px rgba(20, 30, 20, 0.35)); }
   .hero-glyphs .glyph-gull path, .hero-glyphs .glyph-boat path:last-child { fill: none; }
