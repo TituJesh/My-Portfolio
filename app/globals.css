@@ -4,13 +4,14 @@
 /* Design tokens. This is the single source of truth for the system.  */
 /* ------------------------------------------------------------------ */
 :root {
-  --bg: #faf9f6;
-  --bg-2: #f1efe9;
-  --fg: #151412;
-  --fg-2: #5c5955;
-  --fg-3: #76736d;
-  --line: rgba(21, 20, 18, 0.12);
-  --line-2: rgba(21, 20, 18, 0.24);
+  /* paper tinted toward the hero banner's sky (hue 50), ink toward its dark water (hue 79) */
+  --bg: #f7f3e3;
+  --bg-2: #efe9d3;
+  --fg: #1c1d12;
+  --fg-2: #5b5b47;
+  --fg-3: #767660;
+  --line: rgba(28, 29, 18, 0.12);
+  --line-2: rgba(28, 29, 18, 0.24);
   /* accent: the sage green of the clouds in the hero banner (#95a76c, sampled); the light theme uses the same hue
      darkened to #586b2e so text passes AA on paper */
   --accent: #586b2e;
@@ -38,13 +39,14 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #0f0f0e;
-  --bg-2: #171715;
-  --fg: #ecebe6;
-  --fg-2: #a3a09a;
-  --fg-3: #8a877f;
-  --line: rgba(236, 235, 230, 0.12);
-  --line-2: rgba(236, 235, 230, 0.24);
+  /* the banner's dark water, deepened, with its sky as the ink */
+  --bg: #11140d;
+  --bg-2: #191d13;
+  --fg: #ece8d2;
+  --fg-2: #a6a68c;
+  --fg-3: #8c8c74;
+  --line: rgba(236, 232, 210, 0.12);
+  --line-2: rgba(236, 232, 210, 0.24);
   --accent: #95a76c;
   --accent-fg: #0f1408;
   --accent-soft: rgba(149, 167, 108, 0.14);
