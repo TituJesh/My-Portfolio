@@ -8,11 +8,13 @@ export const site = {
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
   banner: { src: "/hero-beach.webp", width: 1600, height: 722, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
-  // two more frames of the same shot, layered in this order over the dark banner: the half-lit "settle" frame
-  // underneath fills the gaps between flickers and carries the afterglow; the fully lit frame on top does the pops
+  // three brighter frames of the same shot, layered in this order over the dark banner (dimmest first): the first
+  // holds under the whole strike and fades out as the afterglow, the second gives the mid flickers, the brightest
+  // on top gives the peaks
   bannerFrames: [
-    { src: "/hero-beach-settle.webp", width: 1600, height: 722 },
-    { src: "/hero-beach-lit.webp", width: 1600, height: 722 },
+    { src: "/hero-beach-lit-1.webp", width: 1600, height: 722 },
+    { src: "/hero-beach-lit-2.webp", width: 1600, height: 722 },
+    { src: "/hero-beach-lit-3.webp", width: 1600, height: 722 },
   ],
   heroScript: "started with a sketch",
   heroCaps: "ended in the cloud",

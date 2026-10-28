@@ -281,23 +281,31 @@
     @keyframes glyph-bob { 0%, 100% { translate: 0 1px; rotate: -3deg; } 50% { translate: 0 -2px; rotate: 3deg; } }
     .glyph-lamp { animation: glyph-lamp 1.8s steps(1, end) infinite; }
     @keyframes glyph-lamp { 0%, 100% { opacity: 0.25; } 70% { opacity: 1; } 85% { opacity: 0.25; } }
-    /* lightning over the dark banner. The half-lit frame (1) comes up under the strike and fades out as the
-       afterglow; the fully lit frame (2) pops on top four times, so between pops the sky falls back to half-lit,
-       never to dark. About 0.9s in all, every 9s, with a weaker three-pop strike half way through. */
-    .hero-frame-1 { animation: hero-settle 9s linear infinite 1.5s; }
-    .hero-frame-2 { animation: hero-lit 9s linear infinite 1.5s; }
-    @keyframes hero-settle {
+    /* lightning over the dark banner from three brighter frames. Frame 1 (dimmest) holds under the whole strike
+       and fades out as the afterglow; frame 3 (brightest) gives three peak pops; frame 2 pops in the gaps between
+       them, so the sky flickers between three brightnesses and never drops to dark mid-strike. About 1s in all,
+       every 9s, with a weaker strike half way through. */
+    .hero-frame-1 { animation: hero-lit-1 9s linear infinite 1.5s; }
+    .hero-frame-2 { animation: hero-lit-2 9s linear infinite 1.5s; }
+    .hero-frame-3 { animation: hero-lit-3 9s linear infinite 1.5s; }
+    @keyframes hero-lit-1 {
       0%, 100% { opacity: 0; }
-      0.4% { opacity: 0; } 0.9% { opacity: 1; } 5.2% { opacity: 1; } 10% { opacity: 0; }
-      55% { opacity: 0; } 55.4% { opacity: 0.8; } 58.6% { opacity: 0.8; } 62% { opacity: 0; }
+      0.4% { opacity: 0; } 0.9% { opacity: 1; } 5.5% { opacity: 1; } 10.5% { opacity: 0; }
+      55% { opacity: 0; } 55.4% { opacity: 0.8; } 58.5% { opacity: 0.8; } 62% { opacity: 0; }
     }
-    @keyframes hero-lit {
+    @keyframes hero-lit-2 {
       0%, 100% { opacity: 0; }
-      0.5% { opacity: 1; } 1.1% { opacity: 1; } 1.5% { opacity: 0; }
-      2% { opacity: 0.95; } 2.5% { opacity: 0; }
-      3.1% { opacity: 0.85; } 3.7% { opacity: 0; }
-      4.3% { opacity: 0.6; } 5% { opacity: 0; }
-      55.2% { opacity: 0; } 55.6% { opacity: 0.7; } 56.1% { opacity: 0; } 56.6% { opacity: 0.55; } 57.1% { opacity: 0; } 57.7% { opacity: 0.4; } 58.3% { opacity: 0; }
+      1.3% { opacity: 0; } 1.6% { opacity: 1; } 2% { opacity: 0; }
+      2.9% { opacity: 0; } 3.2% { opacity: 1; } 3.6% { opacity: 0; }
+      4.4% { opacity: 0; } 4.6% { opacity: 0.8; } 5% { opacity: 0; }
+      56.2% { opacity: 0; } 56.4% { opacity: 0.7; } 56.7% { opacity: 0; }
+    }
+    @keyframes hero-lit-3 {
+      0%, 100% { opacity: 0; }
+      0.5% { opacity: 1; } 1.1% { opacity: 1; } 1.4% { opacity: 0; }
+      2.2% { opacity: 0; } 2.5% { opacity: 0.95; } 2.9% { opacity: 0; }
+      3.8% { opacity: 0; } 4% { opacity: 0.8; } 4.3% { opacity: 0; }
+      55.3% { opacity: 0; } 55.6% { opacity: 0.7; } 56% { opacity: 0; } 56.8% { opacity: 0; } 57% { opacity: 0.5; } 57.4% { opacity: 0; }
     }
     .hero-node { animation: enter var(--t-reveal) var(--ease) both; animation-delay: 700ms; }
 
