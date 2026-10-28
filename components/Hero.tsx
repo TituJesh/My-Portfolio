@@ -2,7 +2,6 @@ import Image from "next/image";
 import { site } from "@/data/content";
 import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
-import HeroLines from "./HeroLines";
 import StatusChip from "./StatusChip";
 import DimClock from "./DimClock";
 import Contributions from "./Contributions";
@@ -12,18 +11,19 @@ const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 export default function Hero() {
   return (
     <section id="top" aria-label="Introduction">
-      {/* Canvas: the name with the drawn lines around it */}
+      {/* Banner: the beach photo drifting slowly, with the name set like a poster title */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        <span className="dim dim-top mono-meta" aria-hidden>
-          768
-        </span>
-        <HeroLines />
-        <div className="relative flex h-full flex-col items-center justify-center text-center">
-          <h1 className="enter text-[clamp(44px,9vw,84px)] font-medium leading-[0.95] tracking-[-0.045em]" style={d(0)}>
+        <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
+        <div className="hero-words relative flex h-full flex-col items-center justify-center text-center">
+          <p className="enter hero-kicker font-serif italic" style={d(0)}>
+            {site.heroKicker}
+          </p>
+          <h1 className="enter hero-name" style={d(120)}>
             {site.name}
           </h1>
-          <p className="enter mt-3 font-serif italic text-[clamp(21px,3vw,28px)] leading-tight text-fg-2" style={d(150)}>
-            {site.tagline}
+          <p className="enter hero-tags font-serif italic" style={d(260)}>
+            <span>{site.heroTagLeft}</span>
+            <span>{site.heroTagRight}</span>
           </p>
         </div>
       </div>

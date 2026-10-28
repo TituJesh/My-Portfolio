@@ -174,7 +174,14 @@
   .dim-top { top: 8px; left: 50%; transform: translateX(-50%); }
   .dim-left { left: -1px; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center; }
 
-  .hero-canvas { height: clamp(260px, 38vw, 320px); }
+  /* hero banner: photo band, poster wording in fixed cream and rust so it reads the same in both themes */
+  .hero-canvas { height: clamp(300px, 46vw, 380px); background: #cbbd97; }
+  .hero-photo { position: absolute; inset: -4% -6%; width: 112%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 55%; }
+  .hero-words { color: #f7f0dd; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.35), 0 8px 28px rgba(20, 30, 20, 0.25); }
+  .hero-kicker { font-size: clamp(24px, 4.2vw, 36px); line-height: 1; letter-spacing: -0.01em; }
+  .hero-name { margin-top: 4px; font-size: clamp(48px, 10.5vw, 96px); font-weight: 500; line-height: 0.92; letter-spacing: -0.055em; text-transform: uppercase; color: #d84a1b; text-shadow: 0 1px 0 rgba(255, 240, 210, 0.35), 0 10px 30px rgba(60, 20, 0, 0.3); }
+  .hero-tags { display: flex; justify-content: space-between; margin-top: 10px; font-size: clamp(16px, 2.6vw, 21px); line-height: 1; }
+  .hero-tags { width: min(100% - 32px, 560px); }
 
   /* avatar: black ink on a themed disc */
   .avatar { background: var(--avatar-bg); }
@@ -246,9 +253,9 @@
     .enter-nav { animation: enter-nav var(--t-std) var(--ease) both; animation-delay: 600ms; }
     @keyframes enter-nav { from { opacity: 0; transform: translate(-50%, -8px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-    .hero-line { stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 900ms var(--ease) 350ms forwards, march 14s linear 1300ms infinite; }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-    @keyframes march { from { stroke-dasharray: 5 9; stroke-dashoffset: 0; } to { stroke-dasharray: 5 9; stroke-dashoffset: -140; } }
+    /* the banner photo drifts a few percent sideways and back, slowly, like a held shot */
+    .hero-photo { animation: hero-drift 36s ease-in-out infinite alternate; }
+    @keyframes hero-drift { from { transform: translate3d(-2.5%, 0, 0) scale(1); } to { transform: translate3d(2.5%, 0, 0) scale(1.03); } }
     .hero-node { animation: enter var(--t-reveal) var(--ease) both; animation-delay: 700ms; }
 
     .pulse-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ok); animation: pulse 2.4s var(--ease) infinite; }
@@ -281,7 +288,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .hero-line { stroke-dasharray: 5 9; }
   }
 
   /* ---------- pipeline navbar ---------- */

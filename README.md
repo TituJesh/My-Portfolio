@@ -16,6 +16,7 @@ npm run typecheck
 
 Everything editable lives in `data/content.ts`: name, tagline, region, email, social links, the resume path (`site.resume`, a PDF in `public/`), bio lines, the Design / Cloud columns, projects (with their detail-page copy and architecture components), stack groups, the experience log, certifications and footer text. The content was filled from the GitHub profile README, the CloudExpire, Acedra and Self-Healing repositories, and the resume.
 
+- Hero banner: `site.banner` is the photo band at the top (`public/hero-beach.webp`), with `site.heroKicker`, `site.name` and the two `site.heroTag*` labels set over it in poster type. The photo drifts slowly; the words rise in with the page-load sequence.
 - Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is `--avatar-bg`, which follows the page background in both themes. `site.photoClosed` is the same sketch with the eyes shut (`public/avatar-figure-closed.webp`, only the eye band differs); it sits on top and the `blink` keyframes flash it for a few frames every five seconds. The dimension label beside the avatar is a live HH:MM clock in `site.timeZone` (`DimClock`).
 - Project images live in `public/work/`: `thumbnail` is the card on the home page, the optional `banner` is the wide image at the top of the project page, and `architecture.image` is the diagram. Keep `width` and `height` accurate so there is no layout shift. The project copy, facts, features, stack and API tables are taken from each repository's README on GitHub.
 - Designer poster (bottom of the page): headline, labels, the profile cut-out and the ring of posters are in `designerPoster` in `data/content.ts`; replace any ring entry's `src` with a file in `public/design/`. The ring is a Three.js carousel (`components/PosterRing3D.tsx`, loaded on the client only): curved two-row cards with a custom shader for directional blur, glitch, chromatic shift and edge shading, a depth-only occluder for the head, hover slow-down and drag scrubbing.
@@ -51,5 +52,5 @@ Set `site.url` in `data/content.ts` to the production domain first; it feeds the
 ## Structure
 
 - `app/` routes, `globals.css` (tokens and motion), OG and Twitter images, `sitemap.ts`, `robots.ts`, icons.
-- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroLines`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
+- `components/` small components named by purpose: `PipelineNav`, `Hero`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
 - `data/content.ts` all copy and links.
