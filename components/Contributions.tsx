@@ -50,6 +50,10 @@ export default function Contributions() {
     if (!d) return;
     const m = new Date(d.date).getMonth();
     if (m !== last) {
+      // the window starts mid-month, so the first label can sit a column or two before the next one and overlap it;
+      // a month with fewer than three week columns gives way to the month after it
+      const prev = labels[labels.length - 1];
+      if (prev && i - prev.idx < 3) labels.pop();
       labels.push({ idx: i, text: MONTHS[m] });
       last = m;
     }
