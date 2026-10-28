@@ -81,21 +81,21 @@ export const testimonials = [
 
 export const identities = [
   {
-    title: "Design",
-    lead: "Posters that get the first look.",
-    points: [
-      "Short-film posters, thumbnails and first-look reveals for Chickums TV and independent directors.",
-      "Event identity for Synexzia '25: name reveal, posters, promo reels and a 3D logo.",
-      "Ten-plus motion pieces cut in After Effects and Premiere Pro.",
-    ],
-  },
-  {
     title: "Cloud",
     lead: "Infrastructure that is small, documented and rebuildable.",
     points: [
       "Temporary EC2 with an expiry, enforced by Lambda, DynamoDB and EventBridge (CloudExpire).",
       "FastAPI on PostgreSQL 16 with JWT roles, an S3 document vault and secrets kept out of the code (Acedra).",
       "Terraform fmt, validate and plan plus pytest on every push through GitHub Actions.",
+    ],
+  },
+  {
+    title: "Design",
+    lead: "Posters that get the first look.",
+    points: [
+      "Short-film posters, thumbnails and first-look reveals for Chickums TV and independent directors.",
+      "Event identity for Synexzia '25: name reveal, posters, promo reels and a 3D logo.",
+      "Ten-plus motion pieces cut in After Effects and Premiere Pro.",
     ],
   },
 ];
