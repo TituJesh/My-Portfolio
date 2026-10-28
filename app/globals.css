@@ -250,9 +250,9 @@
     .hero-node { animation: enter var(--t-reveal) var(--ease) both; animation-delay: 700ms; }
 
     .pulse-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ok); animation: pulse 2.4s var(--ease) infinite; }
-    /* blink: one slow, soft blink every six seconds; the lids ease shut over 200ms, rest, then ease open over 300ms */
+    /* blink: one slow, soft blink every six seconds; the lids ease shut over 200ms, rest about 60ms, then ease open over 300ms */
     .avatar-blink { animation: blink 6s ease-in-out infinite 2s; }
-    @keyframes blink { 0%, 50%, 100% { opacity: 0; } 53.3%, 56% { opacity: 1; } 61% { opacity: 0; } }
+    @keyframes blink { 0%, 50%, 100% { opacity: 0; } 53.3%, 54.3% { opacity: 1; } 59.3% { opacity: 0; } }
     @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.6); opacity: 0; } }
 
     .spin { animation: spin 1.6s linear infinite; }

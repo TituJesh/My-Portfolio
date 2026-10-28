@@ -4,7 +4,7 @@ export const site = {
   name: "Titu Jeshurun",
   fullName: "Titu Jeshurun B",
   initials: "TJ",
-  role: "Designer + Cloud Engineer",
+  role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   description:
     "Titu Jeshurun is a cloud engineer and multimedia designer in Chennai, India. AWS, Terraform, Docker and GitHub Actions by day; posters, reels and logos for short films and symposiums by night.",
