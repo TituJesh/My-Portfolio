@@ -19,6 +19,7 @@ export const site = {
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
+  resume: "/Titu-Jeshurun-Resume.pdf", // PDF in /public; replace the file to update it
   gallery: "https://titujeshurun-portfolio.vercel.app",
   availability: "Open to cloud, DevOps and platform roles",
   deployHost: "Vercel",

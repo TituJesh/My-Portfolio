@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { site } from "@/data/content";
-import { GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
+import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
 import HeroLines from "./HeroLines";
 import StatusChip from "./StatusChip";
@@ -79,14 +79,15 @@ export default function Hero() {
         </dl>
 
         <p className="mono-meta cell-pad border-b border-line py-2">Social links</p>
-        <ul className="grid grid-cols-2 border-b border-line sm:grid-cols-3">
+        <ul className="grid grid-cols-2 border-b border-line sm:grid-cols-4">
           {[
             { href: site.github, label: "GitHub", Icon: GitHub },
             { href: site.linkedin, label: "LinkedIn", Icon: LinkedIn },
+            { href: site.resume, label: "Resume", Icon: FileText, file: true },
             { href: site.gallery, label: "Design gallery", Icon: Palette },
-          ].map(({ href, label, Icon }, i) => (
-            <li key={label} className={`border-line ${i === 0 ? "border-r border-b sm:border-b-0" : i === 1 ? "border-b sm:border-b-0 sm:border-r" : "col-span-2 sm:col-span-1"}`}>
-              <a href={href} rel="me noreferrer" className="cell-pad flex items-center gap-3 text-[14px] transition-colors hover:bg-bg-2">
+          ].map(({ href, label, Icon, file }, i) => (
+            <li key={label} className={`border-line ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b sm:border-b-0" : ""} ${i < 3 ? "sm:border-r" : "sm:border-r-0"}`}>
+              <a href={href} rel={file ? "noreferrer" : "me noreferrer"} target={file ? "_blank" : undefined} className="cell-pad flex items-center gap-3 text-[14px] transition-colors hover:bg-bg-2">
                 <Icon className="text-fg-3" />
                 {label}
               </a>

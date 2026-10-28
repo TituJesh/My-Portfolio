@@ -98,6 +98,12 @@ export const Terminal = (p: Props) => (
     <path d="M4 17l6-5-6-5M12 19h8" />
   </Base>
 );
+export const FileText = (p: Props) => (
+  <Base {...p}>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+    <path d="M14 3v5h5M9 13h6M9 17h6" />
+  </Base>
+);
 export const Palette = (p: Props) => (
   <Base {...p}>
     <path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.8 2-1.7 0-.9-.6-1.3-.6-2.2 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.7-4-8.5-9-8.5z" />
