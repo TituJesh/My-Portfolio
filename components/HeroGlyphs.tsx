@@ -1,5 +1,5 @@
 // Small inked elements over the hero photo, each with its own slow CSS loop (see .glyph-* in globals.css):
-// a sun that bobs, three gulls that sway and hop, and a buoy lamp that blinks. The lightning is two lit frames of the
+// a sun that bobs, three gulls that sway and hop, and a buoy lamp that blinks. The lightning is the lit frame of the
 // photo flickering in Hero (.hero-frame). All are decorative; the keyframes only run when the viewer has not asked for reduced motion.
 export default function HeroGlyphs() {
   return (
