@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { preload } from "react-dom";
 import { site } from "@/data/content";
 import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
@@ -9,23 +10,17 @@ import Contributions from "./Contributions";
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
 export default function Hero() {
+  preload(site.banner.src, { as: "image" });
   return (
     <section id="top" aria-label="Introduction">
       {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        {/* The photo pans steadily to the right. The strip is two tiles, the first mirrored, so the loop point
-            and the join are both seamless; the strip starts on the unmirrored tile and the mirror creeps in from
-            the left. Each tile stacks the dark frame and its two lightning-lit frames. */}
+        {/* The photo pans steadily to the right as one repeating background, so there is no join to see;
+            the dark frame and its two lightning-lit frames are three layers on the same pan. */}
         <div className="hero-photo" aria-hidden>
-          <div className="hero-strip">
-            {[0, 1].map((t) => (
-              <div key={t} className={`hero-tile${t ? "" : " hero-tile-mirror"}`}>
-                <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-frame" />
-                <Image src={site.bannerFlash[0]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-1" />
-                <Image src={site.bannerFlash[1]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-2" />
-              </div>
-            ))}
-          </div>
+          <div className="hero-layer" style={{ backgroundImage: `url(${site.banner.src})` }} />
+          <div className="hero-layer hero-flash-1" style={{ backgroundImage: `url(${site.bannerFlash[0]})` }} />
+          <div className="hero-layer hero-flash-2" style={{ backgroundImage: `url(${site.bannerFlash[1]})` }} />
         </div>
         <span className="sr-only">{site.banner.alt}</span>
         <HeroGlyphs />
