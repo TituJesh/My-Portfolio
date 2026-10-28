@@ -192,7 +192,7 @@ export const projects: Project[] = [
     outcome: "A cloud-native student information and document vault for institutions.",
     status: "Backend · containerised",
     thumbnail: { src: "/work/acedra.webp", width: 640, height: 400, alt: "Acedra logo" },
-    banner: { src: "/work/acedra-banner.webp", width: 1600, height: 840, alt: "Acedra poster: the A mark with ruled lines inside, the ACEDRA wordmark, on paper with a dotted grid and soft shadows" },
+    banner: { src: "/work/acedra-banner.webp", width: 1600, height: 840, alt: "Acedra poster: the A mark with ruled lines, the ACEDRA wordmark and the tagline, set on paper with a dotted grid, window shadows, a hash mark and a barcode" },
     repo: "https://github.com/TituJesh/Acedra",
     facts: [
       { label: "Language", value: "Python 3.12 · Terraform · Shell" },
