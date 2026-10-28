@@ -7,10 +7,10 @@ export const site = {
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
-  // three frames of the same shot, each made to tile seamlessly sideways: the dark base and two lightning-lit
-  // frames that flicker over it. The band pans them as repeating backgrounds, so the loop never shows a join.
-  banner: { src: "/hero-beach-tile.webp", width: 1280, height: 577, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
-  bannerFlash: ["/hero-flash-tile-1.webp", "/hero-flash-tile-2.webp"],
+  // four frames of the same shot: the main one, then three that flicker over it as lightning
+  // (a dark dip, then two frames with the sea lit up)
+  banner: { src: "/hero-sea.webp", width: 1280, height: 422, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  bannerFlash: ["/hero-sea-f1.webp", "/hero-sea-f2.webp", "/hero-sea-f3.webp"],
   heroScript: "started with a sketch",
   heroCaps: "ended in the cloud",
   description:
