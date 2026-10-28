@@ -2,7 +2,6 @@ import Image from "next/image";
 import { site } from "@/data/content";
 import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
-import StatusChip from "./StatusChip";
 import HeroGlyphs from "./HeroGlyphs";
 import DimClock from "./DimClock";
 import Contributions from "./Contributions";
@@ -30,7 +29,8 @@ export default function Hero() {
       <div className="grid border-b border-line sm:grid-cols-[216px_1fr]">
         {/* on phones the avatar sits alone above the name; from sm up it has its own cell beside it */}
         <div className="relative flex items-start justify-start px-4 pb-2 sm:justify-center sm:border-r sm:border-line sm:pb-4">
-          <DimClock className="dim dim-left mono-meta" />
+          {/* the vertical clock label only from sm up; on phones it would sit off the left edge */}
+          <DimClock className="dim dim-left mono-meta hidden sm:block" />
           <div className="enter avatar-ring relative z-10 -mt-14 h-28 w-28 rounded-full border border-line-2 p-1 sm:-mt-[88px] sm:h-44 sm:w-44" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
             {/* Ink sketch avatar: the ink stays black in both themes, only the circle behind it follows the theme */}
@@ -43,10 +43,11 @@ export default function Hero() {
         </div>
         <div className="cell-pad enter flex flex-col justify-center gap-1 pt-0 sm:pt-4" style={d(380)}>
           <h1 className="text-[18px] font-medium sm:text-[20px]">{site.fullName}</h1>
-          <p className="text-[14.5px] text-fg-2">{site.role}. Chennai, India.</p>
-          <div className="mt-2">
-            <StatusChip />
-          </div>
+          <p className="text-[14.5px] text-fg-2">
+            {site.role}. Chennai, India.
+            {/* on phones the clock rides on this line instead of the hidden vertical label */}
+            <DimClock className="mono-meta ml-2 sm:hidden" />
+          </p>
         </div>
       </div>
 

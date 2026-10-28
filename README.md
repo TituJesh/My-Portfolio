@@ -52,5 +52,5 @@ Set `site.url` in `data/content.ts` to the production domain first; it feeds the
 ## Structure
 
 - `app/` routes, `globals.css` (tokens and motion), OG and Twitter images, `sitemap.ts`, `robots.ts`, icons.
-- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroGlyphs`, `StatusChip`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
+- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroGlyphs`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
 - `data/content.ts` all copy and links.
