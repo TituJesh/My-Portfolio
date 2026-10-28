@@ -26,11 +26,12 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* Profile row: avatar cell + role */}
-      <div className="grid grid-cols-[128px_1fr] border-b border-line sm:grid-cols-[168px_1fr]">
-        <div className="relative grid place-items-center border-r border-line p-4">
+      {/* Profile row: the avatar is larger than its cell and rides up over the banner's bottom edge, as on rakhul.me */}
+      <div className="grid border-b border-line sm:grid-cols-[216px_1fr]">
+        {/* on phones the avatar sits alone above the name; from sm up it has its own cell beside it */}
+        <div className="relative flex items-start justify-start px-4 pb-2 sm:justify-center sm:border-r sm:border-line sm:pb-4">
           <DimClock className="dim dim-left mono-meta" />
-          <div className="enter relative h-24 w-24 rounded-full border border-line-2 p-1 sm:h-[120px] sm:w-[120px]" style={d(300)}>
+          <div className="enter avatar-ring relative z-10 -mt-14 h-28 w-28 rounded-full border border-line-2 p-1 sm:-mt-[88px] sm:h-44 sm:w-44" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
             {/* Ink sketch avatar: the ink stays black in both themes, only the circle behind it follows the theme */}
             <div className="avatar relative h-full w-full overflow-hidden rounded-full">
@@ -40,7 +41,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="cell-pad enter flex flex-col justify-center gap-1" style={d(380)}>
+        <div className="cell-pad enter flex flex-col justify-center gap-1 pt-0 sm:pt-4" style={d(380)}>
           <h1 className="text-[18px] font-medium sm:text-[20px]">{site.fullName}</h1>
           <p className="text-[14.5px] text-fg-2">{site.role}. Chennai, India.</p>
           <div className="mt-2">

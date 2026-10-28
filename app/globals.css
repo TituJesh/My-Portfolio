@@ -196,6 +196,7 @@
 
   /* avatar: black ink on a themed disc */
   .avatar { background: var(--avatar-bg); }
+  .avatar-ring { background: var(--bg); box-shadow: 0 0 0 5px var(--bg); }
   .avatar-ink { position: absolute; inset: 0; }
   .avatar-blink { opacity: 0; }
 
