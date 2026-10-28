@@ -7,10 +7,11 @@ export const site = {
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
-  // four frames of the same shot: the main one, then three that flicker over it as lightning
-  // (a dark dip, then two frames with the sea lit up)
-  banner: { src: "/hero-sea.webp", width: 1280, height: 422, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
-  bannerFlash: ["/hero-sea-f1.webp", "/hero-sea-f2.webp", "/hero-sea-f3.webp"],
+  // four frames of the same shot, registered to the pixel and each saved as a strip of the frame followed by its
+  // mirror (2528x406), so the strip repeats sideways with no join: the main frame, then three that flicker over
+  // it as lightning (a dark dip, then two frames with the sea lit up)
+  banner: { src: "/hero-sea-strip.webp", width: 2528, height: 406, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  bannerFlash: ["/hero-sea-strip-f1.webp", "/hero-sea-strip-f2.webp", "/hero-sea-strip-f3.webp"],
   heroScript: "started with a sketch",
   heroCaps: "ended in the cloud",
   description:
