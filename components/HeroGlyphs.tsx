@@ -1,6 +1,6 @@
 // Small inked elements over the hero photo, each with its own slow CSS loop (see .glyph-* in globals.css):
-// a sun that bobs, three gulls that sway and hop, a sailboat that drifts along the horizon, and a buoy lamp
-// that blinks. All are decorative; the keyframes only run when the viewer has not asked for reduced motion.
+// a sun that bobs, three gulls that sway and hop, and a buoy lamp that blinks. A lightning flash over the
+// clouds is a separate overlay in Hero (.hero-flash). All are decorative; the keyframes only run when the viewer has not asked for reduced motion.
 export default function HeroGlyphs() {
   return (
     <svg className="hero-glyphs" viewBox="0 0 768 380" preserveAspectRatio="xMidYMid slice" aria-hidden focusable="false">
@@ -19,12 +19,6 @@ export default function HeroGlyphs() {
       </g>
       <g className="glyph glyph-gull" style={{ transformOrigin: "602px 100px", animationDelay: "-2.1s" }}>
         <path d="M590 103 q6 -7 12 0 q6 -7 12 0" />
-      </g>
-
-      {/* sailboat on the horizon, drifting right and back */}
-      <g className="glyph glyph-boat" style={{ transformOrigin: "620px 214px" }}>
-        <path d="M604 214 h30 l-4 6 h-22 z" />
-        <path d="M620 190 v24 M620 191 l14 18 h-14 z" />
       </g>
 
       {/* buoy with a blinking lamp, in the chop on the right */}

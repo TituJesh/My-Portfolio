@@ -15,6 +15,8 @@ export default function Hero() {
       <div className="hero-canvas relative overflow-hidden border-b border-line">
         <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
         <HeroGlyphs />
+        {/* lightning: a soft glow behind the clouds that flickers twice every few seconds, no bolt */}
+        <span className="hero-flash" aria-hidden />
         <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
           <span className="enter hero-script" style={d(0)}>
             {site.heroScript}
