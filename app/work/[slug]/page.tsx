@@ -66,8 +66,9 @@ export default async function ProjectPage({ params }: Params) {
         </header>
         {hero ? (
           <div className="border-b border-line p-4 sm:p-5" data-reveal="rise">
-            <div className="overflow-hidden rounded-md border border-line bg-bg-2">
-              <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority className="h-auto w-full" />
+            {/* every project opens on the same 40:21 frame; images that are not that shape are centre-cropped */}
+            <div className="aspect-[40/21] overflow-hidden rounded-md border border-line bg-bg-2">
+              <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority className="h-full w-full object-cover" />
             </div>
           </div>
         ) : null}

@@ -229,10 +229,12 @@
   [data-reveal]:not(.is-in) { opacity: 0; }
 
   @media (prefers-reduced-motion: no-preference) {
-    [data-reveal] { transition: opacity var(--t-reveal) var(--ease), transform var(--t-reveal) var(--ease), clip-path var(--t-reveal) var(--ease); transition-delay: var(--d, 0ms); }
+    [data-reveal] { transition: opacity var(--t-reveal) var(--ease), transform var(--t-reveal) var(--ease), mask-size var(--t-reveal) var(--ease), -webkit-mask-size var(--t-reveal) var(--ease); transition-delay: var(--d, 0ms); }
     [data-reveal="rise"]:not(.is-in) { transform: translateY(12px); }
-    [data-reveal="wipe"]:not(.is-in) { clip-path: inset(0 100% 0 0); opacity: 1; }
-    [data-reveal="wipe"].is-in { clip-path: inset(0 0 0 0); }
+    /* The wipe is a mask, not clip-path: Chrome's IntersectionObserver honours clip-path, so an element clipped
+       to zero width would never count as visible and never be revealed. */
+    [data-reveal="wipe"] { -webkit-mask-image: linear-gradient(#000, #000); mask-image: linear-gradient(#000, #000); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+    [data-reveal="wipe"]:not(.is-in) { -webkit-mask-size: 0% 100%; mask-size: 0% 100%; opacity: 1; }
 
     /* page-load sequence: name → tagline → avatar → role → overview → nav, under 1.2s */
     .enter { animation: enter var(--t-reveal) var(--ease) both; animation-delay: var(--d, 0ms); }
