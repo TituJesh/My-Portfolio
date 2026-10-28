@@ -31,7 +31,7 @@ All tokens are CSS variables at the top of `app/globals.css` (light values on `:
 | `--bg` / `--bg-2` | `#faf9f6` / `#f1efe9` | `#0f0f0e` / `#171715` |
 | `--fg` / `--fg-2` / `--fg-3` | `#151412` / `#5c5955` / `#76736d` | `#ecebe6` / `#a3a09a` / `#8a877f` |
 | `--line` / `--line-2` | 12% / 24% ink | 12% / 24% paper |
-| `--accent` | `#8a6d0b` (the banner's sky, darkened for paper) | `#f9e796` (the banner's sky) |
+| `--accent` | `#586b2e` (the banner's cloud green, darkened for paper) | `#95a76c` (the banner's cloud green) |
 | `--ok` | `#15803d` | `#4ade80` |
 
 Motion: `--ease: cubic-bezier(0.22, 1, 0.36, 1)`, `--t-micro: 150ms`, `--t-std: 300ms`, `--t-reveal: 600ms`. Layout: `--col: 720px`, `--nav-h: 48px`, `--radius: 8px`, pills `999px`, hairlines `1px`.

@@ -11,10 +11,11 @@
   --fg-3: #76736d;
   --line: rgba(21, 20, 18, 0.12);
   --line-2: rgba(21, 20, 18, 0.24);
-  /* accent: the hero banner's sky, #f9e796; the light theme uses the same hue darkened to #8a6d0b so text passes AA on paper */
-  --accent: #8a6d0b;
+  /* accent: the sage green of the clouds in the hero banner (#95a76c, sampled); the light theme uses the same hue
+     darkened to #586b2e so text passes AA on paper */
+  --accent: #586b2e;
   --accent-fg: #ffffff;
-  --accent-soft: rgba(138, 109, 11, 0.12);
+  --accent-soft: rgba(88, 107, 46, 0.12);
   --ok: #15803d;
   --avatar-bg: var(--bg); /* disc behind the sketch matches the page; the figure's own paper is the light --bg value */
 
@@ -44,9 +45,9 @@
   --fg-3: #8a877f;
   --line: rgba(236, 235, 230, 0.12);
   --line-2: rgba(236, 235, 230, 0.24);
-  --accent: #f9e796;
-  --accent-fg: #2a2208;
-  --accent-soft: rgba(249, 231, 150, 0.14);
+  --accent: #95a76c;
+  --accent-fg: #0f1408;
+  --accent-soft: rgba(149, 167, 108, 0.14);
   --ok: #4ade80;
   --avatar-bg: var(--bg); /* the figure carries its own paper, so the disc can match the dark page */
   color-scheme: dark;
@@ -197,7 +198,7 @@
 
   /* ---------- designer poster ---------- */
   /* The poster is a fixed print: crumpled white cloth, rust type and ink text in both themes */
-  .poster { --poster-ink: #151412; --poster-ink-2: #5c5955; --poster-accent: #8a6d0b; position: relative; margin-top: 22px; border-block: var(--hair) solid var(--line); background: #f4f4f2 url("/design/poster-cloth.webp") center / cover no-repeat; color: var(--poster-ink); overflow: hidden; color-scheme: light; }
+  .poster { --poster-ink: #151412; --poster-ink-2: #5c5955; --poster-accent: #586b2e; position: relative; margin-top: 22px; border-block: var(--hair) solid var(--line); background: #f4f4f2 url("/design/poster-cloth.webp") center / cover no-repeat; color: var(--poster-ink); overflow: hidden; color-scheme: light; }
   .poster-inner { position: relative; margin-inline: auto; padding: 44px var(--pad) 32px; min-height: clamp(520px, 80vw, 680px); display: flex; flex-direction: column; align-items: center; }
   .poster-corner { position: absolute; top: 18px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5px; color: var(--poster-accent); }
   .poster-corner.tl { left: var(--pad); }
