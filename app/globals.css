@@ -181,7 +181,10 @@
   /* hero banner: photo band, poster wording in fixed cream and rust so it reads the same in both themes */
   .hero-canvas { height: clamp(200px, 30vw, 260px); background: #cbbd97; }
   @media (max-width: 640px) { .hero-canvas { height: 190px; } }
-  .hero-photo { position: absolute; inset: -4% -6%; }
+  .hero-photo { position: absolute; inset: 0; overflow: hidden; }
+  .hero-strip { position: absolute; inset: 0; display: flex; width: 200%; }
+  .hero-tile { position: relative; flex: none; width: 50%; height: 100%; }
+  .hero-tile-mirror { transform: scaleX(-1); }
   .hero-frame { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 55%; }
   .hero-flash-1, .hero-flash-2 { opacity: 0; }
   .hero-words { padding: 0 16px; color: #f7f0dd; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.35), 0 8px 28px rgba(20, 30, 20, 0.25); }
@@ -268,8 +271,9 @@
     @keyframes enter-nav { from { opacity: 0; transform: translate(-50%, -8px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
     /* the banner photo drifts a few percent sideways and back, slowly, like a held shot */
-    .hero-photo { animation: hero-drift 24s ease-in-out infinite alternate; }
-    @keyframes hero-drift { from { transform: translate3d(-2.5%, 0, 0) scale(1); } to { transform: translate3d(2.5%, 0, 0) scale(1.03); } }
+    /* steady pan to the right at the old drift's pace, 5% of the width every 24s: one full tile every 480s */
+    .hero-strip { animation: hero-pan 480s linear infinite; }
+    @keyframes hero-pan { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
     /* glyph loops, each small: the sun bobs, gulls sway and hop, the buoy bobs, the lamp blinks */
     .glyph-sun { animation: glyph-sunbob 3.6s ease-in-out infinite; }
     @keyframes glyph-sunbob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }

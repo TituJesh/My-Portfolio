@@ -13,11 +13,19 @@ export default function Hero() {
     <section id="top" aria-label="Introduction">
       {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        {/* the photo and its two lightning-lit frames share one drifting wrapper so they never slip out of register */}
+        {/* The photo pans steadily to the right. The strip is two tiles, the first mirrored, so the loop point
+            and the join are both seamless; the strip starts on the unmirrored tile and the mirror creeps in from
+            the left. Each tile stacks the dark frame and its two lightning-lit frames. */}
         <div className="hero-photo" aria-hidden>
-          <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-frame" />
-          <Image src={site.bannerFlash[0]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-1" />
-          <Image src={site.bannerFlash[1]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-2" />
+          <div className="hero-strip">
+            {[0, 1].map((t) => (
+              <div key={t} className={`hero-tile${t ? "" : " hero-tile-mirror"}`}>
+                <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-frame" />
+                <Image src={site.bannerFlash[0]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-1" />
+                <Image src={site.bannerFlash[1]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-2" />
+              </div>
+            ))}
+          </div>
         </div>
         <span className="sr-only">{site.banner.alt}</span>
         <HeroGlyphs />
