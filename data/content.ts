@@ -19,7 +19,6 @@ export const site = {
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
-  instagram: "https://instagram.com/titu_jeshurun",
   gallery: "https://titujeshurun-portfolio.vercel.app",
   availability: "Open to cloud, DevOps and platform roles",
   deployHost: "Vercel",
@@ -325,12 +324,6 @@ export const log: Entry[] = [
     title: "Freelance multimedia designer",
     where: "Short films, events, brands",
     bullets: ["Short-film posters, thumbnails and first-look reveals.", "More than ten motion graphics videos, intros and reels."],
-  },
-  {
-    when: "2022 to 2026",
-    title: "B.Tech, Information Technology",
-    where: "Agni College of Technology, Chennai",
-    bullets: ["CGPA 7.98 / 10."],
   },
 ];
 

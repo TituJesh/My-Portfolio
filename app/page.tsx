@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import CopyEmail from "@/components/CopyEmail";
 import Testimonials from "@/components/Testimonials";
 import DesignerPoster from "@/components/DesignerPoster";
-import { Calendar, GitHub, Instagram, LinkedIn } from "@/components/Icons";
+import { Calendar, GitHub, LinkedIn } from "@/components/Icons";
 import { bio, certifications, identities, log, now, projects, pullQuote, site, stack, testimonials } from "@/data/content";
 
 export default function Page() {
@@ -128,13 +128,12 @@ export default function Page() {
               </a>
             </div>
           </div>
-          <ul className="grid grid-cols-3" data-reveal-group>
+          <ul className="grid grid-cols-2" data-reveal-group>
             {[
               { href: site.github, label: "GitHub", Icon: GitHub },
               { href: site.linkedin, label: "LinkedIn", Icon: LinkedIn },
-              { href: site.instagram, label: "Instagram", Icon: Instagram },
             ].map(({ href, label, Icon }, i) => (
-              <li key={label} className={`${i < 2 ? "border-r border-line" : ""}`} data-reveal="rise">
+              <li key={label} className={`${i === 0 ? "border-r border-line" : ""}`} data-reveal="rise">
                 <a href={href} rel="me noreferrer" className="cell-pad flex items-center justify-center gap-2 text-[14px] transition-colors hover:bg-bg-2">
                   <Icon className="text-fg-3" /> {label}
                 </a>
