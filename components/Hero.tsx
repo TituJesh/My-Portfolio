@@ -46,7 +46,7 @@ export default function Hero() {
           <p className="text-[14.5px] text-fg-2">
             {site.role}. Chennai, India.
             {/* on phones the clock rides on this line instead of the hidden vertical label */}
-            <DimClock className="mono-meta ml-2 sm:hidden" />
+            <DimClock className="mono-meta ml-2 whitespace-nowrap sm:hidden" seconds dot />
           </p>
         </div>
       </div>
