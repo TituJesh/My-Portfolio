@@ -216,9 +216,11 @@
   }
 
   /* ---------- contributions ---------- */
-  .contrib { display: grid; grid-auto-rows: auto; gap: 3px; min-width: 560px; }
-  .contrib-month { grid-row: 1; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); white-space: nowrap; margin-bottom: 2px; }
-  .contrib-col { grid-row: 2; display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
+  /* 53 week columns share the frame width (minmax(0, 1fr) so the month labels cannot widen their columns);
+     the cells shrink to fit, and only below 480px does the grid scroll sideways */
+  .contrib { display: grid; grid-auto-rows: auto; gap: 2px; min-width: 480px; }
+  .contrib-month { grid-row: 1; min-width: 0; overflow: visible; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); white-space: nowrap; margin-bottom: 2px; }
+  .contrib-col { grid-row: 2; display: grid; grid-template-rows: repeat(7, 1fr); gap: 2px; }
   .contrib-col i { display: block; aspect-ratio: 1; border-radius: 2px; background: var(--bg-2); border: var(--hair) solid var(--line); }
   .contrib[data-ready="true"] i[data-level="1"] { background: var(--accent-soft); border-color: transparent; }
   .contrib[data-ready="true"] i[data-level="2"] { background: color-mix(in srgb, var(--accent) 45%, var(--bg)); border-color: transparent; }

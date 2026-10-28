@@ -59,7 +59,7 @@ export default function Contributions() {
     <div className="cell-pad border-b border-line">
       <p className="mono-meta mb-3">GitHub contributions</p>
       <div className="overflow-x-auto">
-        <div className="contrib" data-ready={!!data} style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+        <div className="contrib" data-ready={!!data} style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
           {labels.map((l) => (
             <span key={l.idx} className="contrib-month" style={{ gridColumnStart: l.idx + 1 }}>
               {l.text}
