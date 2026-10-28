@@ -11,21 +11,9 @@ const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 export default function Hero() {
   return (
     <section id="top" aria-label="Introduction">
-      {/* Banner: the beach photo drifting slowly, with the name set like a poster title */}
+      {/* Banner: the beach photo drifting slowly. The tagline goes here once it is chosen. */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
         <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
-        <div className="hero-words relative flex h-full flex-col items-center justify-center text-center">
-          <p className="enter hero-kicker font-serif italic" style={d(0)}>
-            {site.heroKicker}
-          </p>
-          <h1 className="enter hero-name" style={d(120)}>
-            {site.name}
-          </h1>
-          <p className="enter hero-tags font-serif italic" style={d(260)}>
-            <span>{site.heroTagLeft}</span>
-            <span>{site.heroTagRight}</span>
-          </p>
-        </div>
       </div>
 
       {/* Profile row: avatar cell + role */}
@@ -43,7 +31,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="cell-pad enter flex flex-col justify-center gap-1" style={d(380)}>
-          <p className="text-[18px] font-medium sm:text-[20px]">{site.fullName}</p>
+          <h1 className="text-[18px] font-medium sm:text-[20px]">{site.fullName}</h1>
           <p className="text-[14.5px] text-fg-2">{site.role}. Chennai, India.</p>
           <div className="mt-2">
             <StatusChip />

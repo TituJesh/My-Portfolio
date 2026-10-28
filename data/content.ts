@@ -6,11 +6,8 @@ export const site = {
   initials: "TJ",
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
-  // hero banner: the photo and the poster-style wording set over it
+  // hero banner photo; the tagline over it is still to be chosen
   banner: { src: "/hero-beach.webp", width: 1600, height: 722, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
-  heroKicker: "the art of",
-  heroTagLeft: "Chennai",
-  heroTagRight: "designs it, deploys it",
   description:
     "Titu Jeshurun is a cloud engineer and multimedia designer in Chennai, India. AWS, Terraform, Docker and GitHub Actions by day; posters, reels and logos for short films and symposiums by night.",
   // Set this to the production domain before deploying (canonical URL, sitemap and Open Graph use it).
