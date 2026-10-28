@@ -4,6 +4,7 @@ import { GitHub, Instagram, LinkedIn, MapPin, Palette, Terminal } from "./Icons"
 import CopyEmail from "./CopyEmail";
 import HeroLines from "./HeroLines";
 import StatusChip from "./StatusChip";
+import DimClock from "./DimClock";
 import Contributions from "./Contributions";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
@@ -30,14 +31,14 @@ export default function Hero() {
       {/* Profile row: avatar cell + role */}
       <div className="grid grid-cols-[128px_1fr] border-b border-line sm:grid-cols-[168px_1fr]">
         <div className="relative grid place-items-center border-r border-line p-4">
-          <span className="dim dim-left mono-meta" aria-hidden>
-            Ø120
-          </span>
+          <DimClock className="dim dim-left mono-meta" />
           <div className="enter relative h-24 w-24 rounded-full border border-line-2 p-1 sm:h-[120px] sm:w-[120px]" style={d(300)}>
             <span className="absolute inset-[-5px] rounded-full border border-line" aria-hidden />
             {/* Ink sketch avatar: the ink stays black in both themes, only the circle behind it follows the theme */}
             <div className="avatar relative h-full w-full overflow-hidden rounded-full">
               <Image src={site.photo} alt={`Ink sketch of ${site.fullName}`} width={640} height={640} priority className="avatar-ink h-full w-full" />
+              {/* eyes-closed frame of the same sketch, shown for a few frames every few seconds */}
+              <Image src={site.photoClosed} alt="" width={640} height={640} aria-hidden className="avatar-ink avatar-blink h-full w-full" />
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ export const site = {
   timeZone: "Asia/Kolkata",
   email: "titujesh@gmail.com",
   photo: "/avatar-figure.webp", // transparent ink sketch, face to shoulders; the disc behind it follows the theme
+  photoClosed: "/avatar-figure-closed.webp", // same sketch with the eyes shut, used for the blink
   github: "https://github.com/TituJesh",
   githubHandle: "TituJesh",
   linkedin: "https://www.linkedin.com/in/titu-jeshurun",
