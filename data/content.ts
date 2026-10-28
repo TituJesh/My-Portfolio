@@ -130,7 +130,7 @@ export const projects: Project[] = [
     meta: "AWS · Terraform · FastAPI · Lambda",
     outcome: "Temporary AWS resources that clean up after themselves.",
     status: "Serverless · open source",
-    thumbnail: { src: "/work/cloudexpire-logo.webp", width: 640, height: 400, alt: "CloudExpire logo: the word cloud with its o drawn as a cloud dissolving into dots, above the word expire" },
+    thumbnail: { src: "/work/cloudexpire-mark.webp", width: 640, height: 400, alt: "CloudExpire logo: the word cloud with its o drawn as a cloud dissolving into dots, above the word expire" },
     banner: { src: "/work/cloudexpire-banner.webp", width: 1600, height: 836, alt: "CloudExpire poster: the logo on a dark grid with torn paper, and a line describing the AWS-powered temporary resource management system" },
     repo: "https://github.com/TituJesh/CloudExpire",
     facts: [
