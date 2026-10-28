@@ -3,6 +3,7 @@ import { site } from "@/data/content";
 import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
 import StatusChip from "./StatusChip";
+import HeroGlyphs from "./HeroGlyphs";
 import DimClock from "./DimClock";
 import Contributions from "./Contributions";
 
@@ -11,9 +12,18 @@ const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 export default function Hero() {
   return (
     <section id="top" aria-label="Introduction">
-      {/* Banner: the beach photo drifting slowly. The tagline goes here once it is chosen. */}
+      {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
         <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
+        <HeroGlyphs />
+        <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
+          <span className="enter hero-script" style={d(0)}>
+            {site.heroScript}
+          </span>
+          <span className="enter hero-caps" style={d(140)}>
+            {site.heroCaps}
+          </span>
+        </p>
       </div>
 
       {/* Profile row: avatar cell + role */}

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono, Pinyon_Script } from "next/font/google";
 import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/data/content";
 import "./globals.css";
@@ -8,6 +8,8 @@ import "./globals.css";
 const sans = Inter_Tight({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-sans", display: "swap", fallback: ["system-ui", "Arial"] });
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-serif", display: "swap", fallback: ["Georgia", "serif"] });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--font-mono", display: "swap", fallback: ["Menlo", "Consolas", "monospace"] });
+// calligraphic face, used only for the hero tagline
+const script = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap", fallback: ["Brush Script MT", "cursive"] });
 
 const title = `${site.name} — ${site.role}`;
 
@@ -47,7 +49,7 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable} ${script.variable}`} suppressHydrationWarning>
       <body>
         <Script id="theme-init" strategy="beforeInteractive">
           {themeScript}

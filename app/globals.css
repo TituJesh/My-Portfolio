@@ -177,11 +177,16 @@
   /* hero banner: photo band, poster wording in fixed cream and rust so it reads the same in both themes */
   .hero-canvas { height: clamp(300px, 46vw, 380px); background: #cbbd97; }
   .hero-photo { position: absolute; inset: -4% -6%; width: 112%; height: 108%; max-width: none; object-fit: cover; object-position: 50% 55%; }
-  .hero-words { color: #f7f0dd; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.35), 0 8px 28px rgba(20, 30, 20, 0.25); }
-  .hero-kicker { font-size: clamp(24px, 4.2vw, 36px); line-height: 1; letter-spacing: -0.01em; }
-  .hero-name { margin-top: 4px; font-size: clamp(48px, 10.5vw, 96px); font-weight: 500; line-height: 0.92; letter-spacing: -0.055em; text-transform: uppercase; color: #d84a1b; text-shadow: 0 1px 0 rgba(255, 240, 210, 0.35), 0 10px 30px rgba(60, 20, 0, 0.3); }
-  .hero-tags { display: flex; justify-content: space-between; margin-top: 10px; font-size: clamp(16px, 2.6vw, 21px); line-height: 1; }
-  .hero-tags { width: min(100% - 32px, 560px); }
+  .hero-words { padding: 0 16px; color: #f7f0dd; text-shadow: 0 1px 2px rgba(20, 30, 20, 0.35), 0 8px 28px rgba(20, 30, 20, 0.25); }
+  /* calligraphy over typography: the script line overlaps the top of the caps a little, as on a poster */
+  .hero-script { font-family: var(--font-script), cursive; font-size: clamp(34px, 7vw, 64px); line-height: 1; margin-bottom: -0.28em; padding-right: 0.3em; transform: rotate(-3deg); }
+  .hero-caps { font-size: clamp(32px, 8.8vw, 78px); font-weight: 500; line-height: 0.92; letter-spacing: -0.05em; text-transform: uppercase; color: #d84a1b; text-shadow: 0 1px 0 rgba(255, 240, 210, 0.35), 0 10px 30px rgba(60, 20, 0, 0.3); }
+  /* inked glyphs over the photo; the SVG covers the band and its shapes sit at fixed spots in the 768x380 frame */
+  .hero-glyphs { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; fill: #f7f0dd; stroke: #f7f0dd; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; filter: drop-shadow(0 1px 1px rgba(20, 30, 20, 0.35)); }
+  .hero-glyphs .glyph-gull path, .hero-glyphs .glyph-boat path:last-child { fill: none; }
+  .hero-glyphs .glyph-lamp { fill: #ff6a3d; stroke: none; }
+  /* on phones the band is cropped to its middle and the caps fill the width, so the boat and buoy would cross the words */
+  @media (max-width: 640px) { .hero-glyphs .glyph-boat, .hero-glyphs .glyph-buoy { display: none; } }
 
   /* avatar: black ink on a themed disc */
   .avatar { background: var(--avatar-bg); }
@@ -256,6 +261,19 @@
     /* the banner photo drifts a few percent sideways and back, slowly, like a held shot */
     .hero-photo { animation: hero-drift 36s ease-in-out infinite alternate; }
     @keyframes hero-drift { from { transform: translate3d(-2.5%, 0, 0) scale(1); } to { transform: translate3d(2.5%, 0, 0) scale(1.03); } }
+    /* glyph loops, each slow and small: the sun bobs, gulls sway and hop, the boat drifts and rocks, the lamp blinks */
+    .glyph-sun { animation: glyph-sunbob 5s ease-in-out infinite; }
+    @keyframes glyph-sunbob { 0%, 100% { transform: translateY(1.5px); } 50% { transform: translateY(-1.5px); } }
+    .glyph-gull { animation: glyph-sway 3.6s ease-in-out infinite, glyph-hop 2.8s ease-in-out infinite; }
+    @keyframes glyph-sway { 0%, 100% { rotate: -6deg; } 50% { rotate: 7deg; } }
+    @keyframes glyph-hop { 0%, 100% { translate: 0 0; } 40% { translate: 0 -3px; } }
+    .glyph-boat { animation: glyph-drift 48s ease-in-out infinite alternate, glyph-rock 4.4s ease-in-out infinite; }
+    @keyframes glyph-drift { from { translate: -60px 0; } to { translate: 40px 0; } }
+    @keyframes glyph-rock { 0%, 100% { rotate: -2.5deg; } 50% { rotate: 2.5deg; } }
+    .glyph-buoy { animation: glyph-bob 3.2s ease-in-out infinite; }
+    @keyframes glyph-bob { 0%, 100% { translate: 0 1px; rotate: -3deg; } 50% { translate: 0 -2px; rotate: 3deg; } }
+    .glyph-lamp { animation: glyph-lamp 2.4s steps(1, end) infinite; }
+    @keyframes glyph-lamp { 0%, 100% { opacity: 0.25; } 70% { opacity: 1; } 85% { opacity: 0.25; } }
     .hero-node { animation: enter var(--t-reveal) var(--ease) both; animation-delay: 700ms; }
 
     .pulse-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ok); animation: pulse 2.4s var(--ease) infinite; }
