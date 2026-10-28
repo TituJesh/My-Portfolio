@@ -105,14 +105,24 @@ export type Project = {
   meta: string;
   outcome: string;
   status: string;
+  // card on the home page
   thumbnail: { src: string; width: number; height: number; alt: string };
+  // wide image at the top of the project page; falls back to the thumbnail
+  banner?: { src: string; width: number; height: number; alt: string };
   repo: string;
+  // short facts pulled from the repository (language, tests, region, licence)
+  facts: { label: string; value: string }[];
   problem: string;
+  features: string[];
   decisions: string[];
   architecture: { image?: { src: string; width: number; height: number; alt: string }; components: { name: string; role: string }[] };
+  stack: { layer: string; items: string }[];
+  api?: { method: string; path: string; note: string }[];
   result: string;
 };
 
+// Project copy and facts come from each repository's README on GitHub (TituJesh/CloudExpire, TituJesh/Acedra,
+// DevForgeCore/Self-Healing-Cloud-Infrastructure). Re-read the README before changing numbers here.
 export const projects: Project[] = [
   {
     slug: "cloudexpire",
@@ -120,29 +130,60 @@ export const projects: Project[] = [
     meta: "AWS · Terraform · FastAPI · Lambda",
     outcome: "Temporary AWS resources that clean up after themselves.",
     status: "Serverless · open source",
-    thumbnail: { src: "/work/cloudexpire-arch.webp", width: 1000, height: 511, alt: "CloudExpire AWS architecture: GitHub Actions and Terraform on top, Lambda, DynamoDB, EventBridge and EC2 inside the AWS cloud" },
+    thumbnail: { src: "/work/cloudexpire-logo.webp", width: 640, height: 400, alt: "CloudExpire logo: the word cloud with its o drawn as a cloud dissolving into dots, above the word expire" },
+    banner: { src: "/work/cloudexpire-banner.webp", width: 1600, height: 836, alt: "CloudExpire poster: the logo on a dark grid with torn paper, and a line describing the AWS-powered temporary resource management system" },
     repo: "https://github.com/TituJesh/CloudExpire",
+    facts: [
+      { label: "Language", value: "Python 3.12 · Terraform (HCL)" },
+      { label: "Tests", value: "24 unit and integration, run in CI" },
+      { label: "Region", value: "ap-south-1 (Mumbai)" },
+      { label: "Default mode", value: "Dry run, destruction off" },
+    ],
     problem:
-      "Temporary cloud environments outlive their purpose, creating unnecessary cost and a wider security surface. CloudExpire provisions EC2 instances with a time to live of 1 to 24 hours, tracks their expiry and cleans up eligible resources automatically.",
+      "Temporary cloud environments outlive their purpose, creating unnecessary cost and a wider security surface. CloudExpire is a serverless lifecycle engine: it provisions short-lived EC2 instances with a time to live of 1 to 24 hours, tracks the expiry state in DynamoDB and terminates expired resources from a scheduled Lambda.",
+    features: [
+      "On-demand provisioning: request an EC2 instance over a REST API with a configurable TTL of 1 to 24 hours.",
+      "TTL tracking: DynamoDB keeps the creation timestamp, expiry window and active state of every resource.",
+      "Automated cleanup: EventBridge triggers a cleanup Lambda every five minutes to terminate expired instances.",
+      "Safety guardrails: destruction is disabled by default (dry run) and ownership tags are validated before any termination.",
+      "State reconciliation: stale unprovisioned requests are recovered, and resources move through REQUESTED, ACTIVE, CLEANUP_PENDING, CLEANED or FAILED.",
+      "Infrastructure as code: the whole AWS footprint is defined and provisioned with Terraform.",
+      "Observability: structured execution summaries and metrics go to CloudWatch with 14-day retention.",
+    ],
     decisions: [
-      "A FastAPI application behind API Gateway and Lambda handles requests; DynamoDB stores creation and expiry timestamps with the resource metadata.",
+      "A FastAPI application behind API Gateway and Lambda handles requests; DynamoDB stores creation and expiry timestamps with the resource metadata in a single table.",
       "EventBridge invokes a separate cleanup Lambda every five minutes. Cleanup evaluates expiry timestamps itself instead of relying on DynamoDB TTL deletion.",
-      "Ownership tags (Project, ManagedBy, ResourceId) are validated before any termination; destructive actions stay disabled unless enabled deliberately, and a read-only cleanup mode exists.",
-      "Resource states are reconciled through REQUESTED, ACTIVE, CLEANUP_PENDING, CLEANED and FAILED; stale requests without an instance are marked FAILED after a grace period.",
-      "All infrastructure is Terraform; the cleanup role uses scoped IAM permissions with tag-based conditions, DynamoDB is on-demand and log groups keep 14 days.",
+      "Ownership tags (Project, ManagedBy, ResourceId) are validated before any termination; EC2 launch and termination stay disabled unless enabled through explicit environment flags.",
+      "Stale requests without an instance are marked FAILED after a grace period, so the table never fills with ghosts.",
+      "The cleanup role restricts ec2:TerminateInstances with tag conditions; DynamoDB is on demand and the API bearer token lives in SSM Parameter Store as a SecureString.",
+      "Terraform ignores the Lambda code hash so the cleanup package can be deployed from CI independently of the infrastructure.",
     ],
     architecture: {
-      image: { src: "/work/cloudexpire-arch.webp", width: 1000, height: 511, alt: "CloudExpire architecture diagram" },
+      image: { src: "/work/cloudexpire-arch.webp", width: 1000, height: 511, alt: "CloudExpire AWS architecture: GitHub Actions and Terraform on top, Lambda, DynamoDB, EventBridge and EC2 inside the AWS cloud" },
       components: [
-        { name: "API Gateway + Lambda", role: "Runs the FastAPI application" },
-        { name: "DynamoDB", role: "Resource metadata and expiry timestamps" },
-        { name: "EventBridge", role: "Triggers cleanup every five minutes" },
-        { name: "Cleanup Lambda", role: "Evaluates expiry, validates tags, terminates EC2" },
-        { name: "Parameter Store", role: "API bearer token as a SecureString" },
-        { name: "CloudWatch", role: "Structured execution summaries, 14-day retention" },
+        { name: "API Gateway", role: "Public REST interface forwarding to the FastAPI Lambda" },
+        { name: "Lambda (API)", role: "FastAPI application handling resource requests and auth" },
+        { name: "DynamoDB", role: "Single-table resource metadata, status and TTL" },
+        { name: "EventBridge", role: "Cron rule invoking cleanup every five minutes" },
+        { name: "Lambda (cleanup)", role: "Scans expired records, checks EC2 tags, terminates" },
+        { name: "EC2", role: "Temporary instances launched with ownership tags" },
+        { name: "SSM Parameter Store", role: "Bearer token for API authentication" },
+        { name: "CloudWatch Logs", role: "14-day execution logs and operational metrics" },
       ],
     },
-    result: "Twenty-four unit and integration tests run on every push in GitHub Actions. Cleanup runs on a five-minute schedule and never terminates an instance that is not tagged as CloudExpire's own.",
+    stack: [
+      { layer: "Backend and API", items: "Python 3.12, FastAPI, Pydantic v2, Uvicorn" },
+      { layer: "Cloud services", items: "EC2, DynamoDB, Lambda, EventBridge, API Gateway, SSM, CloudWatch" },
+      { layer: "IaC and tooling", items: "Terraform, Docker, pytest, GitHub Actions" },
+    ],
+    api: [
+      { method: "GET", path: "/health", note: "Public service health check" },
+      { method: "POST", path: "/resources", note: "Register and provision a temporary resource" },
+      { method: "GET", path: "/resources", note: "List all tracked resources" },
+      { method: "GET", path: "/resources/{id}", note: "Resource details and lifecycle status" },
+    ],
+    result:
+      "Twenty-four unit and integration tests run on every push in GitHub Actions. Cleanup runs on a five-minute schedule and never terminates an instance that is not tagged as CloudExpire's own. A planned next step is cross-account provisioning through IAM roles and STS, so users could have resources created in their own AWS accounts.",
   },
   {
     slug: "acedra",
@@ -152,26 +193,54 @@ export const projects: Project[] = [
     status: "Backend · containerised",
     thumbnail: { src: "/work/acedra.webp", width: 640, height: 400, alt: "Acedra logo" },
     repo: "https://github.com/TituJesh/Acedra",
+    facts: [
+      { label: "Language", value: "Python 3.12 · Terraform · Shell" },
+      { label: "Database", value: "PostgreSQL on Amazon RDS, private subnet" },
+      { label: "Region", value: "ap-south-1 (Mumbai)" },
+      { label: "Licence", value: "MIT" },
+    ],
     problem:
-      "Academic institutions need student records and documents kept strictly apart by role, with secrets out of the codebase. Acedra is a REST backend for student information and document management built for departments and faculties.",
+      "Academic institutions need student records and documents kept strictly apart by role, with secrets out of the codebase. Acedra is a REST backend for student information and document management built for universities, departments and faculties.",
+    features: [
+      "Modular REST routes across authentication, students, departments and documents.",
+      "Role-based access control with strict separation between admin and student roles; a student reaching for another student's record or file gets 403.",
+      "A secure document vault: files stream to a private S3 bucket and are downloaded only through presigned URLs that expire after 300 seconds.",
+      "Zero hardcoded secrets: a local .env in development and AWS Secrets Manager in production.",
+      "Relational integrity on PostgreSQL 16 through SQLAlchemy 2.0, with reversible Alembic migrations.",
+      "Interactive OpenAPI 3.0 documentation at /docs and /redoc.",
+    ],
     decisions: [
-      "Modular FastAPI routes for authentication, students, departments and documents, with OpenAPI docs generated at /docs.",
-      "PostgreSQL 16 through SQLAlchemy 2.0 with reversible Alembic migrations; a one-to-one user to student profile and departments that own students.",
-      "JWT (HS256) authentication with bcrypt hashing and strict admin versus student role separation to prevent cross-tenant access.",
-      "Documents stream to a private S3 bucket and are served through 300-second presigned URLs only.",
-      "Dual-mode configuration: a local .env for development and AWS Secrets Manager in production, so nothing sensitive is hardcoded.",
+      "A one-to-one link from user to student profile, and departments that own students; deletions of a department are guarded by enrolment.",
+      "JWT (HS256) authentication with bcrypt password hashing; ownership is enforced at the service level, not just in the router.",
+      "Uploads are capped at 10 MB and never leave a private bucket; nothing in S3 is reachable without a short-lived signed URL.",
+      "Pydantic v2 validation and SQLAlchemy parameterised queries keep input sanitised and SQL injection out.",
+      "The test suite runs against an in-memory SQLite database with S3 fully mocked, so CI needs no AWS account.",
+      "A multi-stage Dockerfile runs the app as an unprivileged user; GitHub Actions publishes to ECR keylessly through OIDC on every push to main.",
     ],
     architecture: {
+      image: { src: "/work/acedra-arch.webp", width: 819, height: 1024, alt: "Acedra AWS architecture in ap-south-1: GitHub Actions, Docker and ECR on top; a VPC with a public subnet holding the EC2 host and private subnets holding the RDS database; Secrets Manager and CloudWatch beside it" },
       components: [
-        { name: "FastAPI on Uvicorn", role: "Async REST gateway with OAuth2 and RBAC" },
-        { name: "PostgreSQL 16", role: "Users, students, departments, documents" },
-        { name: "Amazon S3", role: "Private document vault, presigned downloads" },
-        { name: "AWS Secrets Manager", role: "Production configuration and keys" },
-        { name: "Docker + Amazon ECR", role: "Container image build and registry" },
-        { name: "GitHub Actions (OIDC) + Terraform", role: "CI and infrastructure" },
+        { name: "GitHub Actions → ECR", role: "Builds and tests the image, pushes to a private registry with scan on push" },
+        { name: "EC2 (public subnet)", role: "t2.micro API host behind an internet gateway; port 80 open, SSH restricted" },
+        { name: "RDS PostgreSQL (private subnet)", role: "db.t4g.micro, reachable only from the EC2 security group on 5432" },
+        { name: "Amazon S3", role: "Private document vault with presigned downloads" },
+        { name: "AWS Secrets Manager", role: "Database credentials and app secrets injected at runtime" },
+        { name: "CloudWatch", role: "Centralised logs, metrics and alarms" },
       ],
     },
-    result: "Student and admin data are kept strictly apart, every document URL expires in five minutes, and the schema can be migrated forward and back without manual SQL.",
+    stack: [
+      { layer: "Backend", items: "Python 3.12, FastAPI, Pydantic v2, Uvicorn and Gunicorn" },
+      { layer: "Data", items: "PostgreSQL 16, Psycopg 3, SQLAlchemy 2.0, Alembic" },
+      { layer: "Cloud and security", items: "S3 (boto3), Secrets Manager, JWT (HS256), bcrypt" },
+      { layer: "DevOps and IaC", items: "Docker, Amazon ECR, GitHub Actions (OIDC), Terraform, CloudFormation" },
+    ],
+    api: [
+      { method: "POST", path: "/auth/register · /auth/login", note: "Registration and JWT issue; /auth/me for identity" },
+      { method: "GET", path: "/students/ · /students/me · /students/search", note: "Directory with dept, year and gender filters; admin write" },
+      { method: "GET", path: "/departments/", note: "Department catalogue, enrolment-guarded deletes" },
+      { method: "POST", path: "/documents/upload/{id}", note: "Private S3 upload, 10 MB limit; download via a 300 s signed URL" },
+    ],
+    result: "Student and admin data are kept strictly apart, every document URL expires in five minutes, and the schema can be migrated forward and back without manual SQL. The whole stack deploys to ap-south-1 from Terraform or CloudFormation.",
   },
   {
     slug: "self-healing-cloud",
@@ -181,25 +250,49 @@ export const projects: Project[] = [
     status: "Team project · prototype",
     thumbnail: { src: "/work/selfheal.svg", width: 640, height: 400, alt: "Diagram of the monitor, detect, decide, recover loop" },
     repo: "https://github.com/DevForgeCore/Self-Healing-Cloud-Infrastructure",
+    facts: [
+      { label: "Language", value: "Java 21, Spring Boot 3.2" },
+      { label: "Build", value: "Maven" },
+      { label: "Runs on", value: "Linux / Ubuntu, port 8080" },
+      { label: "Organisation", value: "DevForgeCore, final-year project" },
+    ],
     problem:
       "When a host runs out of CPU, memory or disk, someone has to notice and act. This educational prototype watches a Linux host, classifies resource trouble and runs a predefined recovery action without waiting for a human, while keeping a tamper-evident record of what it did.",
+    features: [
+      "Monitoring: live CPU, RAM and disk metrics with a resource-history chart.",
+      "Detection: rule-based detection of supported overload conditions.",
+      "Decisions: a decision engine maps each classified issue to a configured action.",
+      "Recovery: demonstrated recovery for CPU, memory and disk scenarios.",
+      "Event logs: incident and recovery records with blockchain-inspired, hash-chained integrity logging.",
+      "Dashboard: system status, decisions, processes, logs and trust information in one interface.",
+    ],
     decisions: [
-      "Live CPU, memory and disk metrics with threshold-based detection of overload conditions.",
-      "A decision engine maps each classified issue to a predefined recovery action rather than free-form automation.",
-      "Every event is appended to a hash-chained log so the recovery history cannot be quietly edited afterwards.",
-      "A dashboard shows resource history, process details and recovery logs.",
+      "Threshold rules rather than a trained model: the README is explicit that detection is rule-based until a real ML model is added.",
+      "Recovery is limited to predefined actions on demo processes and project-owned test files, never free-form automation.",
+      "Every event is appended to a hash chain so the recovery history cannot be quietly edited afterwards.",
+      "Recovery controls are meant for a disposable test VM and must not be exposed publicly without authentication and allow-lists.",
     ],
     architecture: {
       components: [
-        { name: "Monitor", role: "Collects CPU, memory and disk metrics" },
-        { name: "Detector", role: "Threshold rules classify the problem" },
-        { name: "Decision engine", role: "Maps issue class to a recovery action" },
-        { name: "Recovery executor", role: "Runs the action on the Linux host" },
-        { name: "Hash-chain log", role: "Tamper-evident event record" },
-        { name: "Dashboard", role: "Spring Boot UI with Chart.js history" },
+        { name: "Monitoring", role: "Collects Linux CPU, memory and disk metrics" },
+        { name: "Failure detection", role: "Threshold rules decide normal versus issue" },
+        { name: "Classification", role: "CPU overload, memory overload or disk pressure" },
+        { name: "Decision engine", role: "Maps the issue class to a recovery action" },
+        { name: "Recovery service", role: "Runs the action on the host" },
+        { name: "Event and integrity logging", role: "Hash-chained record feeding the dashboard" },
       ],
     },
-    result: "A working monitor-detect-decide-recover loop with a verifiable log, built with a team under the DevForgeCore organisation. It is a prototype for learning, not a production agent.",
+    stack: [
+      { layer: "Backend", items: "Java 21, Spring Boot 3.2.5, Maven" },
+      { layer: "Frontend", items: "HTML, CSS, JavaScript, Chart.js" },
+      { layer: "Integration", items: "REST API, Linux / Ubuntu" },
+    ],
+    api: [
+      { method: "GET", path: "/api/system-health", note: "Current resource metrics and status" },
+      { method: "GET", path: "/api/logs", note: "Application and recovery logs" },
+      { method: "GET", path: "/api/processes", note: "Process information" },
+    ],
+    result: "A working monitor-detect-decide-recover loop with a verifiable log, built with a team under the DevForgeCore organisation. Planned next: SHA-256 hash-chain verification, safer recovery checks with rollback, authentication and container monitoring.",
   },
 ];
 

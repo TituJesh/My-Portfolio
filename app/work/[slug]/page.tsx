@@ -29,10 +29,17 @@ function Block({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
+function Dash() {
+  return <span className="mt-[11px] h-px w-3 shrink-0 bg-line-2" aria-hidden />;
+}
+
 export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) notFound();
+
+  // the wide image at the top: the banner when the project has one, else the card image unless that is the diagram
+  const hero = p.banner ?? (p.architecture.image?.src !== p.thumbnail.src ? p.thumbnail : undefined);
 
   return (
     <>
@@ -57,22 +64,41 @@ export default async function ProjectPage({ params }: Params) {
             {p.outcome}
           </p>
         </header>
-        {p.architecture.image?.src !== p.thumbnail.src ? (
+        {hero ? (
           <div className="border-b border-line p-4 sm:p-5" data-reveal="rise">
             <div className="overflow-hidden rounded-md border border-line bg-bg-2">
-              <Image src={p.thumbnail.src} alt={p.thumbnail.alt} width={p.thumbnail.width} height={p.thumbnail.height} priority className="h-auto w-full" />
+              <Image src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} priority className="h-auto w-full" />
             </div>
           </div>
         ) : null}
 
+        <dl className="grid border-b border-line sm:grid-cols-4" data-reveal-group>
+          {p.facts.map((f, i) => (
+            <div key={f.label} className={`cell-pad border-b border-line sm:border-b-0 ${i < p.facts.length - 1 ? "sm:border-r" : ""}`} data-reveal="rise">
+              <dt className="mono-meta">{f.label}</dt>
+              <dd className="mt-1 text-[14px] text-fg">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+
         <Block label="Problem">
           <p>{p.problem}</p>
+        </Block>
+        <Block label="Features">
+          <ul className="flex flex-col gap-2">
+            {p.features.map((f, i) => (
+              <li key={i} className="flex gap-3">
+                <Dash />
+                {f}
+              </li>
+            ))}
+          </ul>
         </Block>
         <Block label="Design decisions">
           <ul className="flex flex-col gap-2">
             {p.decisions.map((d, i) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-[11px] h-px w-3 shrink-0 bg-line-2" aria-hidden />
+                <Dash />
                 {d}
               </li>
             ))}
@@ -93,6 +119,31 @@ export default async function ProjectPage({ params }: Params) {
             ))}
           </dl>
         </Block>
+        <Block label="Tech stack">
+          <dl className="grid gap-px overflow-hidden rounded-md border border-line bg-line">
+            {p.stack.map((s) => (
+              <div key={s.layer} className="grid bg-bg px-3 py-2.5 sm:grid-cols-[150px_1fr]">
+                <dt className="mono-meta text-fg-3">{s.layer}</dt>
+                <dd className="text-[14px] text-fg">{s.items}</dd>
+              </div>
+            ))}
+          </dl>
+        </Block>
+        {p.api ? (
+          <Block label="API">
+            <ul className="grid gap-px overflow-hidden rounded-md border border-line bg-line">
+              {p.api.map((e) => (
+                <li key={`${e.method} ${e.path}`} className="grid gap-x-3 bg-bg px-3 py-2.5 sm:grid-cols-[52px_1fr]">
+                  <span className="mono-meta text-accent">{e.method}</span>
+                  <span>
+                    <code className="font-mono text-[13px] text-fg">{e.path}</code>
+                    <span className="mt-0.5 block text-[13.5px] text-fg-3">{e.note}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
         <Block label="Result">
           <p>{p.result}</p>
         </Block>
