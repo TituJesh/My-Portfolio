@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { preload } from "react-dom";
 import { site } from "@/data/content";
 import { FileText, GitHub, LinkedIn, MapPin, Palette, Terminal } from "./Icons";
 import CopyEmail from "./CopyEmail";
@@ -10,22 +9,14 @@ import Contributions from "./Contributions";
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
 export default function Hero() {
-  // the banner is a CSS background, so ask for it as early as a priority image
-  preload(site.banner.src, { as: "image" });
   return (
     <section id="top" aria-label="Introduction">
       {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        {/* The photo pans steadily to the right as a repeating background strip (frame + mirror), so there is
-            never a join or a jump; the three lightning frames are the same kind of strip stacked on top. */}
-        <div className="hero-photo" aria-hidden>
-          <div className="hero-layer" style={{ backgroundImage: `url(${site.banner.src})` }} />
-          {site.bannerFlash.map((src, i) => (
-            <div key={src} className={`hero-layer hero-flash-${i + 1}`} style={{ backgroundImage: `url(${src})` }} />
-          ))}
-        </div>
-        <span className="sr-only">{site.banner.alt}</span>
+        <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
         <HeroGlyphs />
+        {/* lightning: a soft glow behind the clouds that flickers twice every few seconds, no bolt */}
+        <span className="hero-flash" aria-hidden />
         <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
           <span className="enter hero-script" style={d(0)}>
             {site.heroScript}
