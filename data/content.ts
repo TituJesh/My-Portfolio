@@ -7,7 +7,9 @@ export const site = {
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
-  banner: { src: "/hero-beach.webp", width: 1600, height: 722, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  // three frames of the same shot: the dark base and two lightning-lit frames that flicker over it
+  banner: { src: "/hero-beach-dark.webp", width: 1280, height: 577, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  bannerFlash: ["/hero-flash-1.webp", "/hero-flash-2.webp"],
   heroScript: "started with a sketch",
   heroCaps: "ended in the cloud",
   description:

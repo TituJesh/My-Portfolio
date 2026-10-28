@@ -13,10 +13,14 @@ export default function Hero() {
     <section id="top" aria-label="Introduction">
       {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
+        {/* the photo and its two lightning-lit frames share one drifting wrapper so they never slip out of register */}
+        <div className="hero-photo" aria-hidden>
+          <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-frame" />
+          <Image src={site.bannerFlash[0]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-1" />
+          <Image src={site.bannerFlash[1]} alt="" width={site.banner.width} height={site.banner.height} sizes="(max-width: 768px) 100vw, 768px" className="hero-frame hero-flash-2" />
+        </div>
+        <span className="sr-only">{site.banner.alt}</span>
         <HeroGlyphs />
-        {/* lightning: a soft glow behind the clouds that flickers twice every few seconds, no bolt */}
-        <span className="hero-flash" aria-hidden />
         <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
           <span className="enter hero-script" style={d(0)}>
             {site.heroScript}
