@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter_Tight, Instrument_Serif, JetBrains_Mono, Pinyon_Script } from "next/font/google";
+import localFont from "next/font/local";
 import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/data/content";
 import "./globals.css";
@@ -9,6 +10,8 @@ const sans = Inter_Tight({ subsets: ["latin"], weight: ["400", "500"], variable:
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-serif", display: "swap", fallback: ["Georgia", "serif"] });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--font-mono", display: "swap", fallback: ["Menlo", "Consolas", "monospace"] });
 // calligraphic face, used only for the hero tagline
+// Trip Sans Bold from the project's own files, used only for the hero caps line
+const tripSans = localFont({ src: "./fonts/trip-sans-bold.otf", weight: "700", variable: "--font-trip", display: "swap", fallback: ["Figtree", "Arial", "sans-serif"] });
 const script = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap", fallback: ["Brush Script MT", "cursive"] });
 
 const title = `${site.name} — ${site.role}`;
@@ -49,7 +52,7 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable} ${script.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable} ${script.variable} ${tripSans.variable}`} suppressHydrationWarning>
       <body>
         <Script id="theme-init" strategy="beforeInteractive">
           {themeScript}

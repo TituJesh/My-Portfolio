@@ -36,7 +36,7 @@ All tokens are CSS variables at the top of `app/globals.css` (light values on `:
 
 Motion: `--ease: cubic-bezier(0.22, 1, 0.36, 1)`, `--t-micro: 150ms`, `--t-std: 300ms`, `--t-reveal: 600ms`. Layout: `--col: 720px`, `--nav-h: 48px`, `--radius: 8px`, pills `999px`, hairlines `1px`.
 
-Fonts (via `next/font`, swap, with fallbacks): Inter Tight 400/500, Instrument Serif italic, JetBrains Mono 400, Pinyon Script 400 (hero tagline only).
+Fonts (via `next/font`, swap, with fallbacks): Inter Tight 400/500, Instrument Serif italic, JetBrains Mono 400, Pinyon Script 400 (hero tagline script line). Trip Sans Bold is a local file in `app/fonts/`, loaded with `next/font/local` for the hero caps line only.
 
 ## Theme
 
