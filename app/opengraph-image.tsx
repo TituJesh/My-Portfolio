@@ -31,7 +31,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#5c5955" }}>
           <span>{site.role}</span>
-          <span style={{ color: "#c2410c" }}>{site.url.replace(/^https?:\/\//, "")}</span>
+          <span style={{ color: "#8a6d0b" }}>{site.url.replace(/^https?:\/\//, "")}</span>
         </div>
       </div>
     ),
