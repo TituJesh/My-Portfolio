@@ -1,6 +1,6 @@
 // Small inked elements over the hero photo, each with its own slow CSS loop (see .glyph-* in globals.css):
-// a sun that bobs, three gulls that sway and hop, and a buoy lamp that blinks. A lightning flash over the
-// clouds is a separate overlay in Hero (.hero-flash). All are decorative; the keyframes only run when the viewer has not asked for reduced motion.
+// a sun that bobs, three gulls that sway and hop, and a buoy lamp that blinks. The lightning is two lit frames of the
+// photo flickering in Hero (.hero-frame). All are decorative; the keyframes only run when the viewer has not asked for reduced motion.
 export default function HeroGlyphs() {
   return (
     <svg className="hero-glyphs" viewBox="0 0 768 380" preserveAspectRatio="xMidYMid slice" aria-hidden focusable="false">

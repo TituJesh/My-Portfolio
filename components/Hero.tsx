@@ -13,10 +13,15 @@ export default function Hero() {
     <section id="top" aria-label="Introduction">
       {/* Banner: the beach photo drifting slowly, inked glyphs moving over it, and the tagline as calligraphy over caps */}
       <div className="hero-canvas relative overflow-hidden border-b border-line">
-        <Image src={site.banner.src} alt={site.banner.alt} width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
+        {/* the photo and its two lit frames drift together, so a strike never shifts the picture */}
+        <div className="hero-drift" aria-hidden>
+          <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
+          {site.bannerFrames.map((f, i) => (
+            <Image key={f.src} src={f.src} alt="" width={f.width} height={f.height} sizes="(max-width: 768px) 100vw, 768px" className={`hero-photo hero-frame hero-frame-${i + 1}`} />
+          ))}
+        </div>
+        <span className="sr-only">{site.banner.alt}</span>
         <HeroGlyphs />
-        {/* lightning: a soft glow behind the clouds that flickers twice every few seconds, no bolt */}
-        <span className="hero-flash" aria-hidden />
         <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
           <span className="enter hero-script" style={d(0)}>
             {site.heroScript}
