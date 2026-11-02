@@ -41,10 +41,10 @@ export const site = {
 
 export const stages = [
   { id: "top", label: "TJ", short: "Top" },
-  { id: "index", label: "Index", short: "Index" },
-  { id: "work", label: "Work", short: "Work" },
-  { id: "stack", label: "Stack", short: "Stack" },
-  { id: "log", label: "Log", short: "Log" },
+  { id: "about", label: "About", short: "About" },
+  { id: "skills", label: "Skills", short: "Skills" },
+  { id: "work", label: "Projects", short: "Projects" },
+  { id: "log", label: "Experience", short: "Experience" },
   { id: "words", label: "Words", short: "Words" },
   { id: "contact", label: "Contact", short: "Contact" },
   { id: "design", label: "Design", short: "Design" },
@@ -55,22 +55,11 @@ export type StageId = (typeof stages)[number]["id"];
 export const bio = [
   "I'm Titu, a cloud engineer from Chennai. I work mostly on AWS, writing infrastructure in Terraform, packaging services with Docker and shipping them through GitHub Actions.",
   "A lot of my time goes into making sure the things I run are secure, cost-aware and tested on every push.",
-  "The other half of me designs: five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
+  "The other half of me designs: five years of posters, first-look reveals, reels and logos for brands and short films.",
 ];
 
-// A pull quote for the Index section, lifted from the GitHub profile README.
-export const pullQuote = "I like systems that are small, well documented and easy to rebuild.";
-
-// What is going on this month. Keep it honest and short; dated so it is obvious when it goes stale.
-export const now = {
-  asOf: "October 2026",
-  items: [
-    { label: "building", text: "CloudExpire and Acedra, both pushed to GitHub this month." },
-    { label: "learning", text: "Cloud and DevOps, one small system at a time: AWS, Terraform, GitHub Actions." },
-    { label: "designing", text: "Posters and reels for short films and symposiums, when a brief comes in." },
-    { label: "open to", text: "Cloud, DevOps and platform roles. Say hello." },
-  ],
-};
+// A pull quote for the About section, lifted from the GitHub profile README.
+export const pullQuote = "Turning cloud complexity into reliable solutions.";
 
 // Client words from the design gallery (titujeshurun-portfolio.vercel.app).
 export const testimonials = [
@@ -94,21 +83,13 @@ export const testimonials = [
 export const identities = [
   {
     title: "Cloud",
-    lead: "Infrastructure that is small, documented and rebuildable.",
-    points: [
-      "Temporary EC2 with an expiry, enforced by Lambda, DynamoDB and EventBridge (CloudExpire).",
-      "FastAPI on PostgreSQL 16 with JWT roles, an S3 document vault and secrets kept out of the code (Acedra).",
-      "Terraform fmt, validate and plan plus pytest on every push through GitHub Actions.",
-    ],
+    lead: "Infrastructure built to scale, documented and rebuildable.",
+    description: "I build and automate cloud infrastructure, with a focus on security, reliability and making systems easy to maintain.",
   },
   {
     title: "Design",
-    lead: "Posters that get the first look.",
-    points: [
-      "Short-film posters, thumbnails and first-look reveals for Chickums TV and independent directors.",
-      "Event identity for Synexzia '25: name reveal, posters, promo reels and a 3D logo.",
-      "Ten-plus motion pieces cut in After Effects and Premiere Pro.",
-    ],
+    lead: "Turning ideas into visuals that stay with you.",
+    description: "I create visual identities, posters and motion content that bring ideas to life for brands and short films.",
   },
 ];
 
@@ -310,11 +291,11 @@ export const projects: Project[] = [
   },
 ];
 
-export const stack: { group: string; items: string[] }[] = [
+export const skills: { group: string; items: string[] }[] = [
   { group: "Cloud (AWS)", items: ["Lambda", "EC2", "S3", "DynamoDB", "EventBridge", "Secrets Manager", "ECR", "CloudWatch", "IAM", "VPC"] },
   { group: "Infra and delivery", items: ["Terraform", "Docker", "GitHub Actions", "Linux", "Git"] },
-  { group: "Backend", items: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "pytest", "Java 21", "Spring Boot", "TypeScript"] },
-  { group: "Design tools", items: ["Photoshop", "Illustrator", "After Effects", "Premiere Pro", "Lightroom"] },
+  { group: "Backend", items: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "pytest", "Java 21", "Spring Boot"] },
+  { group: "Design tools", items: ["Photoshop", "Illustrator", "After Effects", "Premiere Pro", "Lightroom", "Figma"] },
 ];
 
 export type Entry = { when: string; title: string; where: string; bullets: string[] };
@@ -325,12 +306,6 @@ export const log: Entry[] = [
     title: "Java intern",
     where: "Big Bucks Innovation Pvt. Ltd., hybrid",
     bullets: ["Java application development and database programming in a team of five or more.", "Sprint planning, daily stand-ups, debugging and code maintenance."],
-  },
-  {
-    when: "2025",
-    title: "Chief editor, Synexzia '25",
-    where: "College technical symposium",
-    bullets: ["Coordinated the technical content and supported event activities.", "Designed the event identity: name reveal, posters, promo reels and logo."],
   },
   {
     when: "2021 to present",

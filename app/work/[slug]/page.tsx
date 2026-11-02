@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: Params) {
       <main id="main" className="frame pt-20">
         <div className="cell-pad flex items-center justify-between border-b border-line py-3">
           <Link href="/#work" className="mono-meta inline-flex items-center gap-2 hover:text-fg">
-            <ArrowLeft size={14} /> Back to work
+            <ArrowLeft size={14} /> Back to projects
           </Link>
           <a href={p.repo} rel="noreferrer" className="mono-meta inline-flex items-center gap-1 hover:text-fg">
             Repository <ArrowUpRight size={14} />

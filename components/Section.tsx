@@ -1,9 +1,24 @@
 import type { ReactNode } from "react";
 
 // A numbered section inside the ruled frame: a title row with a hatched band above it.
-export default function Section({ id, number, title, count, children }: { id: string; number: string; title: string; count?: number; children: ReactNode }) {
+export default function Section({
+  id,
+  number,
+  title,
+  count,
+  prefix,
+  children,
+}: {
+  id: string;
+  number: string;
+  title: string;
+  count?: number;
+  prefix?: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <section id={id} className="scroll-mt-20" aria-labelledby={`${id}-title`}>
+      {prefix}
       <div className="hatch" aria-hidden />
       <div className="cell-pad flex items-baseline gap-3 border-b border-line py-3">
         <span className="mono-meta text-accent" data-reveal="wipe">
