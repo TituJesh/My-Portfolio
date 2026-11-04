@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="grid border-b border-line sm:grid-cols-[160px_1fr]" data-reveal="rise">
+    <section id={label.toLowerCase().replaceAll(" ", "-")} className="grid border-b border-line sm:grid-cols-[160px_1fr]" data-reveal="rise">
       <h2 className="mono-meta cell-pad pb-0 text-accent sm:border-r sm:border-line sm:pb-4">{label}</h2>
       <div className="cell-pad text-[15.5px] leading-relaxed text-fg-2">{children}</div>
     </section>
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <>
       <PipelineNav home={false} />
-      <main id="main" className="frame pt-20">
+      <main id="main" className="frame project-page pt-20">
         <div className="cell-pad flex items-center justify-between border-b border-line py-3">
           <Link href="/#work" className="mono-meta inline-flex items-center gap-2 hover:text-fg">
             <ArrowLeft size={14} /> Back to projects
@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }: Params) {
             Repository <ArrowUpRight size={14} />
           </a>
         </div>
-        <header className="cell-pad border-b border-line py-8" data-reveal-group>
+        <header id="overview" className="project-page-header cell-pad border-b border-line py-8" data-reveal-group>
           <p className="mono-meta" data-reveal="rise">
             {p.meta} · {p.status}
           </p>
