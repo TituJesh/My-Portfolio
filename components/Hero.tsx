@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { site } from "@/data/content";
 import HeroGlyphs from "./HeroGlyphs";
+import HeroCloudLight from "./HeroCloudLight";
 import DimClock from "./DimClock";
 import Contributions from "./Contributions";
 import CopyEmail from "./CopyEmail";
@@ -13,7 +14,7 @@ export default function Hero() {
       <div className="hero-canvas relative overflow-hidden border-b border-line">
         <div className="hero-drift" aria-hidden>
           <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
-          {site.bannerFrames.map((f, i) => <Image key={f.src} src={f.src} alt="" width={f.width} height={f.height} sizes="(max-width: 768px) 100vw, 768px" className={`hero-photo hero-frame hero-frame-${i + 1}`} />)}
+          <HeroCloudLight />
         </div>
         <span className="sr-only">{site.banner.alt}</span>
         <HeroGlyphs />
