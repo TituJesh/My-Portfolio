@@ -4,11 +4,10 @@ import Section from "@/components/Section";
 import WorkGrid from "@/components/WorkGrid";
 import Footer from "@/components/Footer";
 import CopyEmail from "@/components/CopyEmail";
-import Testimonials from "@/components/Testimonials";
 import DesignerPoster from "@/components/DesignerPoster";
 import Skills from "@/components/Skills";
 import { ArrowUpRight, GitHub, LinkedIn } from "@/components/Icons";
-import { certifications, identities, log, projects, pullQuote, site, testimonials } from "@/data/content";
+import { certifications, identities, log, projects, pullQuote, site } from "@/data/content";
 
 export default function Page() {
   return (
@@ -98,11 +97,7 @@ export default function Page() {
           </ul>
         </Section>
 
-        <Section id="words" number="05" title="Words" count={testimonials.length}>
-          <Testimonials items={testimonials} source={site.gallery} />
-        </Section>
-
-        <Section id="contact" number="06" title="Contact">
+        <Section id="contact" number="05" title="Contact">
           <div className="contact-studio">
             <div className="contact-kicker"><span /> OPEN FOR THE NEXT CHAPTER <span className="contact-location">CHENNAI / INDIA</span></div>
             <div className="contact-intro">
