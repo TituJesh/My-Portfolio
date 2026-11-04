@@ -7,14 +7,14 @@ export const site = {
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
-  banner: { src: "/hero-beach.webp", width: 1600, height: 722, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  banner: { src: "/hero-beach-enhanced.jpeg", width: 2560, height: 1154, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
   // three brighter frames of the same shot, layered in this order over the dark banner (dimmest first): the first
   // holds under the whole strike and fades out as the afterglow, the second gives the mid flickers, the brightest
   // on top gives the peaks
   bannerFrames: [
-    { src: "/hero-beach-lit-1.webp", width: 1600, height: 722 },
-    { src: "/hero-beach-lit-2.webp", width: 1600, height: 722 },
-    { src: "/hero-beach-lit-3.webp", width: 1600, height: 722 },
+    { src: "/hero-beach-enhanced-lit-1.webp", width: 1600, height: 721 },
+    { src: "/hero-beach-enhanced-lit-2.webp", width: 1600, height: 721 },
+    { src: "/hero-beach-enhanced-lit-3.webp", width: 1600, height: 721 },
   ],
   heroScript: "started with a sketch",
   heroCaps: "ended in the cloud",
@@ -45,7 +45,6 @@ export const stages = [
   { id: "skills", label: "Skills", short: "Skills" },
   { id: "work", label: "Projects", short: "Projects" },
   { id: "log", label: "Experience", short: "Experience" },
-  { id: "words", label: "Words", short: "Words" },
   { id: "contact", label: "Contact", short: "Contact" },
   { id: "design", label: "Design", short: "Design" },
 ] as const;
@@ -129,7 +128,7 @@ export const projects: Project[] = [
     repo: "https://github.com/TituJesh/CloudExpire",
     facts: [
       { label: "Language", value: "Python 3.12 · Terraform (HCL)" },
-      { label: "Tests", value: "24 unit and integration, run in CI" },
+      { label: "Automation", value: "GitHub Actions CI" },
       { label: "Region", value: "ap-south-1 (Mumbai)" },
       { label: "Default mode", value: "Dry run, destruction off" },
     ],
@@ -177,7 +176,7 @@ export const projects: Project[] = [
       { method: "GET", path: "/resources/{id}", note: "Resource details and lifecycle status" },
     ],
     result:
-      "Twenty-four unit and integration tests run on every push in GitHub Actions. Cleanup runs on a five-minute schedule and never terminates an instance that is not tagged as CloudExpire's own. A planned next step is cross-account provisioning through IAM roles and STS, so users could have resources created in their own AWS accounts.",
+      "CloudExpire automatically cleans up expired resources while checking ownership tags before termination. A planned next step is cross-account provisioning through IAM roles and STS, so users could have resources created in their own AWS accounts.",
   },
   {
     slug: "acedra",
@@ -308,10 +307,10 @@ export const log: Entry[] = [
     bullets: ["Java application development and database programming in a team of five or more.", "Sprint planning, daily stand-ups, debugging and code maintenance."],
   },
   {
-    when: "2021 to present",
+    when: "2020 to present",
     title: "Freelance multimedia designer",
-    where: "Short films, events, brands",
-    bullets: ["Short-film posters, thumbnails and first-look reveals.", "More than ten motion graphics videos, intros and reels."],
+    where: "Brands, events, short films",
+    bullets: ["Posters, thumbnails and first look reveals for brands and short films.", "Creative motion graphics videos, intros and reels."],
   },
 ];
 
@@ -331,7 +330,7 @@ export const designerPoster = {
   cornerRight: ["Designed by", "Titu Jeshurun"],
   sideLeft: "Every pixel is a decision",
   sideRight: "Posters · reels · logos",
-  blurb: "A multimedia designer combines graphics, video, audio and animation into one visual story. Five years of posters, first-look reveals, reels and logos for short films, symposiums and brands.",
+  blurb: " deserve more than a scroll-past. I turn big ideas into bold identities, posters and motion—with a little movie magic for short films, too.",
   photo: { src: "/design/titu-profile.webp", width: 2000, height: 1493, alt: "Titu Jeshurun in profile" },
   backdrop: "/design/poster-cloth.webp", // crumpled cloth behind the poster, the same in both themes
   ring: [
