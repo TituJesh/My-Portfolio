@@ -7,7 +7,7 @@ export const site = {
   role: "Cloud Engineer + Designer",
   tagline: "Designs it. Deploys it.",
   // hero banner: the photo, and the tagline set over it as a calligraphic line above a line of caps
-  banner: { src: "/hero-beach-enhanced.jpeg", width: 2560, height: 1154, alt: "Sea foam rolling in under a clouded evening sky on a Chennai beach" },
+  banner: { src: "/hero-golden-landscape.jpg", width: 4128, height: 1024, alt: "Golden sunlight over a wide mountain valley, with distant birds and drifting sunlit dust" },
   // three brighter frames of the same shot, layered in this order over the dark banner (dimmest first): the first
   // holds under the whole strike and fades out as the afterglow, the second gives the mid flickers, the brightest
   // on top gives the peaks
@@ -16,7 +16,7 @@ export const site = {
     { src: "/hero-beach-enhanced-lit-2.webp", width: 1600, height: 721 },
     { src: "/hero-beach-enhanced-lit-3.webp", width: 1600, height: 721 },
   ],
-  heroScript: "started with a sketch",
+  heroScript: "Started with a sketch",
   heroCaps: "ended in the cloud",
   description:
     "Titu Jeshurun is a cloud engineer and multimedia designer in Chennai, India. AWS, Terraform, Docker and GitHub Actions by day; posters, reels and logos for short films and symposiums by night.",

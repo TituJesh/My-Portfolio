@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { site } from "@/data/content";
-import HeroGlyphs from "./HeroGlyphs";
-import HeroCloudLight from "./HeroCloudLight";
+import HeroAtmosphere from "./HeroAtmosphere";
 import DimClock from "./DimClock";
 import Contributions from "./Contributions";
 import CopyEmail from "./CopyEmail";
@@ -11,18 +10,17 @@ import { GitHub, LinkedIn, MapPin, ArrowUpRight } from "./Icons";
 export default function Hero() {
   return (
     <section id="top" aria-label="Introduction">
-      <div className="hero-canvas relative overflow-hidden border-b border-line">
-        <div className="hero-drift" aria-hidden>
-          <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} priority sizes="(max-width: 768px) 100vw, 768px" className="hero-photo" />
-          <HeroCloudLight />
+      <HeroAtmosphere>
+        <div className="hero-landscape" aria-hidden>
+          <Image src={site.banner.src} alt="" width={site.banner.width} height={site.banner.height} preload sizes="(max-width: 768px) 103vw, 792px" className="hero-photo" />
         </div>
+        <div className="hero-shade" aria-hidden="true" />
         <span className="sr-only">{site.banner.alt}</span>
-        <HeroGlyphs />
-        <p className="hero-words relative flex h-full flex-col items-center justify-center text-center">
+        <p className="hero-words">
           <span className="hero-script">{site.heroScript}</span>
           <span className="hero-caps">{site.heroCaps}</span>
         </p>
-      </div>
+      </HeroAtmosphere>
       <div className="profile-sheet">
         <div className="profile-topline">
           <div className="avatar-ring profile-portrait">
