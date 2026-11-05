@@ -32,13 +32,13 @@ const symbols: Record<string, SymbolName> = {
   pytest: "check", "Java 21": "coffee", "Spring Boot": "leaf",
 };
 const brandColors: Record<string, string> = {
-  Lambda: "#ED7100", EC2: "#ED7100", S3: "#7AA116", DynamoDB: "#C925D1",
+  Lambda: "#ED7100", EC2: "#ED7100", S3: "#C18536", DynamoDB: "#C925D1",
   EventBridge: "#E7157B", "Secrets Manager": "#DD344C", ECR: "#ED7100",
   CloudWatch: "#E7157B", IAM: "#DD344C", VPC: "#8C4FFF",
   Terraform: "#844FBA", Docker: "#2496ED", "GitHub Actions": "#2088FF",
-  Linux: "#FCC624", Git: "#F05032", Python: "#3776AB", FastAPI: "#009688",
+  Linux: "#FCC624", Git: "#F05032", Python: "#3776AB", FastAPI: "#C18536",
   SQLAlchemy: "#D71F00", PostgreSQL: "#4169E1", pytest: "#0A9EDC",
-  "Java 21": "#F89820", "Spring Boot": "#6DB33F", Photoshop: "#31A8FF",
+  "Java 21": "#F89820", "Spring Boot": "#C18536", Photoshop: "#31A8FF",
   Illustrator: "#FF9A00", "After Effects": "#9999FF", "Premiere Pro": "#9999FF",
   Lightroom: "#31A8FF", Figma: "#A259FF",
 };
