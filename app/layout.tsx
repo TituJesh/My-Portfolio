@@ -13,6 +13,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: "400", variable: "--fo
 // Trip Sans Bold from the project's own files, used only for the hero caps line
 const tripSans = localFont({ src: "./fonts/trip-sans-bold.otf", weight: "700", variable: "--font-trip", display: "swap", fallback: ["Figtree", "Arial", "sans-serif"] });
 const script = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap", fallback: ["Brush Script MT", "cursive"] });
+const heroSignature = localFont({ src: "./fonts/oooh-baby.ttf", weight: "400", variable: "--font-hero-signature", display: "swap", fallback: ["cursive"] });
 
 const title = `${site.name} — ${site.role}`;
 
@@ -52,7 +53,7 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable} ${script.variable} ${tripSans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable} ${script.variable} ${tripSans.variable} ${heroSignature.variable}`} suppressHydrationWarning>
       <body>
         <Script id="theme-init" strategy="beforeInteractive">
           {themeScript}
