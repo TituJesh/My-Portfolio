@@ -1,0 +1,16 @@
+/* The live page travels from the photographed screen to its normal viewport. */
+.dg-root.dg-v2 { padding-top: 0; }
+.dg-live-page { padding-top: 78px; color: var(--ink); }
+.dg-root .dg-studio-v3 .dg-desk { transform-origin: 0 0; position: relative; z-index: 1; flex: none; }
+.dg-studio-v3 .dg-live-page { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; transform-origin: 0 0; will-change: transform; z-index: 2; background: #dfc361; visibility: hidden; }
+.dg-studio-v3 .dg-entrance-top,.dg-studio-v3 .dg-entrance-bottom { z-index: 3; opacity: var(--intro-chrome, 1); }
+.dg-studio-v3 .dg-entrance-top>span,.dg-studio-v3 .dg-entrance-bottom { text-shadow: 0 2px 5px #000; }
+.dg-studio-v3 .dg-camera-progress>i.is-running { animation-duration: 3s; }
+.dg-studio-v3 .dg-live-page * { animation: none !important; }
+.dg-studio-v3 .dg-live-page .dg-nav { color: #192d23; }
+/* No second entrance after arriving: the real About composition is already there. */
+.dg-root.dg-v2[data-entered=true] .dg-about-hero>.dg-poster-art,
+.dg-root.dg-v2[data-entered=true] .dg-about-hero .dg-about-subject,
+.dg-root.dg-v2[data-entered=true] .dg-about-story h1>span { animation: none; }
+@media (max-width:760px) { .dg-live-page { padding-top:70px; } .dg-studio-v3 .dg-entrance-top>span { max-width:140px; font-size:6px; } }
+@media (prefers-reduced-motion:reduce) { .dg-root .dg-studio-v3 { display:flex; } }
