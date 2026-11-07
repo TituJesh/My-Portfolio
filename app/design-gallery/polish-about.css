@@ -1,0 +1,16 @@
+/* A warmer, print-like portrait treatment and a quieter graphic vocabulary. */
+.dg-v2 .dg-review-sun,.dg-v2 .dg-poster-star{display:none}
+.dg-v2 .dg-about-services span:before{content:'•'}
+.dg-v2 .dg-about-subject{filter:sepia(.22) saturate(.82) contrast(1.06) brightness(.94) drop-shadow(0 12px 18px #4a300c66)}
+.dg-v2 .dg-review-person{filter:sepia(.45) saturate(.78) contrast(1.03) brightness(.86) drop-shadow(0 12px 22px #2a170c88)}
+.dg-v2 .dg-poster-word{font-size:clamp(92px,13vw,190px);letter-spacing:-.08em;top:9%;transform:skew(-13deg) rotate(-5deg);text-shadow:3px 3px 0 #1c482e55}
+.dg-v2 .dg-poster-shape{clip-path:polygon(0 21%,100% 0,100% 100%,23% 88%)}
+.dg-studio-v2 .dg-poster-mini .dg-poster-word{font-size:4.7vh;top:9%}
+/* The lettering is transparent, so the tabletop's real gradient shows through. */
+.dg-v2 .dg-me-we-art{background:transparent;box-shadow:none}
+.dg-v2 .dg-me-we-art>img{filter:drop-shadow(5px 12px 14px #001b1255)}
+.dg-v2 .dg-contact-paper{transform:none}
+.dg-v2 .dg-contact-paper:before{transform:none}
+.dg-v2 .dg-paper-holes{left:13px;top:15px;bottom:15px;width:14px;background-image:radial-gradient(circle at center,#273d32 0 4px,transparent 4.5px);background-position:center top;background-size:14px 30px;background-repeat:repeat-y}
+@media(max-width:760px){.dg-v2 .dg-poster-word{font-size:clamp(80px,27vw,150px)}.dg-studio-v2 .dg-poster-mini .dg-poster-word{font-size:6vw}.dg-v2 .dg-contact-paper{transform:none}}
+@media(max-width:760px){.dg-v2 .dg-honey-decoration{z-index:4}}
