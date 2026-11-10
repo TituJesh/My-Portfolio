@@ -1,56 +1,142 @@
-# Titu Jeshurun — portfolio
+# Portfolio — Titu Jeshurun
 
-A calm, centered portfolio for a designer and cloud engineer, laid out on a ruled 768px frame with hatched bands between numbered sections. Next.js (App Router), TypeScript, Tailwind CSS v4. Motion is CSS plus a little requestAnimationFrame; Three.js is used only for the designer poster's ring and is lazy-loaded.
+A responsive, high-performance, and visually crafted developer and multimedia designer portfolio built using **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **Three.js**. It features a ruled 768px blueprint frame, interactive tactile 3D controls, a live GitHub activity calendar with real-time stats, and a 3D WebGL poster showcase.
 
-## Run
+**Live Demo:** [titujeshurun.vercel.app](https://titujeshurun.vercel.app)
 
-```bash
-npm install
-npm run dev        # http://localhost:3000
-npm run build && npm start
-npm run lint
-npm run typecheck
+---
+
+## Features
+
+- **Ruled Blueprint Grid & Editorial Layout**: Structured on a centered 768px frame with hatched section dividers, bespoke serif accents, and responsive typography.
+- **Dynamic Theme Switcher**: Instant switching between an ink-on-paper light theme (tinted to natural landscape hues) and a sleek neutral dark theme, with zero-flicker pre-paint detection and `localStorage` sync.
+- **Interactive 3D Tactile Buttons**: Physical depth buttons with soft ambient shadows, realistic press animations, and subtle white neon hover blooms.
+- **Live GitHub Contributions Calendar**: Client-side integration fetching real-time contribution heatmaps, complete with a collapsible dropdown card, total contribution count, and a recent-activity mini heat strip.
+- **3D WebGL Poster Ring Carousel**: Lazy-loaded Three.js carousel (`@react-three/fiber` & custom shaders) featuring cylindrical curvature, depth occlusion, and mouse-drag scrubbing to showcase multimedia design work.
+- **Interactive Pipeline Navbar**: Persistent floating pipeline navigation bar with section-by-section progress fill, auto-condense on scroll, and quick section jumping.
+- **Project Deep Dives**: Detailed case study pages featuring full-scale AWS architecture diagrams, infrastructure-as-code breakdown, API specs, and test outcomes.
+- **Single Source of Truth**: All editable content—bio, experience log, stack groups, certifications, project copy, and links—is configured in a single file (`data/content.ts`).
+- **Responsive & Accessible**: Fully accessible markup (`prefers-reduced-motion` support, keyboard navigation, semantic landmarks) optimized for mobile, tablet, and desktop screens.
+
+---
+
+## Tech Stack
+
+- **Core Framework**: [Next.js 16 (App Router)](https://nextjs.org/) & [React 19](https://react.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & custom CSS design tokens
+- **3D & Graphics**: [Three.js](https://threejs.org/) & [React Three Fiber](https://r3f.docs.pmnd.rs/) (`@react-three/drei`)
+- **Icons**: Custom SVG vector icon system
+- **Motion & Reveal**: CSS transitions with custom cubic-bezier curves and Intersection Observer triggers
+- **Deployment**: [Vercel](https://vercel.com/) / [Cloudflare Pages](https://pages.cloudflare.com/)
+
+---
+
+## Project Structure
+
+```text
+titu-portfolio/
+├── app/
+│   ├── design-gallery/        # Fullscreen multimedia design gallery
+│   ├── work/
+│   │   └── [slug]/            # Dynamic project architecture & case-study pages
+│   ├── fonts/                 # Local typography files
+│   ├── globals.css            # Design tokens, utility classes, and layer styles
+│   ├── layout.tsx             # Root layout with theme initializer and metadata
+│   ├── page.tsx               # Portfolio single-page layout (About, Work, Stack, Log, Contact)
+│   ├── sitemap.ts             # Search engine sitemap generation
+│   └── robots.ts              # Search crawler instructions
+│
+├── components/
+│   ├── PipelineNav.tsx        # Floating navbar with stage indicator & progress tracking
+│   ├── Hero.tsx               # Atmospheric hero banner with drifting landscape & live clock
+│   ├── Contributions.tsx      # Collapsible GitHub contributions dropdown & heat strip
+│   ├── WorkGrid.tsx           # Interactive project showcase grid with thumbnail cards
+│   ├── DesignerPoster.tsx     # Section holding the 3D WebGL poster ring
+│   ├── PosterRing3D.tsx       # Three.js 3D cylindrical canvas for design posters
+│   ├── Section.tsx            # Numbered section container with hatched top band
+│   ├── CopyEmail.tsx          # 1-click clipboard email copy button with fallback
+│   ├── ThemeToggle.tsx        # Dark/light mode switcher with animated icon
+│   └── Icons.tsx              # Unified SVG outline icon suite
+│
+├── data/
+│   └── content.ts             # Central source of truth for all portfolio data and copy
+│
+└── public/
+    ├── design/                # Poster assets and visual artwork
+    ├── work/                  # Architecture diagrams and project screenshots
+    └── avatar-figure.webp     # Custom ink sketch avatar
 ```
 
-## Edit content
+---
 
-Everything editable lives in `data/content.ts`: name, tagline, region, email, social links, the resume path (`site.resume`, a PDF in `public/`), bio lines, the Design / Cloud columns, projects (with their detail-page copy and architecture components), stack groups, the experience log, certifications and footer text. The content was filled from the GitHub profile README, the CloudExpire, Acedra and Self-Healing repositories, and the resume.
+## Local Setup & Development
 
-- Hero banner: `site.banner` is the photo band at the top (`public/hero-beach.webp`); it drifts slowly. The tagline over it is `site.heroScript` (calligraphy, Pinyon Script) above `site.heroCaps` (rust caps). `HeroGlyphs` draws small inked elements over the photo, a sun, gulls and a buoy lamp, each on its own CSS loop, plus lightning made from three brighter frames of the same shot (`site.bannerFrames`, dimmest first: one holds and fades as the afterglow, one gives the mid flickers, the brightest gives the peaks) over the dark photo every nine seconds; all of it is still under `prefers-reduced-motion`.
-- Avatar: `site.photo` is the ink sketch with a transparent background in `public/avatar-figure.webp`. The figure is black ink on its own paper silhouette, so it never changes; the disc outside it is `--avatar-bg`, which follows the page background in both themes. `site.photoClosed` is the same sketch with the eyes shut (`public/avatar-figure-closed.webp`, only the eye band differs); it sits on top and the `blink` keyframes flash it for a few frames every five seconds. The dimension label beside the avatar is a live HH:MM clock in `site.timeZone` (`DimClock`).
-- Project images live in `public/work/`: `thumbnail` is the card on the home page, the optional `banner` is the wide image at the top of the project page, and `architecture.image` is the diagram. Keep `width` and `height` accurate so there is no layout shift. The project copy, facts, features, stack and API tables are taken from each repository's README on GitHub.
-- Designer poster (bottom of the page): headline, labels, the profile cut-out and the ring of posters are in `designerPoster` in `data/content.ts`; replace any ring entry's `src` with a file in `public/design/`. The ring is a Three.js carousel (`components/PosterRing3D.tsx`, loaded on the client only): curved two-row cards with a custom shader for directional blur, glitch, chromatic shift and edge shading, a depth-only occluder for the head, hover slow-down and drag scrubbing.
-- The GitHub contribution graph is fetched on the client from github-contributions-api.jogruber.de for `site.githubHandle` and hides itself if the request fails.
+### 1. Clone the repository
+```bash
+git clone https://github.com/TituJesh/My-Portfolio.git
+cd My-Portfolio
+```
 
-## Design tokens
+### 2. Install dependencies
+```bash
+npm install
+```
 
-All tokens are CSS variables at the top of `app/globals.css` (light values on `:root`, dark values on `:root[data-theme="dark"]`), then mapped to Tailwind utilities with `@theme inline`.
+### 3. Run the development server
+```bash
+npm run dev
+```
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| `--bg` / `--bg-2` | `#f7f3e3` / `#efe9d3` (paper tinted to the banner sky) | `#0f0f0e` / `#171715` |
-| `--fg` / `--fg-2` / `--fg-3` | `#1c1d12` / `#5b5b47` / `#767660` | `#ecebe6` / `#a3a09a` / `#8a877f` |
-| `--line` / `--line-2` | 12% / 24% ink | 12% / 24% paper |
-| `--accent` | `#586b2e` (the banner's cloud green, darkened for paper) | `#95a76c` (the banner's cloud green) |
-| `--ok` | `#15803d` | `#4ade80` |
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-Motion: `--ease: cubic-bezier(0.22, 1, 0.36, 1)`, `--t-micro: 150ms`, `--t-std: 300ms`, `--t-reveal: 600ms`. Layout: `--col: 720px`, `--nav-h: 48px`, `--radius: 8px`, pills `999px`, hairlines `1px`.
+### 4. Code Quality & Type Checking
+```bash
+# Run TypeScript compilation check
+npm run typecheck
 
-Fonts (via `next/font`, swap, with fallbacks): Inter Tight 400/500, Instrument Serif italic, JetBrains Mono 400, Pinyon Script 400 (hero tagline script line). Trip Sans Bold is a local file in `app/fonts/`, loaded with `next/font/local` for the hero caps line only.
+# Run ESLint validation
+npm run lint
+```
 
-## Theme
+---
 
-`data-theme` on `<html>` is set before paint by an inline script (saved choice, else `prefers-color-scheme`). The toggle in the navbar writes `localStorage.theme`.
+## Build & Production
 
-## Deploy
+To compile an optimized production build and launch the local production server:
 
-Set `site.url` in `data/content.ts` to the production domain first; it feeds the canonical URL, Open Graph image URL, sitemap and robots.
+```bash
+# Build the production application
+npm run build
 
-- **Vercel:** import the repository, framework preset Next.js, no extra settings. Set `site.deployHost` to `"Vercel"`.
-- **Cloudflare Pages:** use the OpenNext Cloudflare adapter (`npx @opennextjs/cloudflare`), build command `npx opennextjs-cloudflare build`, output `.open-next`. Set `site.deployHost` to `"Cloudflare Pages"`.
+# Start the production server
+npm run start
+```
 
-## Structure
+---
 
-- `app/` routes, `globals.css` (tokens and motion), OG and Twitter images, `sitemap.ts`, `robots.ts`, icons.
-- `components/` small components named by purpose: `PipelineNav`, `Hero`, `HeroGlyphs`, `Contributions`, `Section`, `WorkGrid`, `Testimonials`, `CopyEmail`, `DesignerPoster`, `RevealObserver`, `ThemeToggle`, `Footer`, `Icons`.
-- `data/content.ts` all copy and links.
+## Configuration & Customization
+
+All portfolio content is decoupled from components and managed centrally in [`data/content.ts`](data/content.ts):
+
+- **Personal Profile**: Name, role, location, bio paragraphs, and social profiles.
+- **Projects**: Add or edit projects, facts, architecture diagrams, and stack tags.
+- **Experience Log**: Career milestones, roles, and bullet points.
+- **Design Posters**: Update the 3D carousel items by referencing images placed in `public/design/`.
+- **Design Tokens**: Modify color palette, typography, and motion parameters at the top of [`app/globals.css`](app/globals.css).
+
+---
+
+## Contact & Connect
+
+- **Author**: Titu Jeshurun
+- **Portfolio**: [titujeshurun.vercel.app](https://titujeshurun.vercel.app)
+- **GitHub**: [@TituJesh](https://github.com/TituJesh)
+- **LinkedIn**: [/in/titu-jeshurun](https://www.linkedin.com/in/titu-jeshurun)
+- **Email**: [titujesh@gmail.com](mailto:titujesh@gmail.com)
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
