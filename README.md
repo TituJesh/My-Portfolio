@@ -2,7 +2,7 @@
 
 A responsive, high-performance, and visually crafted developer and multimedia designer portfolio built using **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **Three.js**. It features a ruled 768px blueprint frame, interactive tactile 3D controls, a live GitHub activity calendar with real-time stats, and a 3D WebGL poster showcase.
 
-**Live Demo:** [titujeshurun.vercel.app](https://titujeshurun.vercel.app)
+**Live Demo:** [titujeshurun.me](https://titujeshurun.me)
 
 ---
 
@@ -130,7 +130,7 @@ All portfolio content is decoupled from components and managed centrally in [`da
 ## Contact & Connect
 
 - **Author**: Titu Jeshurun
-- **Portfolio**: [titujeshurun.vercel.app](https://titujeshurun.vercel.app)
+- **Portfolio**: [titujeshurun.me](https://titujeshurun.me)
 - **GitHub**: [@TituJesh](https://github.com/TituJesh)
 - **LinkedIn**: [/in/titu-jeshurun](https://www.linkedin.com/in/titu-jeshurun)
 - **Email**: [titujesh@gmail.com](mailto:titujesh@gmail.com)

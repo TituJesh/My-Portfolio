@@ -21,7 +21,7 @@ export const site = {
   description:
     "Titu Jeshurun is a cloud engineer and multimedia designer in Chennai, India. AWS, Terraform, Docker and GitHub Actions by day; posters, reels and logos for short films and symposiums by night.",
   // Set this to the production domain before deploying (canonical URL, sitemap and Open Graph use it).
-  url: "https://titujeshurun.vercel.app",
+  url: "https://titujeshurun.me",
   location: "Chennai, India",
   region: "ap-south-1",
   timeZone: "Asia/Kolkata",
