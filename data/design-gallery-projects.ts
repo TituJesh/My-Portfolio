@@ -143,26 +143,6 @@ export const galleryProjects: GalleryProject[] = [
     "link": "https://titujeshurun-portfolio.vercel.app/all-projects#project-6"
   },
   {
-    "id": 7,
-    "title": "Invitation Manipulation poster",
-    "category": "Invitations",
-    "categories": [
-      "Posters",
-      "Invitations"
-    ],
-    "year": "2025",
-    "client": "Carlin's Aari Paradise",
-    "description": "Elegant & classic 25th wedding anniversary invitation cover poster.",
-    "image": "/design-gallery/work/project-7-1.webp",
-    "media": [
-      {
-        "type": "image",
-        "src": "/design-gallery/work/project-7-1.webp"
-      }
-    ],
-    "link": "https://titujeshurun-portfolio.vercel.app/all-projects#project-7"
-  },
-  {
     "id": 9,
     "title": "Pilot Film Poster & Thumbnail (Singam Oonai Aatukutty)",
     "category": "Posters",
