@@ -15,6 +15,8 @@
 .dg-v2 main>section:after { bottom:-1px; background:linear-gradient(to top,var(--seam-bottom) 0%,transparent 100%); }
 .dg-v2 #about:before,.dg-v2 #contact:after { display:none; }
 .dg-v2 .dg-museum { background-color:#23140f; }
+.dg-v2 .dg-stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media(max-width:760px) { .dg-v2 .dg-stats>div:nth-child(2) { border-right:1px solid #f4e5bc44; } }
 .dg-gallery-threshold { height:190px; background:#152c25; color:#dfc58c; overflow:hidden; }
 .dg-v2 #projects:before { display:none; }
 .dg-gallery-wires { position:absolute; inset:0; width:100%; height:100%; fill:#d7b874; stroke:#b8995c; stroke-width:1; opacity:.42; }
@@ -139,3 +141,53 @@
 html:has(.dg-root) { scroll-padding-top:0; }
 .dg-v2 .dg-project-collection:before { mask-image:linear-gradient(transparent,#000 180px,#000 calc(100% - 120px),transparent); }
 .dg-v2 .dg-review-person { filter:sepia(.95) saturate(1.16) hue-rotate(-8deg) contrast(.98) brightness(.9) drop-shadow(-14px 18px 23px #38210c88); }
+
+/* Preserve the carving proportions as the wall changes width. */
+.dg-v2 .dg-museum-art {
+  width: min(32vw, 410px);
+  height: auto;
+  aspect-ratio: 3 / 4;
+}
+.dg-v2 .dg-museum-art .dg-ornament { object-fit: contain; }
+.dg-v2 .dg-museum-art-one { left: 6%; top: 8%; }
+.dg-v2 .dg-museum-art-two { right: 8%; top: -6%; }
+.dg-v2 .dg-museum-art-three { right: 2%; top: 48%; }
+.dg-museum-heading::before {
+  content: "";
+  position: absolute;
+  inset: -3% -6%;
+  z-index: -1;
+  border: 5px ridge #8d6638;
+  outline: 1px solid #b5965c;
+  outline-offset: 7px;
+  box-shadow: inset 0 0 36px #150e09aa, 4px 10px 18px #140c0866;
+  background: radial-gradient(ellipse at top, #bd8e4633, transparent 70%);
+}
+.dg-museum-proofs {
+  position: absolute;
+  z-index: 2;
+  bottom: 11%;
+  left: 17%;
+  width: min(15vw, 205px);
+  aspect-ratio: 1.3;
+  pointer-events: none;
+}
+.dg-museum-proofs img {
+  position: absolute;
+  width: 65%;
+  height: 100%;
+  object-fit: cover;
+  border: 5px solid #d0bd97;
+  border-bottom-width: 13px;
+  box-shadow: 3px 6px 12px #160d0aaa;
+  filter: sepia(.24);
+  transform: rotate(-13deg);
+}
+.dg-museum-proofs img + img { left: 51%; top: 12%; transform: rotate(9deg); }
+@media(max-width:760px) {
+  .dg-v2 .dg-museum-art { width: min(46vw, 235px); }
+  .dg-v2 .dg-museum-art-one { left: -7%; top: 28%; }
+  .dg-v2 .dg-museum-art-two { right: -8%; top: 3%; }
+  .dg-v2 .dg-museum-art-three { right: -6%; top: 53%; }
+  .dg-museum-proofs { left: 6%; bottom: 15%; width: 21vw; }
+}
