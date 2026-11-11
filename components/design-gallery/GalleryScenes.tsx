@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { galleryProfile as profile, photographs } from "@/data/design-gallery";
 
 const asset = (name: string) => `/design-gallery/${name}`;
@@ -78,10 +79,11 @@ export function MuseumScene() {
     <div className="dg-museum-top-fade" />
     <div className="dg-museum-pattern" />
     <div className="dg-museum-beam" />
-    <div className="dg-museum-heading"><span className="dg-handwritten">Echoes beyond the frame</span><h2>ART &<br />HEART.</h2><span>SELECTED WORKS / TITU JESHURUN</span><img src={asset("ornate-gold-frame.webp")} alt="" aria-hidden="true" /></div>
-    <a className="dg-museum-art dg-museum-art-one" href="#project-collection"><img className="dg-framed-work" src="/design/ring-meant-to-be.webp" alt="Meant To Be poster" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
-    <a className="dg-museum-art dg-museum-art-two" href="#project-collection"><img className="dg-framed-work" src="/design/ring-soa.webp" alt="Singam Onaai Aatukutty film poster" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
-    <a className="dg-museum-art dg-museum-art-three" href="#project-collection"><img className="dg-framed-work" src="/design/ring-mission-impossible.webp" alt="Mission Impossible event poster" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
+    <div className="dg-museum-heading"><span className="dg-handwritten">Echoes beyond the frame</span><h2>ART &<br />HEART.</h2><span>SELECTED WORKS / TITU JESHURUN</span></div>
+    <a className="dg-museum-art dg-museum-art-one" href="#project-collection"><img className="dg-framed-work" src="/design-gallery/work/project-5-1.webp" alt="Rameez Choreography logo" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
+    <a className="dg-museum-art dg-museum-art-two" href="#project-collection"><img className="dg-framed-work" src="/design/ring-mission-impossible.webp" alt="Mission Impossible event poster" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
+    <a className="dg-museum-art dg-museum-art-three" href="#project-collection"><img className="dg-framed-work" src="/design-gallery/work/project-26-1.webp" alt="Pizhaipu horror thriller poster" loading="lazy" /><img className="dg-ornament" src={asset("ornate-gold-frame.webp")} alt="" /></a>
+    <div className="dg-museum-proofs" aria-hidden="true"><img src="/design/ring-meant-to-be.webp" alt="" loading="lazy" /><img src="/design/ring-soa.webp" alt="" loading="lazy" /></div>
     <img className="dg-golden-echo" src={asset("titu-projects-gold.webp")} alt="" aria-hidden="true" loading="lazy" />
     <img className="dg-golden-subject" src={asset("titu-projects-gold.webp")} alt="Titu in a cinematic golden light with a soft motion trail" loading="lazy" width="1440" height="1092" />
     <div className="dg-museum-bottom"><span className="dg-handwritten">Every frame has a feeling.</span><a href="#project-collection">ENTER THE COLLECTION ↓</a></div><div className="dg-grain" />
@@ -89,14 +91,16 @@ export function MuseumScene() {
 }
 
 export function PhotoBoard() {
-  return <div className="dg-photo-table dg-scene" aria-label="Photography scrapbook, ready for Titu’s photograph collection">
-    <div className="dg-photo-clipboard"><span className="dg-clipboard-name dg-handwritten">Through my eyes.</span><div className="dg-metal-clip" /><div className="dg-loose-paper dg-loose-paper-one" /><div className="dg-loose-paper dg-loose-paper-two" />
-      <div className="dg-film-strip" aria-hidden="true"><i /><i /><i /></div>
-      {[0, 1, 2, 3, 4].map((index) => <div className={`dg-photo-print dg-photo-print-${index + 1}`} key={index}>{photographs[index] ? <img src={photographs[index].src} alt={photographs[index].title} loading="lazy" /> : <div className="dg-photo-blank"><span>+</span><small>FRAME 0{index + 1}</small></div>}<span className="dg-handwritten">{photographs[index]?.title || ["the in-between.", "little things.", "chasing light.", "slow days.", "one to remember."][index]}</span></div>)}
-      <div className="dg-photo-pen" aria-hidden="true" />
+  return <div className="dg-photo-table dg-scene">
+    <div className="dg-print-sheet">
+        {photographs.map((photo) => (
+          <a className="dg-photo-print" key={photo.src} href={photo.src} target="_blank" rel="noreferrer">
+            <Image src={photo.src} width={photo.width} height={photo.height} alt={photo.alt}
+              sizes="(max-width: 760px) 34vw, 230px" />
+            <span className="dg-handwritten">{photo.title}</span>
+          </a>
+        ))}
     </div>
-    <div className="dg-camera-object" aria-hidden="true"><span>35 mm</span><div className="dg-camera-lens"><i /></div><b /></div>
-    <span className="dg-photo-table-note dg-handwritten">A collection in the making. ↖</span>
   </div>;
 }
 
