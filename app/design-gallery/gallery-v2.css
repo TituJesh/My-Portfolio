@@ -27,3 +27,95 @@
 .dg-studio-v2 .dg-poster-mini{height:100%;width:100%;max-width:none;min-height:0}
 @media(max-width:760px){.dg-museum-bottom>a{font-size:9px;line-height:1.6;max-width:135px;padding:10px 12px;background:#25190fe6;border:1px solid #e0c28c77;color:#fff0c9}}
 @media(prefers-reduced-motion:reduce){.dg-v2 .dg-studio-v2{display:flex}.dg-v2 .dg-v2-reveal{opacity:1;translate:none}.dg-v2 .dg-about-hero>.dg-poster-art,.dg-v2 .dg-about-hero .dg-about-subject,.dg-v2 .dg-about-story h1>span{opacity:1;transform:none}.dg-v2 .dg-bee,.dg-v2 .dg-tool-orbit,.dg-v2 .dg-poster-star,.dg-v2 .dg-museum-beam{animation:none!important}}
+
+/* The photo positions follow the paper edges in the overhead photograph. */
+.dg-v2 .dg-photographs {
+  background-color: #192014;
+  background-image: linear-gradient(110deg, #0f1b12f2, #152010b5 56%, #121910b8),
+    url('/design-gallery/grass-detail.webp');
+  background-size: auto, 172px 143px;
+}
+.dg-photographs .dg-photo-table {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  aspect-ratio: 878 / 1560;
+  margin: auto;
+  isolation: isolate;
+  container-type: inline-size;
+}
+.dg-photo-table::before, .dg-photo-table::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/design-gallery/photo-table.webp') center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.dg-photo-table::before {
+  mask-image: linear-gradient(90deg, transparent, black 9%, black 94%, transparent),
+    linear-gradient(transparent, black 7%, black 92%, transparent);
+  mask-composite: intersect;
+}
+/* Keep the photographed pen in front of the loose prints. */
+.dg-photo-table::after {
+  z-index: 5;
+  clip-path: polygon(79.7% 42%, 81% 42%, 82.3% 46.4%, 88% 66.7%, 85.7% 67.1%, 79.7% 47%);
+}
+.dg-print-sheet { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.dg-print-sheet .dg-photo-print {
+  top: var(--top);
+  left: var(--left);
+  width: var(--width);
+  padding: 0;
+  background: #d7d2bc;
+  transform: rotate(var(--tilt));
+  pointer-events: auto;
+  text-decoration: none;
+  box-shadow: 1px 2px 3px #14161070, 3px 6px 9px #181a102e;
+}
+.dg-print-sheet > :nth-child(1) { --top: 27%; --left: 16%; --width: 26%; --tilt: 19deg; }
+.dg-print-sheet > :nth-child(2) { --top: 32%; --left: 44%; --width: 31%; --tilt: 27deg; }
+.dg-print-sheet > :nth-child(3) { --top: 53%; --left: 23%; --width: 18%; --tilt: 5deg; }
+.dg-print-sheet > :nth-child(4) { --top: 55%; --left: 72%; --width: 21%; --tilt: 6deg; }
+.dg-print-sheet > :nth-child(5) { --top: 43%; --left: 16%; --width: 32%; --tilt: 23deg; }
+.dg-print-sheet > :nth-child(6) { --top: 45%; --left: 43%; --width: 29%; --tilt: 11deg; }
+.dg-print-sheet > :nth-child(7) { --top: 39%; --left: 72%; --width: 22%; --tilt: -18deg; }
+.dg-print-sheet > :nth-child(8) { --top: 53%; --left: 48%; --width: 23%; --tilt: 13deg; }
+.dg-print-sheet > :nth-child(9) { --top: 68%; --left: 23%; --width: 22%; --tilt: -17deg; }
+.dg-print-sheet > :nth-child(10) { --top: 68%; --left: 48%; --width: 24%; --tilt: -1deg; }
+.dg-print-sheet .dg-photo-print > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+}
+.dg-print-sheet .dg-photo-print::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #63584219, #18201522);
+  pointer-events: none;
+}
+.dg-print-sheet .dg-handwritten {
+  position: absolute;
+  bottom: 4%;
+  left: 4%;
+  z-index: 1;
+  margin: 0;
+  padding: .1em .4em;
+  color: #2c3026;
+  background: #f1ead8;
+  font-size: clamp(13px, 3cqw, 19px);
+  line-height: 1.2;
+  white-space: normal;
+  opacity: 0;
+}
+.dg-print-sheet .dg-photo-print:is(:hover, :focus-visible) {
+  z-index: 7;
+  transform: rotate(0) scale(1.08);
+}
+.dg-print-sheet .dg-photo-print:is(:hover, :focus-visible) .dg-handwritten { opacity: 1; }
+.dg-print-sheet .dg-photo-print:focus-visible { outline: 3px solid #f2e8ce; outline-offset: 3px; }
+@media (max-width: 760px) {
+  .dg-photographs .dg-photo-table { width: 100vw; max-width: 570px; justify-self: center; }
+}
