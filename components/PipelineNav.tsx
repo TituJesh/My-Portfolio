@@ -32,6 +32,21 @@ export default function PipelineNav({ home = true }: { home?: boolean }) {
   const notchId = useId();
 
   useEffect(() => {
+    if (!navHover) return;
+    const trackRevealPointer = (event: PointerEvent) => {
+      if (!document.documentElement.classList.contains("theme-revealing")) return;
+      const bounds = header.current?.getBoundingClientRect();
+      if (bounds && (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom)) {
+        setNavHover(false);
+        setHovered(null);
+      }
+    };
+    window.addEventListener("pointermove", trackRevealPointer);
+    return () => window.removeEventListener("pointermove", trackRevealPointer);
+  }, [navHover]);
+
+  useEffect(() => {
     let previousY = window.scrollY;
     const onScroll = () => {
       const currentY = window.scrollY;
@@ -117,7 +132,22 @@ export default function PipelineNav({ home = true }: { home?: boolean }) {
   const stopStyle = { "--active-stop": Math.max(0, sections.findIndex(stage => stage.id === highlighted) - 1) } as CSSProperties;
   return (
     <>
-    <header className="site-nav" data-expanded={expanded} data-scrolled={compactMode} data-past-profile={pastProfile} ref={header} onPointerEnter={event => { if (event.pointerType !== "touch") setNavHover(true); }} onPointerLeave={() => { setNavHover(false); setHovered(null); }} onFocusCapture={event => { if (event.target.matches(":focus-visible")) setNavFocus(true); }} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setNavFocus(false); }}>
+    <header
+      className="site-nav"
+      data-expanded={expanded}
+      data-scrolled={compactMode}
+      data-past-profile={pastProfile}
+      ref={header}
+      onPointerEnter={event => { if (event.pointerType !== "touch") setNavHover(true); }}
+      onPointerLeave={() => {
+        // During the reveal, track actual pointer movement instead of the overlay's synthetic leave.
+        if (document.documentElement.classList.contains("theme-revealing")) return;
+        setNavHover(false);
+        setHovered(null);
+      }}
+      onFocusCapture={event => { if (event.target.matches(":focus-visible")) setNavFocus(true); }}
+      onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setNavFocus(false); }}
+    >
       <div className="site-nav-bar" data-active={expanded && highlighted !== "top"} style={stopStyle}>
         <svg className="site-nav-surface" width="100%" height="100%" aria-hidden="true">
           <defs>
