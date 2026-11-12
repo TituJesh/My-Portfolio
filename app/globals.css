@@ -534,9 +534,16 @@
   @keyframes hero-airborne { 0% { transform: translate3d(-25px, 16px, 0); opacity: 0; } 20% { opacity: .65; } 75% { opacity: .4; } 100% { transform: translate3d(55px, -30px, 0); opacity: 0; } }
   .hero-canvas[data-motion="paused"] .hero-flock, .hero-canvas[data-motion="paused"] .hero-bird, .hero-canvas[data-motion="paused"] .hero-dust i { animation-play-state: paused; }
   @media (max-width: 640px) {
-    .hero-words { left: max(32%, 114px); right: 3%; top: 27%; }
-    .hero-script { font-size: clamp(19px, 5.1cqw, 28px); }
-    .hero-caps { font-size: 5.6cqw; }
+    .hero-words {
+      inset: 0 0 12px;
+      width: max-content;
+      max-width: 100%;
+      margin-inline: auto;
+      justify-content: center;
+      transform: translateX(8px);
+    }
+    .hero-script { font-size: clamp(20px, calc(6.2cqw - 1px), 31px); padding-left: 0; }
+    .hero-caps { font-size: 7.8cqw; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-landscape, .hero-air, .hero-dust { transform: none; will-change: auto; }
