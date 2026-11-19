@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
-import Link from "next/link";
 import { stages } from "@/data/content";
 import { ChevronDown, FileText, Terminal, GitHub, Calendar, Mail, Palette } from "./Icons";
 import ThemeToggle from "./ThemeToggle";
@@ -128,7 +127,7 @@ export default function PipelineNav({ home = true }: { home?: boolean }) {
   const sections = home ? stages : projectStages;
   const href = (id: string) => `#${!home && id === "top" ? "overview" : id}`;
   const compactMode = scrolled || mobileScrolled;
-  const expanded = !home || !compactMode || navHover || navFocus || pinned;
+  const expanded = !compactMode || navHover || navFocus || pinned;
   const highlighted = hovered ?? focused ?? active;
   const stopStyle = { "--active-stop": Math.max(0, sections.findIndex(stage => stage.id === highlighted) - 1) } as CSSProperties;
   return (
@@ -159,11 +158,7 @@ export default function PipelineNav({ home = true }: { home?: boolean }) {
           </defs>
         </svg>
         <div className="site-nav-glass" aria-hidden="true" style={{ mask: `url(#${notchId})`, WebkitMask: `url(#${notchId})` }} />
-        {home ? (
-          <button className="site-nav-brand" type="button" aria-label="Toggle navigation" aria-expanded={expanded} onClick={() => { if (compactMode) setPinned(!pinned); setOpen(false); setHovered(null); setFocused(null); }}>TJ<span aria-hidden>.</span></button>
-        ) : (
-          <Link className="site-nav-brand" href="/#top" aria-label="Go to profile">TJ<span aria-hidden>.</span></Link>
-        )}
+        <button className="site-nav-brand" type="button" aria-label="Toggle navigation" aria-expanded={expanded} onClick={() => { if (compactMode) setPinned(!pinned); setOpen(false); setHovered(null); setFocused(null); }}>TJ<span aria-hidden>.</span></button>
         <nav className="site-nav-desktop" aria-label="Sections" hidden={!expanded} style={stopStyle} onPointerLeave={() => setHovered(null)}>
           <span className="site-nav-orbit" data-visible={highlighted !== "top"} aria-hidden="true" />
           {sections.slice(1).map((stage, index) => {
