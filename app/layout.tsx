@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: "/" },
   openGraph: { type: "website", url: "/", title, description: site.description, siteName: site.name, locale: "en_IN" },
-  twitter: { card: "summary_large_image", title, description: site.description },
+  twitter: { card: "summary_large_image", title, description: site.description, images: [{ url: "/opengraph-image.jpg", alt: title }] },
   robots: { index: true, follow: true },
 };
 
